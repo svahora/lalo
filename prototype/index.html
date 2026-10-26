@@ -965,6 +965,12 @@ const insights = {
       fix:'Nothing to change. lalo keeps learning from each edit.', conf:'High', acts:[] }
   ],
   org: [
+    { id:'o8', kind:'money', dept:'All teams', dollars:20, title:'You pay for 3 meeting-notes tools that do the same job',
+      ev:['164 paid seats across the 3 tools','Only 71 people used any of them in the last 30 days','Most teams already record meetings in lalo','Source: billing exports, sign-in activity'],
+      fix:'Keep one tool, cancel the other two at renewal, and move saved notes over first. lalo can draft the migration plan and the announcement.', conf:'High', acts:['proposal','task'] },
+    { id:'o9', kind:'morale', dept:'Support', title:'After-hours messages in Support are up 35% this quarter',
+      ev:['About 9 messages per person after 8pm each week','Most are internal questions, not customer emergencies','Team of 11, group-level only','Source: message timestamps only, never content'],
+      fix:'Set a rotating evening on-call so one person covers urgent issues, and have lalo hold non-urgent messages until morning.', impact:'Fewer evening interruptions for 10 of 11 people', conf:'Medium', acts:['proposal','pilot'] },
     { id:'o1', kind:'save', dept:'Marketing, Support', title:'Two teams wrote FAQ docs for the same checkout feature this month',
       ev:['Marketing: 2 docs, Support: 3 docs','About 70% overlap in content','Source: shared docs'],
       fix:'One shared help doc that both teams own, with lalo flagging new duplicates.', hours:12, conf:'High', acts:['proposal','pilot'] },
@@ -985,17 +991,23 @@ const insights = {
       fix:'A 30-minute walkthrough with Finance, focused on invoice and approval replies.', hours:0, impact:'Unclear until they try it', conf:'Low', acts:['pilot'] },
     { id:'o7', kind:'risk', dept:'Support', title:'All refund approvals go through a single approver',
       ev:['Wait time doubles when the approver is away','Process risk, not a performance issue','Source: tickets'],
-      fix:'Add a second approver for refunds under $200.', hours:0, impact:'Avoids week-long delays during time off', conf:'High', acts:['proposal'] }
+      fix:'Add a second approver for refunds under $200.', hours:0, impact:'Avoids week-long delays during time off', conf:'High', acts:['proposal'] },
+    { id:'o10', kind:'money', dept:'Design, Data', dollars:11, title:'38 paid seats on design and analytics tools sat unused for 60 days',
+      ev:['Design tools: 22 unused seats','Analytics tools: 16 unused seats','Source: sign-in activity, billing exports'],
+      fix:'Reclaim unused seats every quarter. lalo checks usage a week before each renewal and drafts the list for approval.', conf:'High', acts:['task','proposal'] },
+    { id:'o11', kind:'morale', dept:'Engineering', title:'Engineering shipped 14 features this month. 2 were mentioned outside the team',
+      ev:['Wins mostly stay in team channels','Teams that get public thanks report higher satisfaction in pulse surveys','Source: release notes, public channels'],
+      fix:"lalo drafts a short weekly wins post for #general from release notes and tickets. A lead reviews it before it's shared.", impact:'More recognition across teams', conf:'Medium', acts:['task','pilot'] }
   ]
 };
-const KIND = { save:['Save time','ai'], coach:['Coaching','you'], win:['Win','ok'], adopt:['Adoption','help'], risk:['Process risk','you'] };
+const KIND = { money:['Save money','ok'], morale:['Improve morale','help'], save:['Save time','ai'], coach:['Coaching','you'], win:['Win','ok'], adopt:['Adoption','help'], risk:['Process risk','you'] };
 
 function insightCard(x, mode){
   const k = KIND[x.kind];
-  const impact = x.hours ? `About ${x.hours} hrs a month` : (x.impact || '');
+  const impact = x.dollars ? `About $${x.dollars}k a year` : x.hours ? `About ${x.hours} hrs a month` : (x.impact || '');
   const btn = { task:['Make it a task','task'], routine:['Make it recurring','routine'], proposal:['Draft a proposal','proposal'], pilot:['Pilot with one team','pilot'] };
   return `<article class="ins">
-    <div class="ins-top"><span class="tag ${k[1]}">${k[0]}</span>${x.dept?`<span class="ins-dept">${esc(x.dept)}</span>`:''}<span class="grow"></span>${impact?`<span class="ins-imp">${esc(impact)}</span>`:''}</div>
+    <div class="ins-top"><span class="tag ${k[1]}">${x.kind==='money' ? 'Save $'+x.dollars+'k' : k[0]}</span>${x.dept?`<span class="ins-dept">${esc(x.dept)}</span>`:''}<span class="grow"></span>${impact?`<span class="ins-imp">${esc(impact)}</span>`:''}</div>
     <h3>${esc(x.title)}</h3>
     <ul class="ins-ev">${x.ev.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>
     <div class="ins-fix"><b>Try this</b> ${esc(x.fix)}</div>
@@ -1005,17 +1017,24 @@ function insightCard(x, mode){
 }
 function insightsHTML(){
   const mode = ui.ins || 'personal';
-  const list = insights[mode].filter(x=>x.state!=='dismissed');
-  const hrs = list.filter(x=>!x.state).reduce((a,x)=>a+(x.hours||0),0);
+  const all = insights[mode].filter(x=>x.state!=='dismissed');
+  const kf = (ui.insKind && ui.insKind[mode]) || 'all';
+  const list = kf==='all' ? all : all.filter(x=>x.kind===kf);
+  const open = all.filter(x=>!x.state);
+  const hrs = open.reduce((a,x)=>a+(x.hours||0),0);
+  const usd = open.reduce((a,x)=>a+(x.dollars||0),0);
+  const kinds = [...new Set(all.map(x=>x.kind))];
+  const filt = kinds.length > 2 ? `<div class="filters" style="padding:0" role="group" aria-label="Filter insights"><button class="chip" data-inskind="all" aria-pressed="${kf==='all'}">All <span class="n">${all.length}</span></button>${
+    kinds.map(k=>`<button class="chip" data-inskind="${k}" aria-pressed="${kf===k}">${KIND[k][0]} <span class="n">${all.filter(x=>x.kind===k).length}</span></button>`).join('')}</div>` : '';
   const sw = `<div class="tabs ins-tabs" role="tablist" aria-label="Insights for">
       <button class="tab" role="tab" data-insmode="personal" aria-selected="${mode==='personal'}">${I.user} Personal</button>
       <button class="tab" role="tab" data-insmode="org" aria-selected="${mode==='org'}">${I.board} Organization <span class="badge muted">Admin</span></button></div>`;
-  const sum = `<div class="ins-sum"><div><b>About ${hrs} hours a month</b><small>${mode==='personal'?'you could get back from the ideas below':'the organization could get back, across '+new Set(list.map(x=>x.dept)).size+' areas'}</small></div></div>`;
+  const sum = `<div class="ins-sum"><div><b>About ${hrs} hours a month${usd?` and $${usd}k a year`:''}</b><small>${mode==='personal'?'you could get back from the ideas below':'the organization could save from the ideas below'}</small></div></div>`;
   const note = mode==='org'
     ? `<div class="ins-note">${I.lock||''}Organization insights cover groups of 5 or more. Admins never see message contents, can't drill down to a person, and nobody is ranked. Everyone can see what data feeds this page.</div>`
     : `<div class="ins-note">Only you can see your personal insights, even if you're an admin.</div>`;
   return head('Insights', mode==='personal' ? 'How you work, from your tasks, meetings, and messages' : 'How the organization works, and where lalo sees room to improve')
-    + `<div class="insights" data-keep="ins">${sw}${sum}${note}${capped('ins-'+mode, list, x=>insightCard(x, mode), '<div class="empty">No insights right now</div>')}</div>`;
+    + `<div class="insights" data-keep="ins">${sw}${sum}${note}${filt}${capped('ins-'+mode, list, x=>insightCard(x, mode), '<div class="empty">No insights right now</div>')}</div>`;
 }
 
 const profile = {
@@ -1148,6 +1167,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.actRec){ if(ui.rec){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec.id; ui.pop=false; render(); } else startRec(); return; }
   if(t.dataset.actStop){ stopRec(); return; }
   if(t.dataset.fill){ const ci=document.getElementById('capIn'); if(ci){ ci.value=t.dataset.fill; ci.focus(); } return; }
+  if(t.dataset.inskind){ ui.insKind = ui.insKind || {}; ui.insKind[ui.ins||'personal'] = t.dataset.inskind; ui.more && (ui.more['ins-'+(ui.ins||'personal')] = false); renderWin(); return; }
   if(t.dataset.insmode){ ui.ins=t.dataset.insmode; renderWin(); return; }
   if(t.dataset.ins){
     const [mode,id,a] = t.dataset.ins.split('|'); const x = insights[mode].find(y=>y.id===id);
