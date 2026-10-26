@@ -189,6 +189,21 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .sched.off .sched-top svg{color:var(--fg-3)}
 .sched b{font-weight:600}
 .sched small{display:block;color:var(--fg-2);font-size:12px}
+.ready{display:flex;gap:10px;align-items:flex-start;background:var(--ok-bg);color:var(--ok);border-radius:10px;padding:10px 12px}
+.ready svg{width:18px;height:18px;flex:none;margin-top:1px}
+.ready b{font-weight:600}
+.ready small{display:block;color:var(--fg-2);font-size:12px}
+.shots{display:grid;grid-template-columns:1.6fr 1.6fr 1fr 1fr;gap:8px;align-items:end}
+.shot{margin:0;min-width:0}
+.shot figcaption{font-size:11px;color:var(--fg-3);margin-top:4px}
+.frame{border:1px solid var(--line-strong);border-radius:8px;background:var(--panel-2);padding:8px;display:flex;flex-direction:column;gap:5px}
+.shot.m .frame{border-radius:10px;padding:8px 6px}
+.frame .ln{height:6px;border-radius:3px;background:var(--panel-3)}
+.frame .w60{width:60%}.frame .w80{width:80%}
+.frame .tog{display:flex;align-items:center;gap:4px;font-size:9px;line-height:1.2;color:var(--fg);background:var(--accent-bg);border-radius:4px;padding:3px}
+.frame .sw{width:14px;height:8px;border-radius:4px;background:var(--ai);flex:none}
+.frame .cta{font-size:9px;text-align:center;background:var(--fg);color:var(--panel);border-radius:4px;padding:3px 2px;white-space:nowrap;overflow:hidden}
+@media (max-width:520px){.shots{grid-template-columns:1fr 1fr}}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -301,6 +316,18 @@ const cards = [
             S('Scan other teams for work that touches hers','ai','todo','Slack, docs, plans'),
             S('Draft talking points and one coaching tip','ai'),
             S('Decide what you want out of the meeting','you') ] },
+  { id:'c7', col:'work', kind:'ship', src:'Ticket · CHK-214', title:'Add "Save card for next time" at checkout',
+    steps:[ S('Read the ticket and the checkout code','ai','done'),
+            S('Make the change on a new branch','ai','done','4 files changed, +128 −12'),
+            S('Open a pull request','ai','done','PR #482'),
+            S('Fix review comments','ai','doing','3 of 5 resolved'),
+            S('Run the tests','ai','todo','Unit, integration, and end-to-end'),
+            S('Deploy to staging behind a feature flag','ai','todo','Flag checkout_save_card, off for customers'),
+            S('Take screenshots of the change','ai','todo','Desktop and mobile, before and after'),
+            S('Review and approve','you'),
+            S('Send to engineering to release','ai','todo','Engineering merges and turns the flag on') ],
+    comments:[ ['Ana','Use the existing Toggle component, not a new checkbox'], ['Ana','Default should be off'],
+               ['Ravi','Add a test for guest checkout'], ['Ravi','Copy: "next time", not "later"'], ['Theo','Track toggle clicks'] ] },
   { id:'c5', col:'work', kind:'tickets', src:'Call · Design review', title:"Draft tickets from today's design review",
     steps:[ S('Read the call notes','ai','done'), S('Pull the decisions and owners','ai','done'),
             S('Match against existing tickets','ai','doing','Avoid duplicates'), S('Review 4 draft tickets','you') ] },
@@ -316,7 +343,8 @@ function counts(){ const c={need:0,work:0,done:0}; cards.forEach(k=>c[k.col]++);
 function progress(k){ if(!k.steps) return null; const d=k.steps.filter(s=>s.st==='done').length; return {d, n:k.steps.length}; }
 function status(k){
   if(k.col==='done' && k.repeat) return k.repeat.paused ? 'Paused' : 'Next run '+k.repeat.next;
-  if(k.col==='done') return 'Done';
+  if(k.col==='done') return k.kind==='ship' ? 'Sent to engineering' : 'Done';
+  if(k.col==='need' && k.kind==='ship') return 'Ready for your review';
   if(k.kind==='draft') return 'Draft ready';
   if(k.kind==='stove' && k.qs.some(q=>!q.a)) { const n=k.qs.filter(q=>!q.a).length; return n+(n>1?' questions':' question'); }
   if(k.col==='need'){
@@ -368,6 +396,7 @@ function renderWin(){
   if(!ui.win){ m.innerHTML=''; renderWin.lastSel=null; return; }
   const c = counts();
   const scrollers = {}; m.querySelectorAll('[data-keep]').forEach(e=>scrollers[e.dataset.keep]=e.scrollTop);
+  const oldChange = document.getElementById('changeIn'); const changeVal = oldChange ? oldChange.value : ''; const changeFocus = oldChange && document.activeElement === oldChange;
   const oldChat = document.getElementById('chatIn'); const chatVal = oldChat ? oldChat.value : '';
   const chatFocus = (oldChat && document.activeElement === oldChat) || ui._chatFocus; ui._chatFocus = false;
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
@@ -386,6 +415,7 @@ function renderWin(){
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
+  const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
 }
 
 function head(title, sub){
@@ -480,6 +510,27 @@ function drawerHTML(k, anim){
         <div class="acts"><button class="btn pri" data-act="approve">${I.check} Create all 4</button><button class="btn" data-act="open">${I.ext} Edit in tracker</button></div></div>`:''}
       <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>`;
   }
+  if(k.kind==='ship'){
+    const sd = n => k.steps[n].st==='done';
+    const resolved = sd(3) ? k.comments.length : (k.fixed ?? 3);
+    const shot = (after, mobile) => `<figure class="shot ${mobile?'m':''}"><div class="frame">
+        <div class="ln w60"></div><div class="ln"></div><div class="ln w80"></div>
+        ${after?`<div class="tog"><span class="sw"></span><span>Save card for next time</span></div>`:''}
+        <div class="cta">Pay $48.00</div></div>
+      <figcaption>${after?'After':'Before'} · ${mobile?'mobile':'desktop'}</figcaption></figure>`;
+    body = `${k.col==='need' ? `<div class="dsec"><div class="ready">${I.check}<div><b>Ready for your review</b><small>Tests pass, it's on staging behind a flag, and nothing is live for customers.</small></div></div></div>` : ''}
+      ${sd(6) ? `<div class="dsec"><h3>Screenshots from staging</h3><div class="shots">${shot(false,false)}${shot(true,false)}${shot(false,true)}${shot(true,true)}</div></div>` : ''}
+      <div class="dsec"><h3>Pull request</h3>
+        <div class="li"><span>PR #482 · Add save-card toggle to checkout</span><span class="from">+128 −12</span></div>
+        <div class="li"><span>Review comments</span><span class="from">${resolved} of ${k.comments.length} fixed</span></div>
+        ${k.comments.map((c,i)=>`<div class="li"><span style="display:flex;gap:8px;align-items:flex-start"><span class="ic" style="width:16px;flex:none">${i<resolved?I.done:'<span class="ring doing" style="display:block;width:12px;height:12px;margin-top:2px"></span>'}</span><span>${esc(c[1])}</span></span><span class="from">${esc(c[0])}</span></div>`).join('')}
+        <div class="li"><span>Tests</span><span class="from">${sd(4)?'142 passed':'waiting'}</span></div>
+        <div class="li"><span>Feature flag</span><span class="from">checkout_save_card · ${sd(5)?'staging only':'not deployed'}</span></div></div>
+      <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>
+      <div class="dsec"><div class="ctx">lalo can't merge to main or turn the flag on for customers. Engineering does the release after you approve.</div></div>
+      ${k.col==='need' ? `<div class="acts"><button class="btn pri" data-act="ship">${I.check} Approve and send to engineering</button><button class="btn" data-act="open">${I.ext} Open staging</button><button class="btn ghost" data-act="changes">Request changes</button></div>
+        ${ui.changes===k.id ? `<form class="chatin" id="changeForm" autocomplete="off"><label class="sr" for="changeIn">What should change?</label><input id="changeIn" placeholder="Move the toggle above the card fields"><button class="iconbtn go" aria-label="Send changes">${I.up}</button></form>` : ''}` : ''}`;
+  }
   if(k.kind==='generic'){
     body = `<div class="dsec"><h3>What you said</h3><div class="ctx">${esc(k.title)}</div></div>
       <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>
@@ -556,6 +607,7 @@ function tick(){
     const i = k.steps.findIndex(s=>s.st==='doing');
     if(i<0) return;
     k.steps[i].st='done'; changed=true;
+    if(k.kind==='ship'){ const DONE_SUB={3:'All comments fixed, replied on each thread',4:'142 passed, 0 failed',5:'Live on staging, flag off for customers',6:'4 screenshots'}; if(DONE_SUB[i]) k.steps[i].sub=DONE_SUB[i]; }
     let j=i+1;
     while(j<k.steps.length && k.steps[j].st==='done') j++;
     if(j>=k.steps.length){ k.col='done'; if(k.repeat && !k.repeat.runs.length) k.repeat.runs.unshift(['Today','First run done, posted to your Notes']); return; }
@@ -625,6 +677,11 @@ document.addEventListener('click', e=>{
   if(a==='open'){ toast('In the real app this opens the conversation. Nothing is sent from the prototype.'); return; }
   if(a==='sent'){ k.col='done'; render(); toast('Marked sent. Your edits teach lalo your voice.'); return; }
   if(a==='dismiss'){ cards.splice(cards.indexOf(k),1); ui.sel=null; render(); toast("Dismissed. lalo will flag fewer messages like this."); return; }
+  if(a==='ship'){
+    const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work'; ui.changes=null;
+    render(); toast('Approved. Sending engineering the PR, test results, flag, and screenshots.'); return;
+  }
+  if(a==='changes'){ ui.changes = ui.changes===k.id ? null : k.id; renderWin(); const ci=document.getElementById('changeIn'); if(ci) ci.focus(); return; }
   if(a==='ready' || a==='approve'){ k.col='done'; k.steps && k.steps.forEach(s=>s.st='done'); render(); toast(a==='approve'?'Created 4 tickets.':'Done.'); return; }
 });
 function selectDraft(){ const el=document.getElementById('draftText'); if(!el) return; const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
@@ -632,6 +689,15 @@ function selectDraft(){ const el=document.getElementById('draftText'); if(!el) r
 document.addEventListener('submit', e=>{
   e.preventDefault();
   if(e.target.id==='capForm'){ addTask(document.getElementById('capIn').value); }
+  if(e.target.id==='changeForm'){
+    const k=cards.find(x=>x.id===ui.sel); const inp=document.getElementById('changeIn'); const v=inp.value.trim();
+    if(!v){ inp.placeholder='Type what should change first'; inp.focus(); return; }
+    k.fixed=k.comments.length; k.comments.push(['You', v]); ui.changes=null;
+    k.steps.forEach((s,i)=>{ if(i>=3 && s.who==='ai' && i<7) { s.st='todo'; } });
+    k.steps[3].st='doing'; k.steps[3].sub='Working on your change'; k.steps[4].sub='Unit, integration, and end-to-end'; k.steps[5].sub='Redeploy to staging'; k.steps[6].sub='New screenshots';
+    k.col='work'; render(); toast('Sent back to lalo. It will fix it, retest, and ask you again.');
+    return;
+  }
   if(e.target.id==='chatForm'){
     const k=cards.find(x=>x.id===ui.sel); const v=document.getElementById('chatIn').value.trim();
     if(!v){ toast('Type a change first'); return; }
