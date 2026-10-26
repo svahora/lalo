@@ -400,16 +400,26 @@ body.phone .mdetail.meet-phone{padding:0 16px 20px}
 .cu-empty>svg{width:44px;height:44px;color:var(--switch-on)}
 .cu-empty h2{margin:0;font-family:var(--display);font-weight:500;color:var(--fg);font-size:22px}
 .cu-empty p{margin:0 0 8px}
-body.phone .cu-stack{height:calc(100% - 120px);min-height:360px}
+body.phone .cu-stack{height:calc(100% - 176px);min-height:340px}
+body.phone .cu-wrap{gap:10px;padding-top:12px}
 body.phone .cu-hint{display:none}
 .cu-banner{display:flex;align-items:center;gap:10px;width:calc(100% - 24px);margin:10px 12px 0;padding:10px 12px;border-radius:12px;border:1px solid var(--accent);background:var(--accent-bg);color:var(--fg);text-align:left}
 .cu-banner:hover{filter:brightness(.98)}
 .cu-banner b{display:block;font-weight:600;color:var(--accent-ink)}
-.cu-banner small{display:block;font-size:12px;color:var(--fg-2)}
+.cu-banner small{display:block;font-size:12px}
 .cu-banner>svg{width:18px;height:18px;color:var(--accent-ink);flex:none}
 .cu-ic{width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
 .cu-ic svg{width:17px;height:17px}
 .phonehome .cu-banner{width:100%;margin:12px 0 0;padding:12px 14px}
+.btn.cta{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.cta:hover{filter:brightness(1.08)}
+body.phone .board .filters{padding:0 0 4px}
+.cu-banner small{color:var(--accent-ink);opacity:.8}
+.cu-chat{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:8px}
+.cu-chat .msg{max-width:92%}
+.cu-ask{display:flex;gap:8px;width:min(440px,100%)}
+.cu-ask input{flex:1;min-width:0;height:40px;border-radius:12px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--fg);padding:0 12px;font:inherit}
+.cu-ask .iconbtn{width:40px;height:40px;border-radius:12px;background:var(--accent);border-color:var(--accent);color:#fff}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -667,6 +677,7 @@ function renderWin(){
   const oldChange = document.getElementById('changeIn'); const changeVal = oldChange ? oldChange.value : ''; const changeFocus = oldChange && document.activeElement === oldChange;
   const oldChat = document.getElementById('chatIn'); const chatVal = oldChat ? oldChat.value : '';
   const chatFocus = (oldChat && document.activeElement === oldChat) || ui._chatFocus; ui._chatFocus = false;
+  const oldCu = document.getElementById('cuChatIn'); const cuVal = oldCu ? oldCu.value : ''; const cuFocus = (oldCu && document.activeElement === oldCu) || ui._cuFocus; ui._cuFocus=false;
   const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
   m.innerHTML = `<section class="win ${winAnim?'anim':''}" role="dialog" aria-label="lalo board">
@@ -691,7 +702,7 @@ function renderWin(){
   const tl = document.getElementById('trLive'); if(tl) tl.scrollTop = tl.scrollHeight;
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
   const cp = document.getElementById('capIn'); if(cp){ cp.value = capVal; if(capFocus) cp.focus(); }
-  if(ui.view==='catchup') bindSwipe();
+  if(ui.view==='catchup'){ bindSwipe(); const cu=document.getElementById('cuChatIn'); if(cu){ cu.value=cuVal; if(cuFocus) cu.focus(); } const b=document.getElementById('cuBody'); if(b && cuFocus) b.scrollTop=b.scrollHeight; }
 }
 
 function homeHTML(){
@@ -729,8 +740,8 @@ function boardHTML(c){
   const tc = {}; cards.forEach(k=>{ const t=typeOf(k); tc[t]=(tc[t]||0)+1; });
   const filters = `<div class="filters" role="group" aria-label="Filter by type"><button class="chip" data-type="all" aria-pressed="${ui.type==='all'}">All <span class="n">${cards.length}</span></button>${
     Object.keys(TYPES).filter(t=>tc[t]).map(t=>`<button class="chip" data-type="${t}" aria-pressed="${ui.type===t}">${I[TYPES[t][1]]} ${TYPES[t][0]} <span class="n">${tc[t]}</span></button>`).join('')}</div>`;
-  return head('Board', `${c.work} working · ${c.need} need you · sorted by priority`, c.need ? `<button class="btn pri" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + filters +
-    `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
+  return head('Board', `${c.work} working · ${c.need} need you · sorted by priority`, c.need ? `<button class="btn cta" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + (ui.phone ? '' : filters) +
+    `<div class="board" data-keep="board">${ui.phone ? filters : ''}${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
 }
 
 function cardHTML(k){
@@ -1036,15 +1047,48 @@ function catchHTML(){
       <div class="cu-stamp ok">Approve</div><div class="cu-stamp later">Later</div>
       <div class="meta"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span><span class="prio p${k.pri||2}">${PRI[k.pri||2]}</span></div>
       <h2>${esc(k.title)}</h2>
-      <div class="cu-body">${cardBody(k)}</div>
+      <div class="cu-body" ${i===0?'id="cuBody"':''}>${cardBody(k)}${cuThread(k)}</div>
       <button class="more" data-open="${k.id}" style="text-align:center">Open full details</button>
     </article>`; }).reverse().join('');
   const top = cards.find(x=>x.id===q[0]);
   return head('Catch up', `${q.length} left · swipe right to approve, left for later`)
     + `<div class="cu-wrap"><div class="cu-stack">${cardsHTML}</div>
+      <form class="cu-ask" id="cuChatForm" autocomplete="off"><label class="sr" for="cuChatIn">Ask lalo about this card</label>
+        <input id="cuChatIn" placeholder="${top.kind==='draft'?'Make it shorter, say Monday…':'Ask lalo or request a change…'}"><button class="iconbtn" aria-label="Send to lalo">${I.up}</button></form>
       <div class="cu-acts"><button class="btn cu-later" data-cu="later">${I.back} Keep for later</button>
       <button class="btn pri cu-ok" data-cu="ok">${approveLabel(top)} ${I.check}</button></div>
       <div class="cu-hint">Keyboard: ← later · → approve</div></div>`;
+}
+function cuThread(k){
+  const msgs = k.kind==='draft' ? k.draft.chat : (k.cuChat||[]);
+  if(!msgs.length) return '';
+  return `<div class="cu-chat">${msgs.slice(-4).map(m=>`<div class="msg ${m.f}">${esc(m.t)}</div>`).join('')}</div>`;
+}
+function cuAsk(k, text){
+  const lc=text.toLowerCase();
+  if(k.kind==='draft'){
+    const key = /short|brief|trim/.test(lc)?'Shorter':/warm|friend|nice/.test(lc)?'Warmer':/direct|firm|blunt/.test(lc)?'More direct':'custom';
+    tone(k, key, text); return;
+  }
+  k.cuChat = k.cuChat || [];
+  k.cuChat.push({f:'me', t:text});
+  let reply;
+  const change = /change|move|fix|update|rename|add|remove|swap|make it|instead/.test(lc);
+  if(k.kind==='ship' && change){
+    reply = "Got it. I'll make that change, rerun the tests, redeploy to staging, and put it back in your stack with new screenshots.";
+    k.comments.push(['You', text]); k.fixed = k.comments.length-1;
+    k.steps.forEach((x,i)=>{ if(i>=3 && x.who==='ai' && i<7) x.st='todo'; }); k.steps[3].st='doing'; k.steps[3].sub='Working on your change';
+    k.cuChat.push({f:'lalo', t:reply}); k.col='work';
+    ui.cq = ui.cq.filter(id=>id!==k.id); render(); toast('Sent back to lalo. It will return to your stack when it is ready.'); return;
+  }
+  if(k.kind==='ship') reply = /test/.test(lc) ? '142 tests passed: 118 unit, 19 integration, and 5 end-to-end, including guest checkout.' : /risk|safe|flag/.test(lc) ? "It's behind checkout_save_card, off for customers. Engineering turns it on after you approve." : 'The change adds the toggle, stores the choice, and tracks clicks. Ask for a change and I will update the PR.';
+  else if(k.kind==='prep') reply = /why|payments/.test(lc) ? 'Payments is changing the same API next sprint, so connecting them now avoids Sara redoing work.' : "Noted. I'll add that to the brief before Tuesday.";
+  else if(k.kind==='tickets') reply = change ? "Updated. I'll adjust the tickets before creating them." : 'These came from the decisions in the design review. Ana and Theo are listed as owners from the call.';
+  else if(k.kind==='stove') reply = "I can start once I know the hookup type, budget, and timing. Tap Answer questions, or tell me here, like 'electric, under $600, this week'.";
+  else reply = "Noted. I'll update this and keep it in your stack.";
+  k.cuChat.push({f:'lalo', t:reply});
+  renderWin();
+  const b=document.getElementById('cuBody'); if(b) b.scrollTop=b.scrollHeight;
 }
 function cuApprove(k){
   if(k.kind==='stove'){ ui.view='board'; ui.sel=k.id; render(); toast('Answer the 3 questions to keep it moving.'); return false; }
@@ -1383,6 +1427,11 @@ function selectDraft(){ const el=document.getElementById('draftText'); if(!el) r
 document.addEventListener('submit', e=>{
   e.preventDefault();
   if(e.target.id==='capForm'){ addTask(document.getElementById('capIn').value); }
+  if(e.target.id==='cuChatForm'){
+    const inp=document.getElementById('cuChatIn'); const v=inp.value.trim(); const k=cards.find(x=>x.id===(ui.cq||[])[0]);
+    if(!v){ inp.placeholder='Type a question or a change first'; inp.focus(); return; }
+    inp.value=''; ui._cuFocus=true; if(k) cuAsk(k, v); return;
+  }
   if(e.target.id==='changeForm'){
     const k=cards.find(x=>x.id===ui.sel); const inp=document.getElementById('changeIn'); const v=inp.value.trim();
     if(!v){ inp.placeholder='Type what should change first'; inp.focus(); return; }
