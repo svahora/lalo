@@ -11,6 +11,7 @@
   --panel:#fcfcfd; --panel-2:#f2f3f6; --panel-3:#e9ebef; --line:#e1e4ea; --line-strong:#c9cdd5;
   --fg:#15171c; --fg-2:#565c68; --fg-3:#8a909b;
   --accent:#d99a00; --accent-bg:#fff3d1; --accent-ink:#6a4800;
+  --hot:#c2412d; --hot-bg:#fde8e3;
   --ai:#2458c4; --ai-bg:#e5edfd; --help:#6f45c9; --help-bg:#efe8fd; --ok:#2b7d47; --ok-bg:#e1f2e6;
   --shadow:0 24px 60px rgba(14,18,28,.24),0 2px 8px rgba(14,18,28,.12);
   --display:"Bricolage Grotesque",ui-rounded,system-ui,sans-serif;
@@ -23,6 +24,7 @@
   --panel:#212429; --panel-2:#292d34; --panel-3:#323741; --line:#353a44; --line-strong:#4a505c;
   --fg:#eceef2; --fg-2:#a6acb8; --fg-3:#757b87;
   --accent:#f2b632; --accent-bg:#3a2d0c; --accent-ink:#f7d27a;
+  --hot:#ff8a70; --hot-bg:#3d1d16;
   --ai:#8ab0ff; --ai-bg:#1c2a45; --help:#b9a0ff; --help-bg:#2b2346; --ok:#74d197; --ok-bg:#1a3223;
   --shadow:0 24px 60px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35); color-scheme:dark}}
 :root[data-theme="dark"]{
@@ -31,6 +33,7 @@
   --panel:#212429; --panel-2:#292d34; --panel-3:#323741; --line:#353a44; --line-strong:#4a505c;
   --fg:#eceef2; --fg-2:#a6acb8; --fg-3:#757b87;
   --accent:#f2b632; --accent-bg:#3a2d0c; --accent-ink:#f7d27a;
+  --hot:#ff8a70; --hot-bg:#3d1d16;
   --ai:#8ab0ff; --ai-bg:#1c2a45; --help:#b9a0ff; --help-bg:#2b2346; --ok:#74d197; --ok-bg:#1a3223;
   --shadow:0 24px 60px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35); color-scheme:dark}
 
@@ -204,6 +207,18 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .frame .sw{width:14px;height:8px;border-radius:4px;background:var(--ai);flex:none}
 .frame .cta{font-size:9px;text-align:center;background:var(--fg);color:var(--panel);border-radius:4px;padding:3px 2px;white-space:nowrap;overflow:hidden}
 @media (max-width:520px){.shots{grid-template-columns:1fr 1fr}}
+.meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11px;color:var(--fg-3)}
+.type{display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--fg-2)}
+.type svg{width:13px;height:13px}
+.pri{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 6px;border-radius:5px;margin-left:auto}
+.pri.p1{background:var(--hot-bg);color:var(--hot)} .pri.p2{background:var(--accent-bg);color:var(--accent-ink)} .pri.p3{background:var(--panel-3);color:var(--fg-2)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;padding:12px 18px 0}
+.filters .chip{height:28px;display:inline-flex;align-items:center;gap:5px;font-size:12px}
+.filters .chip svg{width:13px;height:13px}
+.filters .chip .n{font-family:var(--mono);color:var(--fg-3)}
+.filters .chip[aria-pressed="true"] .n{color:inherit;opacity:.7}
+.why{font-size:12px;color:var(--fg-2);margin-top:6px}
+@media (max-width:760px){.filters{padding:10px 16px 0}}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -271,6 +286,12 @@ const I = {
   user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-linecap="round"/></svg>',
   copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"/></svg>',
   ext:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>',
+  code:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+  bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 016 0v2"/></svg>',
+  list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg>',
+  dot:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>',
   repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/></svg>',
   menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 };
@@ -337,7 +358,35 @@ const cards = [
     summary:['31 messages, 4 themes','Top ask: saved payment methods (9 mentions)','Two bug reports already have tickets','Posted to your Notes page'] }
 ];
 
-let ui = { pop:false, win:false, view:'board', sel:null, side:false, err:'', hinted:false };
+const TYPES = { build:['Build','code'], reply:['Reply','chat'], prep:['Meeting prep','cal'], errand:['Errand','bag'], plan:['Planning','list'], routine:['Routine','repeat'], task:['Task','dot'] };
+const PRI = {1:'Now', 2:'Next', 3:'Later'};
+function typeOf(k){
+  if(k.type) return k.type;
+  if(k.repeat) return 'routine';
+  return {ship:'build', draft:'reply', prep:'prep', stove:'errand', tickets:'plan', summary:'routine'}[k.kind] || 'task';
+}
+const SEED_PRI = {
+  c7:[1,'Product change for the Q4 checkout goal. Your rule: product changes before Slack replies'],
+  c2:[2,'Jordan is waiting on you to confirm a date'],
+  c4:[2,'The 1:1 is Tuesday'],
+  c3:[2,'Needs to be in before the next tenant'],
+  c1:[3,'No deadline, and Theo already gave feedback'],
+  c5:[3,'Tickets can wait for Monday planning'],
+  c6:[3,'Runs on its own every Friday']
+};
+cards.forEach(k=>{ const p=SEED_PRI[k.id]; if(p){ k.pri=p[0]; k.why=p[1]; } });
+const byPri = (a,b) => (a.pri||2) - (b.pri||2);
+function guessType(t){
+  const s=t.toLowerCase();
+  if(/\b(reply|respond|answer|get back to)\b/.test(s)) return 'reply';
+  if(/\b(fix|build|ship|bug|code|deploy|implement|add .* to)\b/.test(s)) return 'build';
+  if(/\b(1:1|meeting|prep|call with)\b/.test(s)) return 'prep';
+  if(/\b(buy|order|purchase|book|return)\b/.test(s)) return 'errand';
+  if(/\b(ticket|plan|roadmap|scope)\b/.test(s)) return 'plan';
+  return 'task';
+}
+
+let ui = { pop:false, type:'all', win:false, view:'board', sel:null, side:false, err:'', hinted:false };
 
 function counts(){ const c={need:0,work:0,done:0}; cards.forEach(k=>c[k.col]++); return c; }
 function progress(k){ if(!k.steps) return null; const d=k.steps.filter(s=>s.st==='done').length; return {d, n:k.steps.length}; }
@@ -372,8 +421,8 @@ function renderPop(){
   if(!ui.pop){ m.innerHTML=''; return; }
   const prev = document.getElementById('capIn'); const val = prev ? prev.value : '';
   const hadFocus = prev && document.activeElement === prev; const anim = !prev;
-  const need = cards.filter(k=>k.col==='need'), work = cards.filter(k=>k.col==='work');
-  const row = k => `<button class="row" data-open="${k.id}"><span class="mark ${k.col}"></span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.col==='work' && progress(k) ? 'Step '+Math.min(progress(k).d+1,progress(k).n)+' of '+progress(k).n : status(k))}</span></button>`;
+  const need = cards.filter(k=>k.col==='need').sort(byPri), work = cards.filter(k=>k.col==='work').sort(byPri);
+  const row = k => `<button class="row" data-open="${k.id}"><span class="mark ${k.col}"></span><span class="type" title="${TYPES[typeOf(k)][0]}" style="flex:none">${I[TYPES[typeOf(k)][1]]}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.col==='work' && progress(k) ? 'Step '+Math.min(progress(k).d+1,progress(k).n)+' of '+progress(k).n : status(k))}</span></button>`;
   m.innerHTML = `<div class="pop ${anim?'anim':''}" role="dialog" aria-label="lalo">
     <form class="cap" id="capForm" autocomplete="off">
       <label class="sr" for="capIn">Tell lalo anything</label>
@@ -426,11 +475,14 @@ function head(title, sub){
 
 function boardHTML(c){
   const col = (key, label, mark) => {
-    const list = cards.filter(k=>k.col===key);
+    const list = cards.filter(k=>k.col===key && (ui.type==='all' || typeOf(k)===ui.type)).sort(byPri);
     return `<div class="col"><h2><span class="mark ${mark}"></span>${label}<span class="c">${list.length}</span></h2>
       ${list.map(cardHTML).join('') || '<div class="empty">Empty</div>'}</div>`;
   };
-  return head('Board', `${c.work} working · ${c.need} need you`) +
+  const tc = {}; cards.forEach(k=>{ const t=typeOf(k); tc[t]=(tc[t]||0)+1; });
+  const filters = `<div class="filters" role="group" aria-label="Filter by type"><button class="chip" data-type="all" aria-pressed="${ui.type==='all'}">All <span class="n">${cards.length}</span></button>${
+    Object.keys(TYPES).filter(t=>tc[t]).map(t=>`<button class="chip" data-type="${t}" aria-pressed="${ui.type===t}">${I[TYPES[t][1]]} ${TYPES[t][0]} <span class="n">${tc[t]}</span></button>`).join('')}</div>`;
+  return head('Board', `${c.work} working · ${c.need} need you · sorted by priority`) + filters +
     `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
 }
 
@@ -440,7 +492,7 @@ function cardHTML(k){
               k.col==='done' ? `<span class="tag ok">${esc(status(k))}</span>` :
               `<span class="tag ai">${esc(status(k))}</span>`;
   return `<button class="card ${k.col==='need'?'need':''}" data-open="${k.id}" ${ui.sel===k.id?'aria-current="true"':''}>
-    <span class="src">${esc(k.src)}</span><span class="ttl">${esc(k.title)}</span>
+    <span class="meta"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span>${k.col!=='done'?`<span class="pri p${k.pri||2}">${PRI[k.pri||2]}</span>`:''}</span><span class="ttl">${esc(k.title)}</span>
     ${k.repeat ? `<span class="rep ${k.repeat.paused?'off':''}">${I.repeat} ${esc(k.repeat.label)}${k.repeat.paused?' · paused':''}</span>` : ''}
     ${k.col==='work' && p ? `<span class="bar-p"><i style="width:${Math.round(p.d/p.n*100)}%"></i></span>` : ''}
     ${tag}</button>`;
@@ -542,7 +594,9 @@ function drawerHTML(k, anim){
   }
   if(k.repeat && k.kind!=='summary' && k.repeat.runs.length) body += `<div class="dsec"><h3>Past runs</h3>${k.repeat.runs.map(r=>`<div class="li"><span>${esc(r[1])}</span><span class="from">${esc(r[0])}</span></div>`).join('')}</div>`;
   if(k.repeat) body = repeatHTML(k) + body;
-  return `<aside class="drawer ${anim?'anim':''}" aria-label="Task detail"><div class="dhead"><div class="grow"><div class="card-src" style="font-size:12px;color:var(--fg-3)">${esc(k.src)}</div><h2>${esc(k.title)}</h2></div>
+  if(k.col!=='done') body = `<div class="dsec"><h3>Priority</h3><div class="chips">${[1,2,3].map(p=>`<button class="chip" data-pri="${p}" aria-pressed="${(k.pri||2)===p}">${PRI[p]}</button>`).join('')}</div>
+    <div class="why">${k.whyYou ? 'You set this.' : 'lalo set this: '+esc(k.why||'new task, ranked as Next until it knows more')}</div></div>` + body;
+  return `<aside class="drawer ${anim?'anim':''}" aria-label="Task detail"><div class="dhead"><div class="grow"><div class="meta" style="font-size:12px"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span></div><h2>${esc(k.title)}</h2></div>
     <button class="iconbtn" data-unsel aria-label="Close detail">${I.x}</button></div><div class="dbody" data-keep="drawer">${body}</div></aside>`;
 }
 
@@ -558,6 +612,7 @@ function repeatHTML(k){
 }
 
 const profile = {
+  'How you prioritize': [['Product changes before Slack replies','You said'],['Anything blocking a teammate goes first','Slack'],['Customer-facing bugs are always Now','Tickets'],['Errands can wait until evenings','Calendar']],
   'How you write': [['Short, warm replies. Rarely over 3 lines','Slack'],['Answers first, then the reason','Slack'],['Notes are bullets, decisions first','Docs']],
   'What you care about now': [['Shipping the checkout redesign before Q4','Tickets'],['Growing Sara into owning a project','You said']],
   'Growth areas': [['Let others finish before proposing fixes','Calls ×4'],['Say no earlier on dates you doubt','Slack']],
@@ -577,12 +632,13 @@ function openCard(id){ ui.win=true; ui.view='board'; ui.sel=id; ui.pop=false; ui
 function addTask(text){
   const t = text.trim();
   if(!t){ ui.err='Type something first'; renderPop(); return; }
-  const k = { id:'c'+(uid++), col:'work', kind:'generic', src:'You · menu bar', title:t,
+  const k = { id:'c'+(uid++), col:'work', kind:'generic', src:'You · menu bar', title:t, type:guessType(t), pri:2,
     steps:[ S('Work out what done looks like','ai','doing'), S('Pull related context from Slack, docs, and tickets','ai'),
             S('Break it into steps and do the ones it can','ai'), S('Review the plan and take the first step','you') ] };
   if(/stove|buy|order|purchase/i.test(t)){ k.steps[2].sub='Questions will show up here if the answers change the plan'; }
   const rep = parseRepeat(t);
   if(rep){
+    k.type='routine'; k.pri=3; k.why='Runs on its own on a schedule';
     k.repeat = {label:rep, next:NEXT[rep] || 'soon', paused:false, runs:[]};
     k.steps = [ S('Set up the schedule','ai','doing',rep), S('Do the first run now','ai'), S('Post results to your Notes page','ai') ];
   }
@@ -643,10 +699,12 @@ document.addEventListener('click', e=>{
   if(t.hasAttribute('data-close')){ ui.win=false; ui.sel=null; render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
   if(t.hasAttribute('data-unsel')){ ui.sel=null; renderWin(); return; }
+  if(t.dataset.type){ ui.type=t.dataset.type; ui.sel=null; renderWin(); return; }
   if(t.dataset.del){ const [h,i]=t.dataset.del.split('|'); profile[h].splice(+i,1); renderWin(); toast('Removed. lalo will stop using it.'); return; }
   const k = cards.find(x=>x.id===ui.sel);
   if(!k){ if(ui.pop && !t.closest('.pop')){ ui.pop=false; render(); } return; }
   if(t.dataset.tone){ ui._chatFocus=false; tone(k, t.dataset.tone); return; }
+  if(t.dataset.pri){ k.pri=+t.dataset.pri; k.whyYou=true; render(); toast('Moved to '+PRI[k.pri]+'. lalo will rank similar '+TYPES[typeOf(k)][0].toLowerCase()+' tasks the same way.'); return; }
   if(t.dataset.sched){ k.repeat.label=t.dataset.sched; k.repeat.next=NEXT[t.dataset.sched]; k.repeat.paused=false; render(); toast('Schedule changed to '+t.dataset.sched.toLowerCase()+'.'); return; }
   if(t.dataset.act==='pause'){ k.repeat.paused=!k.repeat.paused; render(); toast(k.repeat.paused?'Paused.':'Resumed. Next run '+k.repeat.next+'.'); return; }
   if(t.dataset.act==='runnow'){
