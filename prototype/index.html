@@ -1,6 +1,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>lalo</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%235A3BEA'/%3E%3Cpath d='M29 12l4.6 13.4L47 30l-13.4 4.6L29 48l-4.6-13.4L11 30l13.4-4.6z' fill='%23FFFFFF'/%3E%3Cpath d='M46 40l2 5.5 5.5 2-5.5 2-2 5.5-2-5.5-5.5-2 5.5-2z' fill='%23FFFFFF'/%3E%3C/svg%3E">
+<meta name="description" content="Say &quot;Hey lalo&quot; and tell it anything. It starts on the parts it can do.">
+<meta property="og:title" content="lalo">
+<meta property="og:description" content="Say &quot;Hey lalo&quot; and tell it anything. It starts on the parts it can do.">
+<meta property="og:image" content="https://svahora.github.io/lalo/prototype/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +21,7 @@
   --bar:rgba(244,246,248,.86); --bar-fg:#16181d;
   --panel:#fcfcfd; --panel-2:#f2f3f6; --panel-3:#e9ebef; --line:#e1e4ea; --line-strong:#c9cdd5;
   --fg:#15171c; --fg-2:#565c68; --fg-3:#8a909b;
-  --accent:#d99a00; --accent-bg:#fff3d1; --accent-ink:#6a4800;
+  --accent:#5a3bea; --accent-bg:#ece8fd; --accent-ink:#3b22b0;
   --hot:#c2412d; --hot-bg:#fde8e3; --switch-on:#2f9e55;
   --ai:#2458c4; --ai-bg:#e5edfd; --help:#6f45c9; --help-bg:#efe8fd; --ok:#2b7d47; --ok-bg:#e1f2e6;
   --shadow:0 24px 60px rgba(14,18,28,.24),0 2px 8px rgba(14,18,28,.12);
@@ -25,7 +34,7 @@
   --bar:rgba(30,33,39,.86); --bar-fg:#eceef2;
   --panel:#212429; --panel-2:#292d34; --panel-3:#323741; --line:#353a44; --line-strong:#4a505c;
   --fg:#eceef2; --fg-2:#a6acb8; --fg-3:#757b87;
-  --accent:#f2b632; --accent-bg:#3a2d0c; --accent-ink:#f7d27a;
+  --accent:#7158f5; --accent-bg:#27214d; --accent-ink:#b9adff;
   --hot:#ff8a70; --hot-bg:#3d1d16;
   --ai:#8ab0ff; --ai-bg:#1c2a45; --help:#b9a0ff; --help-bg:#2b2346; --ok:#74d197; --ok-bg:#1a3223;
   --shadow:0 24px 60px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35); color-scheme:dark}}
@@ -34,7 +43,7 @@
   --bar:rgba(30,33,39,.86); --bar-fg:#eceef2;
   --panel:#212429; --panel-2:#292d34; --panel-3:#323741; --line:#353a44; --line-strong:#4a505c;
   --fg:#eceef2; --fg-2:#a6acb8; --fg-3:#757b87;
-  --accent:#f2b632; --accent-bg:#3a2d0c; --accent-ink:#f7d27a;
+  --accent:#7158f5; --accent-bg:#27214d; --accent-ink:#b9adff;
   --hot:#ff8a70; --hot-bg:#3d1d16;
   --ai:#8ab0ff; --ai-bg:#1c2a45; --help:#b9a0ff; --help-bg:#2b2346; --ok:#74d197; --ok-bg:#1a3223;
   --shadow:0 24px 60px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35); color-scheme:dark}
@@ -274,10 +283,10 @@ details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing
 .tab{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:30px;border:0;border-radius:8px;background:transparent;font-size:13px;font-weight:500;color:var(--fg-2)}
 .tab svg{width:15px;height:15px}
 .tab[aria-selected="true"]{background:var(--panel);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.1),0 0 0 1px var(--line)}
-.badge{font-family:var(--mono);font-size:11px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:#1d1600;display:inline-grid;place-items:center}
+.badge{font-family:var(--mono);font-size:11px;font-weight:600;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--panel-3);color:var(--fg);display:inline-grid;place-items:center}
 .badge.muted{background:var(--panel-3);color:var(--fg-2)}
 .hint b{font-weight:600}
-.trybtn{display:flex;align-items:center;gap:6px;margin-top:8px;height:28px;padding:0 10px;border-radius:7px;border:0;background:var(--accent);color:#1d1600;font-size:12px;font-weight:600}
+.trybtn{display:flex;align-items:center;gap:6px;margin-top:8px;height:28px;padding:0 10px;border-radius:7px;border:0;background:var(--accent);color:#fff;font-size:12px;font-weight:600}
 .trybtn svg{width:14px;height:14px;display:block}
 .trybtn:hover{filter:brightness(1.05)}
 .caphelp b{font-weight:600;color:var(--fg-2)}
@@ -285,14 +294,14 @@ details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing
 .voice.anim{animation:drop .22s ease-out}
 @keyframes drop{from{opacity:0;transform:translate(-50%,-10px) scale(.96)}}
 .vtop{display:flex;align-items:center;gap:10px}
-.vglyph svg{width:20px;height:20px;color:#f2b632;display:block}
+.vglyph svg{width:20px;height:20px;color:#9d8bff;display:block}
 .vlabel{font-weight:600;font-size:14px}
 .vw{flex:1;justify-content:flex-end;height:20px}
-.vw i{background:#f2b632;height:5px;animation-fill-mode:both}
+.vw i{background:#9d8bff;height:5px;animation-fill-mode:both}
 .vok{margin-left:auto;width:22px;height:22px;border-radius:50%;background:#2f9e55;display:grid;place-items:center}
 .vok svg{width:14px;height:14px;color:#fff}
 .vtext{margin-top:8px;font-size:15px;line-height:1.45;color:#d9dbe0}
-.vtext b{color:#f2b632;font-weight:600}
+.vtext b{color:#9d8bff;font-weight:600}
 .vfoot{margin-top:8px;font-size:11px;color:#8b8f99}
 .phonehead,.tabbar,.greet{display:none}
 body.phone .bar,body.phone .hint,body.phone .wordmark{display:none}
@@ -317,16 +326,16 @@ body.phone .tabbar{display:flex;position:absolute;left:0;right:0;bottom:0;z-inde
 .tabbar button svg{width:22px;height:22px}
 .tabbar button[aria-current="page"]{color:var(--fg)}
 .tabbar button[aria-current="page"] svg{color:var(--accent)}
-.tb-badge{position:absolute;top:0;left:calc(50% + 6px);font-style:normal;font-family:var(--mono);font-size:10px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--accent);color:#1d1600;display:grid;place-items:center}
+.tb-badge{position:absolute;top:0;left:calc(50% + 6px);font-style:normal;font-family:var(--mono);font-size:10px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--panel-3);color:var(--fg);font-weight:600;display:grid;place-items:center}
 .tb-rec{position:absolute;top:3px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:var(--hot)}
 body.phone .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 body.phone .voice{top:calc(10px + env(safe-area-inset-top,0px))}
 .phonehome{flex:1;display:flex;flex-direction:column;overflow:auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
-.ph-top{padding:16px 0 0}
+.ph-top{padding:16px 0 0;display:flex;align-items:center}
 .ph-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:24px 8px}
 .ph-center h1{margin:8px 0 0;font-family:var(--display);font-weight:500;font-size:28px;letter-spacing:-.03em;text-wrap:balance}
 .ph-center p{margin:0;color:var(--fg-2);font-size:15px;max-width:30ch}
-.heybig{width:96px;height:96px;border-radius:50%;border:0;background:var(--accent);color:#1d1600;display:grid;place-items:center;box-shadow:0 0 0 10px var(--accent-bg)}
+.heybig{width:96px;height:96px;border-radius:50%;border:0;background:var(--accent);color:#fff;display:grid;place-items:center;box-shadow:0 0 0 10px var(--accent-bg)}
 .heybig svg{width:38px;height:38px}
 .heybig:active{transform:scale(.97)}
 .ph-cap{padding:0 0 10px;border-bottom:0}
@@ -360,6 +369,10 @@ body.phone .mdetail.meet-phone{padding:0 16px 20px}
 .backbar{display:flex;align-items:center;padding:10px max(8px,env(safe-area-inset-left,0px)) 4px;border-bottom:1px solid var(--line)}
 .backbtn{display:inline-flex;align-items:center;gap:2px;border:0;background:transparent;color:var(--accent-ink);font-size:16px;font-weight:500;padding:6px 8px;border-radius:8px}
 .backbtn svg{width:20px;height:20px}
+.themebtn{display:grid;place-items:center;width:24px;height:22px;border:0;border-radius:6px;background:transparent;color:var(--bar-fg);padding:0}
+.themebtn:hover{background:var(--panel-3)}
+.themebtn svg{width:15px;height:15px}
+.themebtn-ph svg{width:18px;height:18px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -398,6 +411,7 @@ body.phone .mdetail.meet-phone{padding:0 16px 20px}
     <div class="right">
       <span aria-hidden="true" id="i-wifi"></span>
       <span aria-hidden="true" id="i-batt"></span>
+      <button class="themebtn" data-theme-toggle="1" id="themeBtn" aria-label="Switch to dark mode"></button>
       <button class="recpill" id="recpill" aria-label="Recording, open meeting"><span class="recdot"></span><span id="rectime">00:00</span></button>
       <button class="spark" id="spark" aria-haspopup="dialog" aria-expanded="false" aria-label="Open lalo">
         <span class="glyph" id="i-spark"></span><span class="n" id="count">0</span><span class="pip" id="pip"></span>
@@ -438,6 +452,8 @@ const I = {
   dot:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>',
   bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0012 3z"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>',
+  moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg>',
   repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/></svg>',
   menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 };
@@ -640,7 +656,7 @@ function renderWin(){
 function homeHTML(){
   const ex = ['Remind me to send Jordan the launch doc','Every Friday, summarize #design',"Buy a stove for mom's rental"];
   return `<div class="phonehome" data-keep="home">
-    <div class="ph-top"><div class="brand" style="padding:0">${I.spark} lalo</div></div>
+    <div class="ph-top"><div class="brand" style="padding:0">${I.spark} lalo</div><span class="grow"></span><button class="iconbtn themebtn-ph" data-theme-toggle="1" aria-label="${isDark()?'Switch to light mode':'Switch to dark mode'}">${isDark()?I.sun:I.moon}</button></div>
     <div class="ph-center">
       <button class="heybig" data-voice="1" aria-label="Start Hey lalo">${I.mic}</button>
       <h1>Say "Hey lalo" to begin</h1>
@@ -1155,6 +1171,7 @@ function tone(k, key, userText){
 document.addEventListener('click', e=>{
   const t = e.target.closest('button');
   if(!t){ if(ui.pop && !e.target.closest('.pop')){ ui.pop=false; render(); } return; }
+  if(t.dataset.themeToggle){ setTheme(isDark() ? 'light' : 'dark'); return; }
   if(t.dataset.voice){ ui.hinted=true; render(); startVoice(); return; }
   if(t.id==='spark'){ openPop(); return; }
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
@@ -1266,6 +1283,24 @@ document.addEventListener('keydown', e=>{
 
 function clock(){ const d=new Date(); document.getElementById('clock').textContent = d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}); }
 clock(); setInterval(clock, 15000);
+/* ---------- light / dark ---------- */
+const DARKQ = window.matchMedia('(prefers-color-scheme: dark)');
+function isDark(){ const t=document.documentElement.dataset.theme; return t ? t==='dark' : DARKQ.matches; }
+function paintThemeBtn(){
+  const b=document.getElementById('themeBtn'); if(!b) return;
+  b.innerHTML = isDark() ? I.sun : I.moon;
+  b.setAttribute('aria-label', isDark() ? 'Switch to light mode' : 'Switch to dark mode');
+  b.title = b.getAttribute('aria-label');
+}
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  try{ localStorage.setItem('lalo-theme', t); }catch(_){}
+  paintThemeBtn(); render();
+}
+try{ const saved=localStorage.getItem('lalo-theme'); if(saved==='dark'||saved==='light') document.documentElement.dataset.theme=saved; }catch(_){}
+try{ DARKQ.addEventListener('change', ()=>{ paintThemeBtn(); render(); }); }catch(_){}
+paintThemeBtn();
+
 const PHONE = window.matchMedia('(max-width: 600px)');
 function applyPhone(){
   ui.phone = PHONE.matches;
