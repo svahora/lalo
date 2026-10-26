@@ -262,10 +262,10 @@ details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing
 .uprow{display:flex;align-items:center;gap:8px;padding:2px 0 2px 0}
 .uprow .row{flex:1;min-width:0}
 .time{font-family:var(--mono);font-size:12px;color:var(--fg-2);min-width:52px;font-variant-numeric:tabular-nums}
-.rectog{flex:none;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:6px;border:1px solid var(--line-strong);background:var(--panel);font-size:11px;font-weight:500;color:var(--fg-3);margin-right:4px}
-.rectog .d{width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor}
-.rectog.on{color:var(--hot);border-color:var(--hot);background:var(--hot-bg)}
-.rectog.on .d{background:var(--hot);border-color:var(--hot)}
+.rectog{flex:none;position:relative;width:34px;height:20px;border-radius:10px;border:0;padding:0;background:var(--line-strong);margin-right:6px;transition:background .15s}
+.rectog::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.rectog.on{background:var(--hot)}
+.rectog.on::after{transform:translateX(14px)}
 .mgroup{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin:8px 10px 2px}
 .mgroup:first-child{margin-top:2px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
@@ -681,7 +681,7 @@ const upcoming = [
   { id:'u4', title:'Ads planning', time:'5:00pm', people:'Imani, Theo, you', rec:true },
   { id:'u5', title:'Coffee chat with Priya', time:'5:30pm', people:'Priya, you', rec:false, why:'Coffee chats are off by default' }
 ];
-function recTog(u){ return `<button class="rectog ${u.rec?'on':''}" data-uprec="${u.id}" aria-pressed="${u.rec}" aria-label="${u.rec?'Will record. Turn off':'Won\'t record. Turn on'}"><span class="d"></span>${u.rec?'Records':'Off'}</button>`; }
+function recTog(u){ return `<button class="rectog ${u.rec?'on':''}" data-uprec="${u.id}" role="switch" aria-checked="${u.rec}" aria-label="Record ${esc(u.title)}" title="${u.rec?'Recording on':'Recording off'}"></button>`; }
 const meetings = [
   { id:'m1', title:'Design review', when:'Today · 11:00am', dur:'32 min', people:'Ana, Theo, Ravi, you', status:'done',
     summary:['Agreed on the new empty state for mobile receipts','Saved cards will show at checkout for signed-in users','Design tokens should be reused in emails'],
