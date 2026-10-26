@@ -11,7 +11,7 @@
   --panel:#fcfcfd; --panel-2:#f2f3f6; --panel-3:#e9ebef; --line:#e1e4ea; --line-strong:#c9cdd5;
   --fg:#15171c; --fg-2:#565c68; --fg-3:#8a909b;
   --accent:#d99a00; --accent-bg:#fff3d1; --accent-ink:#6a4800;
-  --hot:#c2412d; --hot-bg:#fde8e3;
+  --hot:#c2412d; --hot-bg:#fde8e3; --switch-on:#2f9e55;
   --ai:#2458c4; --ai-bg:#e5edfd; --help:#6f45c9; --help-bg:#efe8fd; --ok:#2b7d47; --ok-bg:#e1f2e6;
   --shadow:0 24px 60px rgba(14,18,28,.24),0 2px 8px rgba(14,18,28,.12);
   --display:"Bricolage Grotesque",ui-rounded,system-ui,sans-serif;
@@ -264,7 +264,7 @@ details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing
 .time{font-family:var(--mono);font-size:12px;color:var(--fg-2);min-width:52px;font-variant-numeric:tabular-nums}
 .rectog{flex:none;position:relative;width:34px;height:20px;border-radius:10px;border:0;padding:0;background:var(--line-strong);margin-right:6px;transition:background .15s}
 .rectog::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
-.rectog.on{background:var(--hot)}
+.rectog.on{background:var(--switch-on)}
 .rectog.on::after{transform:translateX(14px)}
 .mgroup{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin:8px 10px 2px}
 .mgroup:first-child{margin-top:2px}
@@ -764,7 +764,7 @@ function meetingsHTML(){
   const list = `<nav class="mlist" aria-label="Meetings">
     <div class="mgroup">Up next today</div>
     ${capped('m-up', upcoming, x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
-      <b>${esc(x.title)}</b><small><span class="time" style="min-width:0">${esc(x.time)}</span> · ${x.rec?'<span style="color:var(--hot)">Will record</span>':'Won\'t record'}</small></button>`, '<div class="empty">No more meetings today</div>')}
+      <b>${esc(x.title)}</b><small><span class="time" style="min-width:0">${esc(x.time)}</span> · ${x.rec?'<span style="color:var(--ok)">Will record</span>':'Won\'t record'}</small></button>`, '<div class="empty">No more meetings today</div>')}
     <div class="mgroup">Recorded</div>
     ${capped('m-rec', meetings, x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
       <b>${esc(x.title)}</b><small>${x.status==='live'?'<span class="recdot"></span> Recording':x.status==='processing'?'Writing notes…':esc(x.when)+' · '+esc(x.dur)}</small></button>`)}</nav>`;
