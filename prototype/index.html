@@ -210,8 +210,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11px;color:var(--fg-3)}
 .type{display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--fg-2)}
 .type svg{width:13px;height:13px}
-.pri{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 6px;border-radius:5px;margin-left:auto}
-.pri.p1{background:var(--hot-bg);color:var(--hot)} .pri.p2{background:var(--accent-bg);color:var(--accent-ink)} .pri.p3{background:var(--panel-3);color:var(--fg-2)}
+.prio{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 6px;border-radius:5px;margin-left:auto}
+.prio.p1{background:var(--hot-bg);color:var(--hot)} .prio.p2{background:var(--accent-bg);color:var(--accent-ink)} .prio.p3{background:var(--panel-3);color:var(--fg-2)}
 .filters{display:flex;gap:6px;flex-wrap:wrap;padding:12px 18px 0}
 .filters .chip{height:28px;display:inline-flex;align-items:center;gap:5px;font-size:12px}
 .filters .chip svg{width:13px;height:13px}
@@ -220,6 +220,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .why{font-size:12px;color:var(--fg-2);margin-top:6px}
 @media (max-width:760px){.filters{padding:10px 16px 0}}
 .popfoot{flex-wrap:wrap}
+.popfoot .btn{flex:1;justify-content:center}
 .recpill{display:none;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:6px;border:0;background:var(--hot-bg);color:var(--hot);font-family:var(--mono);font-size:12px;font-weight:500}
 .recpill.on{display:inline-flex}
 .recdot{width:8px;height:8px;border-radius:50%;background:var(--hot);animation:blink 1.2s ease-in-out infinite}
@@ -470,7 +471,7 @@ function renderPop(){
     <div class="sec"><h3><span>Needs you</span><span>${need.length}</span></h3>${need.map(row).join('') || '<div class="empty">Nothing waiting on you</div>'}</div>
     <div class="sec"><h3><span>Working</span><span>${work.length}</span></h3>${work.map(row).join('') || '<div class="empty">Nothing running</div>'}</div>
     ${(()=>{ const rs=cards.filter(k=>k.repeat); return rs.length ? `<div class="sec"><h3><span>Recurring</span><span>${rs.length}</span></h3>${rs.map(k=>`<button class="row" data-open="${k.id}"><span class="rep" style="flex:none">${I.repeat}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.repeat.paused?'Paused':k.repeat.next)}</span></button>`).join('')}</div>` : ''; })()}
-    <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button><button class="btn" data-act-rec="1">${ui.rec ? '<span class="recdot"></span> Recording' : I.mic+' Record meeting'}</button><button class="btn ghost" data-go="profile">${I.user} Profile</button></div>
+    <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button><button class="btn" data-act-rec="1">${ui.rec ? '<span class="recdot"></span> Recording' : I.mic+' Record meeting'}</button></div>
   </div>`;
   const inp = document.getElementById('capIn'); inp.value = val;
   if(hadFocus || !ui._focused){ inp.focus(); ui._focused = true; }
@@ -530,7 +531,7 @@ function cardHTML(k){
               k.col==='done' ? `<span class="tag ok">${esc(status(k))}</span>` :
               `<span class="tag ai">${esc(status(k))}</span>`;
   return `<button class="card ${k.col==='need'?'need':''}" data-open="${k.id}" ${ui.sel===k.id?'aria-current="true"':''}>
-    <span class="meta"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span>${k.col!=='done'?`<span class="pri p${k.pri||2}">${PRI[k.pri||2]}</span>`:''}</span><span class="ttl">${esc(k.title)}</span>
+    <span class="meta"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span>${k.col!=='done'?`<span class="prio p${k.pri||2}">${PRI[k.pri||2]}</span>`:''}</span><span class="ttl">${esc(k.title)}</span>
     ${k.repeat ? `<span class="rep ${k.repeat.paused?'off':''}">${I.repeat} ${esc(k.repeat.label)}${k.repeat.paused?' · paused':''}</span>` : ''}
     ${k.col==='work' && p ? `<span class="bar-p"><i style="width:${Math.round(p.d/p.n*100)}%"></i></span>` : ''}
     ${tag}</button>`;
