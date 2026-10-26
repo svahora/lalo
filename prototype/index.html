@@ -180,6 +180,15 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .li:first-of-type{border-top:0}
 .li .from{font-size:11px;color:var(--fg-3);white-space:nowrap;font-family:var(--mono)}
 .tip{background:var(--accent-bg);color:var(--accent-ink);border-radius:10px;padding:10px 12px;font-size:13px;margin-top:12px}
+.rep{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--fg-2);font-weight:500}
+.rep svg{width:13px;height:13px;color:var(--ai)}
+.rep.off svg{color:var(--fg-3)}
+.sched{border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;background:var(--panel-2)}
+.sched-top{display:flex;gap:10px;align-items:flex-start}
+.sched-top svg{width:20px;height:20px;color:var(--ai);flex:none;margin-top:1px}
+.sched.off .sched-top svg{color:var(--fg-3)}
+.sched b{font-weight:600}
+.sched small{display:block;color:var(--fg-2);font-size:12px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -247,6 +256,7 @@ const I = {
   user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-linecap="round"/></svg>',
   copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"/></svg>',
   ext:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>',
+  repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/></svg>',
   menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 };
 document.getElementById('i-spark').innerHTML = I.spark;
@@ -294,7 +304,9 @@ const cards = [
   { id:'c5', col:'work', kind:'tickets', src:'Call · Design review', title:"Draft tickets from today's design review",
     steps:[ S('Read the call notes','ai','done'), S('Pull the decisions and owners','ai','done'),
             S('Match against existing tickets','ai','doing','Avoid duplicates'), S('Review 4 draft tickets','you') ] },
-  { id:'c6', col:'done', kind:'summary', src:'Slack · #product-feedback', title:'Summarize this week in #product-feedback',
+  { id:'c6', col:'done', kind:'summary', src:'Slack · #product-feedback', title:'Weekly summary of #product-feedback',
+    repeat:{ label:'Every Friday at 4pm', next:'Fri 4:00pm', paused:false,
+      runs:[['Oct 23','31 messages, 4 themes'],['Oct 16','24 messages, 3 themes'],['Oct 9','19 messages, 2 themes']] },
     summary:['31 messages, 4 themes','Top ask: saved payment methods (9 mentions)','Two bug reports already have tickets','Posted to your Notes page'] }
 ];
 
@@ -303,7 +315,8 @@ let ui = { pop:false, win:false, view:'board', sel:null, side:false, err:'', hin
 function counts(){ const c={need:0,work:0,done:0}; cards.forEach(k=>c[k.col]++); return c; }
 function progress(k){ if(!k.steps) return null; const d=k.steps.filter(s=>s.st==='done').length; return {d, n:k.steps.length}; }
 function status(k){
-  if(k.col==='done') return k.kind==='summary' ? 'Posted to Notes' : 'Done';
+  if(k.col==='done' && k.repeat) return k.repeat.paused ? 'Paused' : 'Next run '+k.repeat.next;
+  if(k.col==='done') return 'Done';
   if(k.kind==='draft') return 'Draft ready';
   if(k.kind==='stove' && k.qs.some(q=>!q.a)) { const n=k.qs.filter(q=>!q.a).length; return n+(n>1?' questions':' question'); }
   if(k.col==='need'){
@@ -340,9 +353,10 @@ function renderPop(){
       <button type="button" class="iconbtn" id="micBtn" aria-label="Hold to talk">${I.mic}</button>
       <button type="submit" class="iconbtn go" aria-label="Add task">${I.up}</button>
     </form>
-    ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : `<div class="caphelp">Type a task, a reminder, or a question. Press Enter.</div>`}
+    ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : `<div class="caphelp">A task, a reminder, or something recurring like "every Friday, summarize #design". Press Enter.</div>`}
     <div class="sec"><h3><span>Needs you</span><span>${need.length}</span></h3>${need.map(row).join('') || '<div class="empty">Nothing waiting on you</div>'}</div>
     <div class="sec"><h3><span>Working</span><span>${work.length}</span></h3>${work.map(row).join('') || '<div class="empty">Nothing running</div>'}</div>
+    ${(()=>{ const rs=cards.filter(k=>k.repeat); return rs.length ? `<div class="sec"><h3><span>Recurring</span><span>${rs.length}</span></h3>${rs.map(k=>`<button class="row" data-open="${k.id}"><span class="rep" style="flex:none">${I.repeat}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.repeat.paused?'Paused':k.repeat.next)}</span></button>`).join('')}</div>` : ''; })()}
     <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button><button class="btn" data-go="profile">${I.user} Your profile</button></div>
   </div>`;
   const inp = document.getElementById('capIn'); inp.value = val;
@@ -397,6 +411,7 @@ function cardHTML(k){
               `<span class="tag ai">${esc(status(k))}</span>`;
   return `<button class="card ${k.col==='need'?'need':''}" data-open="${k.id}" ${ui.sel===k.id?'aria-current="true"':''}>
     <span class="src">${esc(k.src)}</span><span class="ttl">${esc(k.title)}</span>
+    ${k.repeat ? `<span class="rep ${k.repeat.paused?'off':''}">${I.repeat} ${esc(k.repeat.label)}${k.repeat.paused?' · paused':''}</span>` : ''}
     ${k.col==='work' && p ? `<span class="bar-p"><i style="width:${Math.round(p.d/p.n*100)}%"></i></span>` : ''}
     ${tag}</button>`;
 }
@@ -471,10 +486,24 @@ function drawerHTML(k, anim){
       ${k.col==='need'?`<div class="acts"><button class="btn pri" data-act="ready">${I.check} Got it, mark done</button></div>`:''}`;
   }
   if(k.kind==='summary'){
-    body = `<div class="dsec"><h3>Summary</h3>${k.summary.map(s=>`<div class="li"><span>${esc(s)}</span></div>`).join('')}</div>`;
+    body = `<div class="dsec"><h3>Latest run · ${esc(k.repeat.runs[0][0])}</h3>${k.summary.map(s=>`<div class="li"><span>${esc(s)}</span></div>`).join('')}</div>
+      <div class="dsec"><h3>Past runs</h3>${k.repeat.runs.map(r=>`<div class="li"><span>${esc(r[1])}</span><span class="from">${esc(r[0])}</span></div>`).join('')}</div>`;
   }
+  if(k.repeat && k.kind!=='summary' && k.repeat.runs.length) body += `<div class="dsec"><h3>Past runs</h3>${k.repeat.runs.map(r=>`<div class="li"><span>${esc(r[1])}</span><span class="from">${esc(r[0])}</span></div>`).join('')}</div>`;
+  if(k.repeat) body = repeatHTML(k) + body;
   return `<aside class="drawer ${anim?'anim':''}" aria-label="Task detail"><div class="dhead"><div class="grow"><div class="card-src" style="font-size:12px;color:var(--fg-3)">${esc(k.src)}</div><h2>${esc(k.title)}</h2></div>
     <button class="iconbtn" data-unsel aria-label="Close detail">${I.x}</button></div><div class="dbody" data-keep="drawer">${body}</div></aside>`;
+}
+
+const SCHED = ['Every day at 9am','Every Monday at 9am','Every Friday at 4pm','First of every month'];
+const NEXT = {'Every day at 9am':'tomorrow 9:00am','Every Monday at 9am':'Mon 9:00am','Every Friday at 4pm':'Fri 4:00pm','First of every month':'Nov 1'};
+function repeatHTML(k){
+  const r = k.repeat;
+  return `<div class="dsec"><div class="sched ${r.paused?'off':''}">
+      <div class="sched-top">${I.repeat}<div class="grow"><b>${esc(r.label)}</b><small>${r.paused ? 'Paused. It won\'t run until you resume it.' : 'Next run '+esc(r.next)}</small></div></div>
+      <div class="chips" style="margin-top:10px">${SCHED.map(s=>`<button class="chip" data-sched="${esc(s)}" aria-pressed="${s===r.label}">${esc(s.replace(' at 9am','').replace(' at 4pm',''))}</button>`).join('')}</div>
+      <div class="acts"><button class="btn pri" data-act="runnow">${I.up} Run now</button><button class="btn" data-act="pause">${r.paused?'Resume':'Pause'}</button></div>
+    </div></div>`;
 }
 
 const profile = {
@@ -501,9 +530,23 @@ function addTask(text){
     steps:[ S('Work out what done looks like','ai','doing'), S('Pull related context from Slack, docs, and tickets','ai'),
             S('Break it into steps and do the ones it can','ai'), S('Review the plan and take the first step','you') ] };
   if(/stove|buy|order|purchase/i.test(t)){ k.steps[2].sub='Questions will show up here if the answers change the plan'; }
+  const rep = parseRepeat(t);
+  if(rep){
+    k.repeat = {label:rep, next:NEXT[rep] || 'soon', paused:false, runs:[]};
+    k.steps = [ S('Set up the schedule','ai','doing',rep), S('Do the first run now','ai'), S('Post results to your Notes page','ai') ];
+  }
   cards.unshift(k); ui.err='';
   const inp=document.getElementById('capIn'); if(inp) inp.value='';
-  render(); toast('Added. lalo is planning it now.');
+  render(); toast(rep ? 'Added as a recurring task: '+rep.toLowerCase()+'.' : 'Added. lalo is planning it now.');
+}
+function parseRepeat(t){
+  const s=t.toLowerCase();
+  if(!/\b(every|each|daily|weekly|monthly)\b/.test(s)) return null;
+  if(/\b(daily|every day|each day|every morning|each morning)\b/.test(s)) return 'Every day at 9am';
+  if(/\b(monthly|every month|each month)\b/.test(s)) return 'First of every month';
+  const day = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].find(d=>s.includes(d));
+  if(day){ const D=day[0].toUpperCase()+day.slice(1); const lbl='Every '+D+' at 9am'; NEXT[lbl]=D.slice(0,3)+' 9:00am'; return lbl; }
+  return 'Every Monday at 9am';
 }
 
 function tick(){
@@ -515,7 +558,7 @@ function tick(){
     k.steps[i].st='done'; changed=true;
     let j=i+1;
     while(j<k.steps.length && k.steps[j].st==='done') j++;
-    if(j>=k.steps.length){ k.col='done'; return; }
+    if(j>=k.steps.length){ k.col='done'; if(k.repeat && !k.repeat.runs.length) k.repeat.runs.unshift(['Today','First run done, posted to your Notes']); return; }
     if(k.steps[j].who==='ai'){ k.steps[j].st='doing'; }
     else { k.col='need'; }
   });
@@ -552,6 +595,13 @@ document.addEventListener('click', e=>{
   const k = cards.find(x=>x.id===ui.sel);
   if(!k){ if(ui.pop && !t.closest('.pop')){ ui.pop=false; render(); } return; }
   if(t.dataset.tone){ ui._chatFocus=false; tone(k, t.dataset.tone); return; }
+  if(t.dataset.sched){ k.repeat.label=t.dataset.sched; k.repeat.next=NEXT[t.dataset.sched]; k.repeat.paused=false; render(); toast('Schedule changed to '+t.dataset.sched.toLowerCase()+'.'); return; }
+  if(t.dataset.act==='pause'){ k.repeat.paused=!k.repeat.paused; render(); toast(k.repeat.paused?'Paused.':'Resumed. Next run '+k.repeat.next+'.'); return; }
+  if(t.dataset.act==='runnow'){
+    toast('Running now…');
+    setTimeout(()=>{ k.repeat.runs.unshift(['Today', k.kind==='summary' ? '8 new messages since Friday, 1 new theme' : 'Ran early, results in your Notes']); render(); toast('Done. Results added below.'); }, 1800);
+    return;
+  }
   if(t.dataset.q!==undefined){
     k.qs[+t.dataset.q].a = t.dataset.a;
     if(k.qs.every(q=>q.a)){
@@ -590,7 +640,7 @@ document.addEventListener('submit', e=>{
     tone(k, key, v);
   }
 });
-document.addEventListener('input', e=>{ if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">Type a task, a reminder, or a question. Press Enter.</div>'; } });
+document.addEventListener('input', e=>{ if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">A task, a reminder, or something recurring like "every Friday, summarize #design". Press Enter.</div>'; } });
 document.addEventListener('keydown', e=>{
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
   if(e.key==='Escape'){ if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
