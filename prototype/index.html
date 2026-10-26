@@ -328,7 +328,7 @@ body.phone .tabbar{display:flex;position:absolute;left:0;right:0;bottom:0;z-inde
 .tabbar button[aria-current="page"] svg{color:var(--accent)}
 .tb-badge{position:absolute;top:0;left:calc(50% + 6px);font-style:normal;font-family:var(--mono);font-size:10px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--panel-3);color:var(--fg);font-weight:600;display:grid;place-items:center}
 .tb-rec{position:absolute;top:3px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:var(--hot)}
-body.phone .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body.phone .toast{bottom:calc(136px + env(safe-area-inset-bottom,0px))}
 body.phone .voice{top:calc(10px + env(safe-area-inset-top,0px))}
 .phonehome{flex:1;display:flex;flex-direction:column;overflow:auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
 .ph-top{padding:16px 0 0;display:flex;align-items:center}
@@ -375,8 +375,8 @@ body.phone .mdetail.meet-phone{padding:0 16px 20px}
 .themebtn-ph svg{width:18px;height:18px}
 .cubtn{display:inline-flex;align-items:center;gap:4px;border:0;background:var(--accent-bg);color:var(--accent-ink);font-size:11px;font-weight:600;letter-spacing:0;text-transform:none;padding:2px 8px;border-radius:6px}
 .cubtn svg{width:12px;height:12px}
-.cu-wrap{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:18px 16px 20px;gap:14px}
-.cu-stack{position:relative;width:min(440px,100%);height:min(440px,58vh);flex:none}
+.cu-wrap{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:14px 16px 16px;gap:10px}
+.cu-stack{position:relative;width:min(440px,100%);flex:1 1 0;min-height:250px;max-height:460px}
 .cu-card{position:absolute;inset:0;background:var(--panel);border:1px solid var(--line-strong);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,.12);
   transform:translateY(calc(var(--d) * 12px)) scale(calc(1 - var(--d) * .05));opacity:calc(1 - var(--d) * .25);touch-action:pan-y;user-select:none;overflow:hidden;--swipe-ok:0;--swipe-later:0}
 .cu-card[data-depth="0"]{cursor:grab;z-index:3}
@@ -392,7 +392,7 @@ body.phone .mdetail.meet-phone{padding:0 16px 20px}
 .cu-stamp{position:absolute;top:18px;padding:4px 10px;border-radius:8px;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;border:2px solid;pointer-events:none}
 .cu-stamp.ok{left:18px;color:var(--switch-on);border-color:var(--switch-on);opacity:var(--swipe-ok);transform:rotate(-10deg)}
 .cu-stamp.later{right:18px;color:var(--fg-2);border-color:var(--fg-2);opacity:var(--swipe-later);transform:rotate(10deg)}
-.cu-acts{display:flex;gap:10px;width:min(440px,100%)}
+.cu-acts{box-sizing:border-box;display:flex;gap:10px;width:min(440px,100%)}
 .cu-acts .btn{flex:1;height:44px;justify-content:center;font-size:14px;border-radius:12px}
 .cu-ok{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
 .cu-hint{font-size:12px;color:var(--fg-3)}
@@ -400,7 +400,7 @@ body.phone .mdetail.meet-phone{padding:0 16px 20px}
 .cu-empty>svg{width:44px;height:44px;color:var(--switch-on)}
 .cu-empty h2{margin:0;font-family:var(--display);font-weight:500;color:var(--fg);font-size:22px}
 .cu-empty p{margin:0 0 8px}
-body.phone .cu-stack{height:calc(100% - 176px);min-height:340px}
+
 body.phone .cu-wrap{gap:10px;padding-top:12px}
 body.phone .cu-hint{display:none}
 .cu-banner{display:flex;align-items:center;gap:10px;width:calc(100% - 24px);margin:10px 12px 0;padding:10px 12px;border-radius:12px;border:1px solid var(--accent);background:var(--accent-bg);color:var(--fg);text-align:left}
@@ -420,6 +420,181 @@ body.phone .board .filters{padding:0 0 4px}
 .cu-ask{display:flex;gap:8px;width:min(440px,100%)}
 .cu-ask input{flex:1;min-width:0;height:40px;border-radius:12px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--fg);padding:0 12px;font:inherit}
 .cu-ask .iconbtn{width:40px;height:40px;border-radius:12px;background:var(--accent);border-color:var(--accent);color:#fff}
+.askbar{display:none}
+body.phone .askbar{display:flex;gap:10px;align-items:center;position:absolute;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:6}
+.askpill{flex:1;min-width:0;height:52px;border-radius:26px;border:1px solid var(--line-strong);background:var(--panel);color:var(--fg-2);display:flex;align-items:center;gap:10px;padding:0 18px;font-size:15px;box-shadow:0 8px 24px rgba(0,0,0,.14);text-align:left}
+.askpill svg{width:20px;height:20px;color:var(--accent);flex:none}
+.askpill span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.askmic{flex:none;width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.askmic svg{width:24px;height:24px}
+.askmic.sm{width:40px;height:40px;box-shadow:none}
+.askmic.sm svg{width:18px;height:18px}
+body.phone .main{padding-bottom:calc(136px + env(safe-area-inset-bottom,0px))}
+body.phone .main:has(.cu-wrap){padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+.asksheet{position:absolute;inset:0;z-index:8;background:var(--panel);display:flex;flex-direction:column;padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+.askhead{display:flex;align-items:center;padding:10px 8px;border-bottom:1px solid var(--line)}
+.askhead b{font-weight:600}
+.askthread{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:14px 16px}
+.askthread .msg{max-width:88%;font-size:14px}
+.asklinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.asklinks .chip{height:28px;font-size:12px;background:var(--panel);color:var(--accent-ink);border-color:var(--accent)}
+.askintro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;color:var(--fg-2);padding:30px 16px}
+.askintro svg{width:30px;height:30px;color:var(--accent)}
+.askintro p{margin:0;max-width:30ch}
+.askform{display:flex;gap:8px;align-items:center;padding:8px 12px;border-top:1px solid var(--line)}
+.askform input{flex:1;min-width:0;height:44px;border-radius:22px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--fg);padding:0 16px;font:inherit;font-size:16px}
+.askform .iconbtn{width:40px;height:40px;border-radius:50%}
+.phonebar{display:flex;align-items:center;gap:6px;padding:10px max(12px,env(safe-area-inset-right,0px)) 2px max(16px,env(safe-area-inset-left,0px))}
+.phonebar .brand{font-size:20px}
+.pb-ic{position:relative;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--fg-2);display:grid;place-items:center}
+.pb-ic svg{width:19px;height:19px}
+.pb-ic[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
+.pb-rec{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--hot)}
+.pb-me{width:40px;height:40px;border-radius:50%;border:2px solid var(--panel);box-shadow:0 0 0 1px var(--line-strong);background:var(--accent-bg);color:var(--accent-ink);font-weight:600;font-size:15px;margin-left:2px}
+.pb-me[aria-current="page"]{box-shadow:0 0 0 2px var(--accent)}
+body.phone .mainhead{padding-top:6px}
+.askpill{display:flex;align-items:center;padding:0 6px 0 0}
+.askopen{flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--fg-2);display:flex;align-items:center;gap:10px;padding:0 4px 0 18px;font-size:15px;text-align:left}
+.askopen svg{width:20px;height:20px;color:var(--accent);flex:none}
+.askopen span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pillmic{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--panel-2);color:var(--fg-2);display:grid;place-items:center}
+.pillmic svg{width:19px;height:19px;color:var(--fg-2)}
+.askcu{position:relative;flex:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--fg);color:var(--panel);font-family:var(--body);font-size:18px;font-weight:800;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.14)}
+.askcu svg{width:20px;height:20px;color:var(--panel)}
+.askcu i{position:absolute;top:-7px;right:-7px;font-style:normal;font-family:var(--body);font-size:13px;font-weight:800;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--accent);color:#fff;box-shadow:0 0 0 2px var(--panel);display:grid;place-items:center;border:2px solid var(--panel)}
+body.phone .askbar{bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+body.phone .main{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+body.phone .main:has(.cu-wrap){padding-bottom:env(safe-area-inset-bottom,0px)}
+.asksheet{padding-bottom:env(safe-area-inset-bottom,0px)}
+body.phone .toast{bottom:auto;top:calc(64px + env(safe-area-inset-top,0px))}
+body.phone .main>.filters{flex-wrap:nowrap;overflow-x:auto;padding:8px max(16px,env(safe-area-inset-left,0px)) 10px;border-bottom:1px solid var(--line);scrollbar-width:none}
+body.phone .main>.filters::-webkit-scrollbar{display:none}
+body.phone .main>.filters .chip{flex:none}
+.cu-talk{width:min(440px,100%);display:flex;flex-direction:column;gap:8px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:16px;padding:10px 10px 10px}
+.cu-talk-h{display:flex;align-items:center;gap:6px;color:var(--accent-ink);font-size:13px;padding:0 4px}
+.cu-talk-h svg{width:16px;height:16px}
+.cu-talk-h b{font-weight:600}
+.cu-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.cu-chips::-webkit-scrollbar{display:none}
+.cu-chips .chip{flex:none;height:30px;font-size:12px;background:var(--panel);border-color:var(--accent);color:var(--accent-ink)}
+.cu-talk .cu-ask{width:100%}
+.cu-talk .cu-ask input{height:46px;font-size:15px;background:var(--panel);border-color:var(--accent)}
+.cu-talk .cu-ask .iconbtn{width:46px;height:46px}
+body.phone .cu-stack{max-height:none}
+.drawer .dbody{flex:1;min-height:0}
+.dfoot{border-top:1px solid var(--line);padding:10px 14px 12px;display:flex;flex-direction:column;gap:10px;background:var(--panel)}
+.dfoot .cu-talk,.dfoot .cu-acts{width:100%}
+.dec-note{flex:1;display:grid;place-items:center;font-size:13px;color:var(--fg-2);border:1px dashed var(--line-strong);border-radius:12px}
+.sec-acts{margin-top:8px}
+.sec-acts .btn{height:28px;padding:0 8px;font-size:12px}
+.col.idle{background:transparent;border:1px dashed var(--line);padding:8px 10px}
+.col.idle h2{color:var(--fg-3);margin:0 4px}
+.mark.idle{width:8px;height:8px;border-radius:50%;background:var(--line-strong)}
+.sec.idle h3{opacity:.6}
+.donecol{gap:4px}
+.donerow{display:flex;align-items:center;gap:8px;width:100%;border:0;background:transparent;text-align:left;padding:7px 8px;border-radius:8px;font-size:13px;color:var(--fg-2)}
+.donerow:hover,.donerow[aria-current="true"]{background:var(--panel)}
+.donerow .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.donechk svg{width:14px;height:14px;color:var(--ok);display:block}
+.donerow .rep svg{width:14px;height:14px}
+.talkpill{margin:0;box-sizing:border-box;max-width:100%;display:flex;align-items:center;gap:8px;height:52px;border-radius:26px;border:1px solid var(--line-strong);background:var(--panel);padding:0 6px 0 16px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.talkpill>svg{width:20px;height:20px;color:var(--accent);flex:none}
+.talkpill input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:15px;height:100%;outline:none}
+.talkpill input::placeholder{color:var(--fg-2)}
+.talksend{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--fg);color:var(--panel);display:grid;place-items:center}
+.talksend svg{width:18px;height:18px}
+.cu-wrap>.talkpill{width:min(440px,100%)}
+.dfoot .talkpill{width:100%}
+.steps-sum{font-size:12px;color:var(--fg-3);margin-bottom:2px}
+.step .num{width:22px;height:22px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:600;font-family:var(--mono);background:var(--panel-2);color:var(--fg-2);border:1px solid var(--line)}
+.step.done .num{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+.step.done .num svg{width:12px;height:12px}
+.step.doing .num{background:var(--ai-bg);color:var(--ai);border-color:var(--ai)}
+.step.cur .num{border-width:2px}
+.step.cur .tx>span{font-weight:600}
+.approve-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.approve-row .btn.cta{flex:1;justify-content:center;height:40px;border-radius:10px}
+.prrow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:10px 12px}
+.prrow b{display:block;font-weight:600;font-size:14px}
+.prrow small{display:block;color:var(--fg-2);font-size:12px}
+.prrow>svg{width:18px;height:18px;color:var(--fg-3);flex:none}
+.prrow:hover{border-color:var(--line-strong)}
+.approve-col{display:flex;flex-direction:column;align-items:stretch;gap:6px;margin-top:10px}
+.approve-col .btn.ghost{align-self:flex-start}
+.approve-col .btn.cta{justify-content:center;height:42px;border-radius:10px}
+.dsec.plan{background:var(--panel-2);border-radius:12px;padding:10px 12px 4px}
+.dsec.plan .step{border-top-color:var(--line-strong)}
+.feed{position:relative;display:flex;flex-direction:column;gap:10px;padding-left:2px}
+.feed::before{content:"";position:absolute;left:13px;top:6px;bottom:6px;width:2px;background:var(--line);border-radius:1px}
+.fe{position:relative;display:flex;gap:8px;align-items:flex-start}
+.fe-av{position:relative;z-index:1;width:26px;height:26px;flex:none;border-radius:50%;background:var(--accent-bg);color:var(--accent);display:grid;place-items:center;border:2px solid var(--panel)}
+.fe-av svg{width:13px;height:13px}
+.fe-lalo .msg{max-width:calc(100% - 40px)}
+.msg.asked{background:transparent;border:1px solid var(--line);color:var(--fg-2)}
+.fe-me{justify-content:flex-end}
+.fe-me .msg{max-width:80%}
+.fe-step{align-items:center;font-size:12px;color:var(--ok);font-weight:500}
+.fe-dot{position:relative;z-index:1;width:26px;height:26px;flex:none;border-radius:50%;background:var(--ok-bg);display:grid;place-items:center;border:2px solid var(--panel)}
+.fe-dot svg{width:12px;height:12px;color:var(--ok)}
+.fe-q{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.fe-now .msg{border:1.5px solid var(--accent);background:var(--panel)}
+.fe-skip{align-self:flex-start;width:auto;padding:4px 6px;color:var(--fg-3)}
+.steplink{display:inline-flex;align-items:center;gap:2px;margin-top:4px;border:0;background:transparent;color:var(--accent-ink);font-size:12px;font-weight:600;padding:0}
+.steplink svg{width:14px;height:14px}
+.stagebtn{width:100%;justify-content:center;height:44px;margin-top:10px;border-radius:12px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--fg-2);font-size:14px;font-weight:600}
+.stagebtn:hover{background:var(--panel-3);color:var(--fg)}
+.planbar{display:flex;align-items:center;gap:10px;width:100%;box-sizing:border-box;text-align:left;border:1px solid var(--line-strong);border-radius:14px;background:var(--panel-2);padding:8px 12px}
+.planbar b{display:block;font-weight:600;font-size:13px}
+.planbar small{display:block;font-size:12px;color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.planbar .grow{min-width:0}
+.planbar>svg{width:18px;height:18px;color:var(--fg-3);flex:none}
+.pb-ring{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--p) * 1%), var(--line) 0)}
+.pb-ring span{width:26px;height:26px;border-radius:50%;background:var(--panel-2);display:grid;place-items:center;font-size:9px;font-weight:700;font-family:var(--mono)}
+.cu-wrap>.planbar{width:min(440px,100%)}
+.numbered{counter-reset:li}
+.numbered .li>span:first-child{counter-increment:li;display:flex;gap:8px}
+.numbered .li>span:first-child::before{content:counter(li);flex:none;width:20px;height:20px;border-radius:50%;background:var(--panel-2);color:var(--fg-2);font-size:11px;font-weight:600;font-family:var(--mono);display:grid;place-items:center;margin-top:1px}
+.dhead .planbar{margin-top:10px}
+.dhead>.grow{min-width:0}
+.dhead>.iconbtn{flex:none}
+.cu-card .planbar{flex:none}
+.ringbtn{flex:none;border:0;background:transparent;padding:0;border-radius:50%;cursor:pointer}
+.ringbtn .pb-ring{width:40px;height:40px}
+.ringbtn .pb-ring span{width:32px;height:32px;background:var(--panel);font-size:10px}
+.ringbtn:hover .pb-ring{filter:brightness(1.1)}
+.dhead>.ringbtn{margin-right:6px}
+.cu-titlerow{display:flex;gap:10px;align-items:flex-start}
+.talkrow{display:flex;gap:8px;align-items:center;width:min(440px,100%);box-sizing:border-box}
+.dfoot .talkrow{width:100%}
+.talkrow .talkpill{flex:1;min-width:0}
+.nextbtn{flex:none;height:52px;padding:0 10px 0 14px;border-radius:26px;border:1px solid var(--line-strong);background:var(--panel);color:var(--fg);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:2px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.nextbtn svg{width:18px;height:18px}
+.approvebtn{width:min(440px,100%);justify-content:center;height:46px;border-radius:12px;box-sizing:border-box}
+.dfoot .approvebtn{width:100%}
+.qa-row{display:flex;gap:6px;flex-wrap:wrap;width:min(440px,100%)}
+.dfoot .qa-row{width:100%}
+.qa-chip{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border-radius:16px;border:1.5px solid var(--accent);background:var(--accent-bg);color:var(--accent-ink);font-size:13px;font-weight:600}
+.qa-chip svg{width:14px;height:14px}
+.qa-chip:hover{background:var(--accent);color:#fff}
+.talkact{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:var(--panel-2);color:var(--fg-2);display:grid;place-items:center}
+.talkact svg{width:19px;height:19px}
+.talkact.send{background:var(--fg);color:var(--panel)}
+.nextbtn{width:52px;padding:0;justify-content:center}
+.nextbtn svg{width:22px;height:22px}
+.talkpill{height:auto;min-height:52px;align-items:flex-end;padding-top:6px;padding-bottom:6px}
+.talkpill>svg{align-self:center}
+.talkpill.multi{border-radius:20px}
+.talkpill.multi>svg{align-self:flex-start;margin-top:8px}
+.talkpill textarea{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:15px;line-height:20px;padding:10px 0;resize:none;outline:none;max-height:120px;overflow-y:auto}
+.talkpill textarea::placeholder{color:var(--fg-2)}
+.talkrow{align-items:flex-end}
+.nextbtn{border:0!important;background:transparent!important;box-shadow:none!important;color:var(--fg-3)!important;width:36px!important;height:52px}
+.nextbtn svg{width:26px;height:26px}
+.nextbtn:hover{color:var(--fg-2)!important}
+.talkpill.suggest textarea{color:var(--accent);font-weight:600}
+.talkpill.suggest .talkact.send{background:var(--accent);color:#fff}
+.talkpill.suggest{border-color:var(--accent)}
+.talkpill{padding-left:18px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -529,10 +704,11 @@ const cards = [
           warmer:"Love the push to move faster. Realistically Nov 3 is tight, we lose the next two weeks to the offsite and hackathon. Could we aim for a smaller test on Nov 10?",
           direct:"Nov 3 won't work, we lose two weeks to the offsite and hackathon. Proposing a smaller test on Nov 10, let's lock scope at the offsite." },
       cur:'base', commit:'Proposes Nov 10. Check with the team before sending.', chat:[] } },
-  { id:'c3', col:'need', kind:'stove', src:'You · menu bar', title:"Buy a stove for mom's rental unit",
+  { id:'c3', col:'need', kind:'stove', src:'You', title:"Buy a stove for mom's rental unit",
     qs:[ {q:'Gas or electric hookup?', o:['Gas','Electric','Not sure'], a:null},
          {q:'Budget?', o:['Under $600','$600 to $900','$900+'], a:null},
-         {q:'Need it by?', o:['This week','Before next tenant','No rush'], a:null} ],
+         {q:'Need it by?', o:['This week','Before next tenant','No rush'], a:null},
+         {q:'How wide is the space?', o:['24 inches','30 inches','36 inches','Not sure'], a:null} ],
     steps:[ S('Measure the space and check the hookup','help','todo','Usually 30 inches wide. I\'ll send you a 20-second checklist'),
             S('Arrange access with the tenant','help','todo','Message drafted. You send it'),
             S('Shortlist 3 durable, easy-to-clean models','ai','todo','Waiting on your answers'),
@@ -551,7 +727,7 @@ const cards = [
   { id:'c7', col:'work', kind:'ship', src:'Ticket · CHK-214', title:'Add "Save card for next time" at checkout',
     steps:[ S('Read the ticket and the checkout code','ai','done'),
             S('Make the change on a new branch','ai','done','4 files changed, +128 −12'),
-            S('Open a pull request','ai','done','PR #482'),
+            Object.assign(S('Open a pull request','ai','done','PR #482'), {pr:true}),
             S('Fix review comments','ai','doing','3 of 5 resolved'),
             S('Run the tests','ai','todo','Unit, integration, and end-to-end'),
             S('Deploy to staging behind a feature flag','ai','todo','Flag checkout_save_card, off for customers'),
@@ -586,6 +762,7 @@ const SEED_PRI = {
   c6:[3,'Runs on its own every Friday']
 };
 cards.forEach(k=>{ const p=SEED_PRI[k.id]; if(p){ k.pri=p[0]; k.why=p[1]; } });
+{ const st=cards.find(c=>c.id==='c3'); st.qOrder=[3,0,1,2]; st.log=[{type:'lalo', t:"I broke this into 8 steps. I need a few answers first, one at a time."}]; }
 const byPri = (a,b) => (a.pri||2) - (b.pri||2);
 function guessType(t){
   const s=t.toLowerCase();
@@ -646,7 +823,7 @@ function homeBody(){
     </div>
     ${tab==='tasks' ? `
     <div class="sec"><h3><span>Needs you</span><span>${need.length}</span></h3>${capped('p-need', need, row, '<div class="empty">Nothing waiting on you</div>')}</div>
-    <div class="sec"><h3><span>Working</span><span>${work.length}</span></h3>${capped('p-work', work, row, '<div class="empty">Nothing running</div>')}</div>
+    <div class="sec ${work.length?'':'idle'}"><h3><span>Working</span><span>${work.length}</span></h3>${capped('p-work', work, row, '')}</div>
     ${(()=>{ const rs=cards.filter(k=>k.repeat); return rs.length ? `<div class="sec"><h3><span>Recurring</span><span>${rs.length}</span></h3>${capped('p-rep', rs, k=>`<button class="row" data-open="${k.id}"><span class="rep" style="flex:none">${I.repeat}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.repeat.paused?'Paused':k.repeat.next)}</span></button>`)}</div>` : ''; })()}
     <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button></div>`
     : `
@@ -677,7 +854,8 @@ function renderWin(){
   const oldChange = document.getElementById('changeIn'); const changeVal = oldChange ? oldChange.value : ''; const changeFocus = oldChange && document.activeElement === oldChange;
   const oldChat = document.getElementById('chatIn'); const chatVal = oldChat ? oldChat.value : '';
   const chatFocus = (oldChat && document.activeElement === oldChat) || ui._chatFocus; ui._chatFocus = false;
-  const oldCu = document.getElementById('cuChatIn'); const cuVal = oldCu ? oldCu.value : ''; const cuFocus = (oldCu && document.activeElement === oldCu) || ui._cuFocus; ui._cuFocus=false;
+  const oldAsk = document.getElementById('askIn'); const askVal = oldAsk ? oldAsk.value : ''; const askFocus = (oldAsk && document.activeElement === oldAsk) || ui._askFocus; ui._askFocus=false;
+  const oldCu = document.getElementById('talkIn'); const cuVal = oldCu ? oldCu.value : ''; const cuFocus = (oldCu && document.activeElement === oldCu) || ui._cuFocus; ui._cuFocus=false;
   const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
   m.innerHTML = `<section class="win ${winAnim?'anim':''}" role="dialog" aria-label="lalo board">
@@ -691,18 +869,34 @@ function renderWin(){
       <div class="sidefoot">Prototype. Example data, nothing is connected or sent.</div>
     </aside>
     <div class="main">
+      ${ui.phone ? phoneBar() : ''}
       ${ui.view==='home' ? homeHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : ui.view==='insights' ? insightsHTML() : ui.view==='catchup' ? catchHTML() : profileHTML()}
       ${ui.sel && ui.view==='board' ? drawerHTML(cards.find(k=>k.id===ui.sel), drAnim) : ''}
     </div>
-    ${ui.phone ? `<nav class="tabbar" aria-label="Sections">${[['home','spark','Home'],['board','board','Board'],['meetings','mic','Meetings'],['insights','bulb','Insights'],['profile','user','Profile']].map(([v,ic,l])=>
-      `<button data-go="${v}" ${ui.view===v?'aria-current="page"':''}>${I[ic]}<span>${l}</span>${v==='board'&&c.need?`<i class="tb-badge">${c.need}</i>`:''}${v==='meetings'&&ui.rec?'<i class="tb-rec"></i>':''}</button>`).join('')}</nav>` : ''}
+    ${ui.phone && !ui.ask && ui.view!=='catchup' ? `<div class="askbar">
+      <div class="askpill"><button class="askopen" data-ask="1"><span>Ask or tell lalo anything</span></button><button class="pillmic" data-voice="1" aria-label="Say Hey lalo">${I.mic}</button></div>
+      <button class="askcu" data-reviewnext="1" aria-label="Review the next item, ${c.need} need you">${c.need ? c.need : I.check}</button></div>` : ''}
+    ${ui.ask ? askHTML() : ''}
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
   const tl = document.getElementById('trLive'); if(tl) tl.scrollTop = tl.scrollHeight;
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
   const cp = document.getElementById('capIn'); if(cp){ cp.value = capVal; if(capFocus) cp.focus(); }
-  if(ui.view==='catchup'){ bindSwipe(); const cu=document.getElementById('cuChatIn'); if(cu){ cu.value=cuVal; if(cuFocus) cu.focus(); } const b=document.getElementById('cuBody'); if(b && cuFocus) b.scrollTop=b.scrollHeight; }
+  const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
+  { const cu=document.getElementById('talkIn'); if(cu){ fitTalk(cu); if(cuFocus){ cu.focus(); cu.setSelectionRange(cu.value.length, cu.value.length); } } const b=document.getElementById('cuBody'); if(b && cuFocus) b.scrollTop=b.scrollHeight; }
+  if(ui.view==='catchup') bindSwipe();
+}
+
+function phoneBar(){
+  const ic = (v, icon, label, extra) => `<button class="pb-ic" data-go="${v}" aria-label="${label}" ${ui.view===v?'aria-current="page"':''}>${I[icon]}${extra||''}</button>`;
+  return `<div class="phonebar">
+    ${ui.view==='board' ? `<div class="brand" style="padding:0">${I.spark} lalo</div>` : (ui.view==='meetings' && ui.meetOpen) ? `<button class="backbtn" data-meetback="1">${I.back} Meetings</button>` : `<button class="backbtn" data-go="board">${I.back} Board</button>`}
+    <span class="grow"></span>
+    ${ic('meetings','cal','Meetings', ui.rec?'<i class="pb-rec"></i>':'')}
+    ${ic('insights','bulb','Insights')}
+    <button class="pb-me" data-go="profile" aria-label="Your profile" ${ui.view==='profile'?'aria-current="page"':''}>S</button>
+  </div>`;
 }
 
 function homeHTML(){
@@ -713,15 +907,9 @@ function homeHTML(){
     <div class="ph-center">
       <button class="heybig" data-voice="1" aria-label="Start Hey lalo">${I.mic}</button>
       <h1>Say "Hey lalo" to begin</h1>
-      <p>Or type what you need. lalo turns it into a task and starts on the parts it can do.</p>
+      <p>Or use the bar below. Ask a question, or tell lalo something to do.</p>
     </div>
-    <form class="cap ph-cap" id="capForm" autocomplete="off">
-      <label class="sr" for="capIn">Tell lalo anything</label>
-      <input id="capIn" placeholder="Tell lalo anything">
-      <button type="submit" class="iconbtn go" aria-label="Add task">${I.up}</button>
-    </form>
-    ${ui.err ? `<div class="err" style="padding:0 20px">${esc(ui.err)}</div>` : ''}
-    <div class="ph-ex">${ex.map(e=>`<button class="chip" data-fill="${esc(e)}">${esc(e)}</button>`).join('')}</div>
+    <div class="ph-ex">${['What needs me today?','What did we decide about Nov 3?','Every Friday, summarize #design'].map(e=>`<button class="chip" data-askfill="${esc(e)}">${esc(e)}</button>`).join('')}</div>
   </div>`;
 }
 
@@ -734,23 +922,29 @@ function head(title, sub, action){
 function boardHTML(c){
   const col = (key, label, mark) => {
     const list = cards.filter(k=>k.col===key && (ui.type==='all' || typeOf(k)===ui.type)).sort(byPri);
-    return `<div class="col"><h2><span class="mark ${mark}"></span>${label}<span class="c">${list.length}</span></h2>
-      ${capped('col-'+key, list, cardHTML, '<div class="empty">Empty</div>')}</div>`;
+    if(!list.length) return `<div class="col idle"><h2><span class="mark idle"></span>${label}<span class="c">0</span></h2></div>`;
+    const item = key==='done' ? doneRow : cardHTML;
+    return `<div class="col ${key==='done'?'donecol':''}"><h2><span class="mark ${mark}"></span>${label}<span class="c">${list.length}</span></h2>
+      ${capped('col-'+key, list, item, '')}</div>`;
   };
   const tc = {}; cards.forEach(k=>{ const t=typeOf(k); tc[t]=(tc[t]||0)+1; });
   const filters = `<div class="filters" role="group" aria-label="Filter by type"><button class="chip" data-type="all" aria-pressed="${ui.type==='all'}">All <span class="n">${cards.length}</span></button>${
     Object.keys(TYPES).filter(t=>tc[t]).map(t=>`<button class="chip" data-type="${t}" aria-pressed="${ui.type===t}">${I[TYPES[t][1]]} ${TYPES[t][0]} <span class="n">${tc[t]}</span></button>`).join('')}</div>`;
-  return head('Board', `${c.work} working · ${c.need} need you · sorted by priority`, c.need ? `<button class="btn cta" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + (ui.phone ? '' : filters) +
-    `<div class="board" data-keep="board">${ui.phone ? filters : ''}${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
+  if(ui.phone) return filters + `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
+  return head('Board', `${c.work} working · ${c.need} need you`, c.need && !ui.phone ? `<button class="btn cta" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + filters +
+    `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
 }
 
+function doneRow(k){
+  return `<button class="donerow" data-open="${k.id}" ${ui.sel===k.id?'aria-current="true"':''}>${k.repeat?`<span class="rep" style="flex:none">${I.repeat}</span>`:`<span class="donechk">${I.check}</span>`}<span class="t">${esc(k.title)}</span></button>`;
+}
 function cardHTML(k){
   const p = progress(k);
   const tag = k.col==='need' ? `<span class="tag you">${esc(status(k))}</span>` :
               k.col==='done' ? `<span class="tag ok">${esc(status(k))}</span>` :
               `<span class="tag ai">${esc(status(k))}</span>`;
   return `<button class="card ${k.col==='need'?'need':''}" data-open="${k.id}" ${ui.sel===k.id?'aria-current="true"':''}>
-    <span class="meta"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span>${k.col!=='done'?`<span class="prio p${k.pri||2}">${PRI[k.pri||2]}</span>`:''}</span><span class="ttl">${esc(k.title)}</span>
+    <span class="meta"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span></span><span class="ttl">${esc(k.title)}</span>
     ${k.repeat ? `<span class="rep ${k.repeat.paused?'off':''}">${I.repeat} ${esc(k.repeat.label)}${k.repeat.paused?' · paused':''}</span>` : ''}
     ${k.col==='work' && p ? `<span class="bar-p"><i style="width:${Math.round(p.d/p.n*100)}%"></i></span>` : ''}
     ${tag}</button>`;
@@ -758,67 +952,56 @@ function cardHTML(k){
 
 function stepsHTML(k){
   const lbl = {ai:'AI', help:'AI helps', you:'You'};
-  return k.steps.map(s=>`<div class="step ${s.st}">
-    <span class="ic">${s.st==='done' ? I.done : `<span class="ring ${s.st}"></span>`}</span>
-    <span class="tx"><span>${esc(s.t)}</span>${s.sub?`<small>${esc(s.sub)}</small>`:''}</span>
-    <span class="tag ${s.who}">${lbl[s.who]}</span></div>`).join('');
+  let cur = k.steps.findIndex(x=>x.st==='doing');
+  if(cur<0 && k.col==='need') cur = k.steps.findIndex(x=>x.st!=='done' && x.who!=='ai');
+  if(cur<0) cur = k.steps.findIndex(x=>x.st!=='done');
+  const allDone = cur<0; if(allDone) cur = k.steps.length-1;
+  const open = (ui.stepsOpen||{})[k.id];
+  const done = k.steps.filter(x=>x.st==='done').length;
+  const row = (x,i) => `<div class="step ${x.st} ${i===cur?'cur':''}">
+    <span class="num">${x.st==='done' ? I.check : i+1}</span>
+    <span class="tx"><span>${esc(x.t)}</span>${x.sub?`<small>${esc(x.sub)}</small>`:''}${x.pr?`<button class="steplink" data-pr="${k.id}">View pull request #482 ${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>`:''}</span>
+    <span class="tag ${x.who}">${x.st==='doing'?'AI doing':lbl[x.who]}</span></div>`;
+  const shown = open ? k.steps.map(row).join('') : row(k.steps[cur], cur);
+  return `<div class="steps-sum">${allDone ? 'All '+k.steps.length+' steps done' : 'Step '+(cur+1)+' of '+k.steps.length+' · '+done+' done'}</div>${shown}
+    <button class="more" data-steps="${k.id}">${open?'Show only the current step':'Show all '+k.steps.length+' steps'}</button>`;
 }
 
-function drawerHTML(k, anim){
-  if(!k) return '';
+function detailBody(k){
+  if(k.steps && (ui.planOpen||{})[k.id] && !(ui.prOpen||{})[k.id]) return planPage(k);
   let body = '';
   if(k.kind==='draft'){
     const d = k.draft;
     body = `<div class="dsec"><h3>Context</h3><div class="ctx">${d.ctx}</div></div>
       <div class="dsec"><h3>Draft reply</h3><div class="draft ${d.flash?'flash':''}" id="draftText">${esc(d.v[d.cur])}</div>
         ${d.commit?`<div class="commit">${esc(d.commit)}</div>`:''}
-        ${k.col==='need' ? `<div class="acts">
-          <button class="btn pri" data-act="copy">${I.copy} Copy</button>
-          <button class="btn" data-act="open">${I.ext} Open thread</button>
-          <button class="btn" data-act="sent">${I.check} Mark sent</button>
-          <button class="btn ghost" data-act="dismiss">Dismiss</button></div>` : `<div class="acts"><span class="tag ok">Marked sent</span></div>`}
-      </div>
-      <div class="dsec"><h3>Change this draft</h3>
-        <div class="chips">${['Shorter','Warmer','More direct','Start over'].map(x=>`<button class="chip" data-tone="${x}">${x}</button>`).join('')}</div>
-        <div class="chat">${d.chat.map(m=>`<div class="msg ${m.f}">${esc(m.t)}</div>`).join('')}</div>
-        <form class="chatin" id="chatForm" autocomplete="off"><label class="sr" for="chatIn">Ask for a change</label>
-          <input id="chatIn" placeholder="Say Monday instead, and tag Theo"><button class="iconbtn go" aria-label="Send note">${I.up}</button></form>
+        ${k.col==='need' ? `<div class="acts sec-acts">
+          <button class="btn ghost" data-act="copy" data-card="${k.id}">${I.copy} Copy</button>
+          <button class="btn ghost" data-act="open">${I.ext} Open thread</button>
+          <button class="btn ghost" data-act="dismiss" data-card="${k.id}">Dismiss</button></div>` : `<div class="acts"><span class="tag ok">Marked sent</span></div>`}
       </div>`;
   }
   if(k.kind==='stove'){
-    const open = k.qs.some(q=>!q.a);
-    body = `${open?`<div class="dsec"><h3>Three quick questions</h3>${k.qs.map((q,i)=>`<div class="q">${esc(q.q)}</div>
-      <div class="chips">${q.o.map(o=>`<button class="chip" data-q="${i}" data-a="${esc(o)}" aria-pressed="${q.a===o}">${esc(o)}</button>`).join('')}</div>`).join('')}</div>`
-      : `<div class="dsec"><h3>Your answers</h3><div class="ctx">${k.qs.map(q=>esc(q.a)).join(' · ')}</div></div>`}
-      ${k.col==='need' && !open && !k.picked ? `<div class="dsec"><h3>Shortlist</h3>${[
-        ['30" smooth-top','$649','$584','10% off with a new-account coupon','Delivery, install, and haul-away included. Easy to wipe down'],
-        ['30" coil, 5 burners','$529','$479','Open-box, full warranty','Cheapest to repair. Haul-away $25 extra'],
-        ['30" smooth-top, self-clean','$819','$719','Price-matched to another store, plus a $50 utility rebate','Best reviews for rentals. Arrives in 6 days']
-      ].map((o,i)=>`<div class="opt"><div><b>${o[0]}</b> <span class="p"><s style="color:var(--fg-3)">${o[1]}</s> ${o[2]}</span><small><span class="tag ok" style="margin:3px 0">${o[3]}</span></small><small>${o[4]}</small></div><button class="btn" data-pick="${i}">Pick</button></div>`).join('')}
-        <div class="ctx" style="margin-top:8px">Saves you $50 to $100. lalo checks codes before showing them. Rebates may need a form after you buy, and lalo adds that as a step.</div></div>` : ''}
-      <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>`;
+    body = `<div class="dsec"><div class="feed">${stoveFeed(k)}</div></div>`;
   }
   if(k.kind==='prep'){
-    body = `<div class="dsec"><h3>Where Sara is</h3>
+    body = `<div class="dsec numbered"><h3>Where Sara is</h3>
         <div class="li"><span>Checkout redesign: 2 tickets blocked on the API for a week</span><span class="from">tickets</span></div>
         <div class="li"><span>Said she felt "stuck waiting" in Monday's standup</span><span class="from">notes</span></div></div>
-      <div class="dsec"><h3>From around the company</h3>
+      <div class="dsec numbered"><h3>From around the company</h3>
         <div class="li"><span>Payments team is changing the same API next sprint</span><span class="from">#payments</span></div>
         <div class="li"><span>Marketing wants the redesign for the November launch</span><span class="from">docs</span></div>
         <div class="li"><span>Leadership named checkout drop-off a Q4 goal</span><span class="from">drive</span></div></div>
-      <div class="dsec"><h3>Talking points</h3>
+      <div class="dsec numbered"><h3>Talking points</h3>
         <div class="li"><span>Connect her with Payments. Unblocks her and avoids rework</span></div>
         <div class="li"><span>Her work is a Q4 company goal. Tell her</span></div>
         <div class="li"><span>Offer her the November launch as her project</span></div>
-        <div class="tip">Coaching: you tend to jump to solutions. Ask Sara how she'd unblock it before you suggest Payments.</div></div>
-      <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>
-      ${k.col==='need'?`<div class="acts"><button class="btn pri" data-act="ready">${I.check} I'm ready</button></div>`:''}`;
+        <div class="tip">Coaching: you tend to jump to solutions. Ask Sara how she'd unblock it before you suggest Payments.</div></div>`;
   }
   if(k.kind==='tickets'){
     body = `${k.col==='need'?`<div class="dsec"><h3>Draft tickets</h3>
         ${['Show saved cards at checkout','Fix empty state on mobile receipts','Add owner field to project template','Spike: reuse design tokens in email'].map((t,i)=>`<div class="li"><span>${esc(t)}</span><span class="from">${['Ana','Theo','You','Ravi'][i]}</span></div>`).join('')}
-        <div class="acts"><button class="btn pri" data-act="approve">${I.check} Create all 4</button><button class="btn" data-act="open">${I.ext} Edit in tracker</button></div></div>`:''}
-      <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>`;
+        <div class="acts sec-acts"><button class="btn ghost" data-act="open">${I.ext} Edit in tracker</button></div></div>`:`<div class="dsec"><div class="ctx">lalo is drafting tickets from the call. You'll review them here.</div></div>`}`;
   }
   if(k.kind==='ship'){
     const sd = n => k.steps[n].st==='done';
@@ -828,23 +1011,21 @@ function drawerHTML(k, anim){
         ${after?`<div class="tog"><span class="sw"></span><span>Save card for next time</span></div>`:''}
         <div class="cta">Pay $48.00</div></div>
       <figcaption>${after?'After':'Before'} · ${mobile?'mobile':'desktop'}</figcaption></figure>`;
-    body = `${k.col==='need' ? `<div class="dsec"><div class="ready">${I.check}<div><b>Ready for your review</b><small>Tests pass, it's on staging behind a flag, and nothing is live for customers.</small></div></div></div>` : ''}
-      ${sd(6) ? `<div class="dsec"><h3>Screenshots from staging</h3><div class="shots">${shot(false,false)}${shot(true,false)}${shot(false,true)}${shot(true,true)}</div></div>` : ''}
-      <div class="dsec"><h3>Pull request</h3>
-        <div class="li"><span>PR #482 · Add save-card toggle to checkout</span><span class="from">+128 −12</span></div>
+    const prPage = `<button class="backbtn" data-pr="${k.id}" style="padding-left:0">${I.back} Back</button>
+      <div class="dsec"><h3>Pull request #482</h3>
+        <div class="li"><span>Add save-card toggle to checkout</span><span class="from">+128 −12</span></div>
         <div class="li"><span>Review comments</span><span class="from">${resolved} of ${k.comments.length} fixed</span></div>
         ${k.comments.map((c,i)=>`<div class="li"><span style="display:flex;gap:8px;align-items:flex-start"><span class="ic" style="width:16px;flex:none">${i<resolved?I.done:'<span class="ring doing" style="display:block;width:12px;height:12px;margin-top:2px"></span>'}</span><span>${esc(c[1])}</span></span><span class="from">${esc(c[0])}</span></div>`).join('')}
         <div class="li"><span>Tests</span><span class="from">${sd(4)?'142 passed':'waiting'}</span></div>
         <div class="li"><span>Feature flag</span><span class="from">checkout_save_card · ${sd(5)?'staging only':'not deployed'}</span></div></div>
-      <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>
-      <div class="dsec"><div class="ctx">lalo can't merge to main or turn the flag on for customers. Engineering does the release after you approve.</div></div>
-      ${k.col==='need' ? `<div class="acts"><button class="btn pri" data-act="ship">${I.check} Approve and send to engineering</button><button class="btn" data-act="open">${I.ext} Open staging</button><button class="btn ghost" data-act="changes">Request changes</button></div>
-        ${ui.changes===k.id ? `<form class="chatin" id="changeForm" autocomplete="off"><label class="sr" for="changeIn">What should change?</label><input id="changeIn" placeholder="Move the toggle above the card fields"><button class="iconbtn go" aria-label="Send changes">${I.up}</button></form>` : ''}` : ''}`;
+      <div class="dsec"><div class="ctx">To change something, tell lalo below. It will update the PR, rerun the tests, and bring it back to you.</div></div>`;
+    if((ui.prOpen||{})[k.id]) return prPage + cuThread(k);
+    body = `${sd(6) ? `<div class="dsec"><h3>Screenshots from staging</h3><div class="shots">${shot(false,false)}${shot(true,false)}${shot(false,true)}${shot(true,true)}</div>
+        ${k.col==='need' ? `<button class="btn stagebtn" data-act="open">${I.ext} Open staging to try it</button>` : ''}</div>` : `<div class="dsec"><div class="ctx">lalo is still working through the plan. Screenshots show up here once it's on staging.</div></div>`}
+`;
   }
   if(k.kind==='generic'){
-    body = `<div class="dsec"><h3>What you said</h3><div class="ctx">${esc(k.title)}</div></div>
-      <div class="dsec"><h3>Steps</h3>${stepsHTML(k)}</div>
-      ${k.col==='need'?`<div class="acts"><button class="btn pri" data-act="ready">${I.check} Got it, mark done</button></div>`:''}`;
+    body = `<div class="dsec"><h3>What you said</h3><div class="ctx">${esc(k.title)}</div></div>`;
   }
   if(k.kind==='summary'){
     body = `<div class="dsec"><h3>Latest run · ${esc(k.repeat.runs[0][0])}</h3>${k.summary.map(s=>`<div class="li"><span>${esc(s)}</span></div>`).join('')}</div>
@@ -852,10 +1033,82 @@ function drawerHTML(k, anim){
   }
   if(k.repeat && k.kind!=='summary' && k.repeat.runs.length) body += `<div class="dsec"><h3>Past runs</h3>${k.repeat.runs.map(r=>`<div class="li"><span>${esc(r[1])}</span><span class="from">${esc(r[0])}</span></div>`).join('')}</div>`;
   if(k.repeat) body = repeatHTML(k) + body;
-  if(k.col!=='done') body = `<div class="dsec"><h3>Priority</h3><div class="chips">${[1,2,3].map(p=>`<button class="chip" data-pri="${p}" aria-pressed="${(k.pri||2)===p}">${PRI[p]}</button>`).join('')}</div>
-    <div class="why">${k.whyYou ? 'You set this.' : 'lalo set this: '+esc(k.why||'new task, ranked as Next until it knows more')}</div></div>` + body;
-  return `<aside class="drawer ${anim?'anim':''}" aria-label="Task detail"><div class="dhead"><div class="grow"><div class="meta" style="font-size:12px"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span></div><h2>${esc(k.title)}</h2></div>
-    <button class="iconbtn" data-unsel aria-label="Close detail">${I.x}</button></div><div class="dbody" data-keep="drawer">${body}</div></aside>`;
+  return body + cuThread(k);
+}
+
+function planCur(k){
+  let cur = k.steps.findIndex(x=>x.st==='doing');
+  if(cur<0) cur = k.steps.findIndex(x=>x.st!=='done');
+  return cur;
+}
+function planRing(k){
+  if(!k.steps || (ui.planOpen||{})[k.id]) return '';
+  const cur=planCur(k), done=k.steps.filter(x=>x.st==='done').length, n=k.steps.length;
+  const label = cur<0 ? 'Plan: all '+n+' steps done' : 'Plan: step '+(cur+1)+' of '+n+', '+k.steps[cur].t;
+  return `<button class="ringbtn" data-plan="${k.id}" aria-label="${esc(label)}" title="${esc(label)}"><span class="pb-ring" style="--p:${Math.round(done/n*100)}"><span>${done}/${n}</span></span></button>`;
+}
+function planBar(k){
+  if(!k.steps || (ui.planOpen||{})[k.id]) return '';
+  const cur=planCur(k), done=k.steps.filter(x=>x.st==='done').length, n=k.steps.length;
+  const label = cur<0 ? 'All '+n+' steps done' : 'Step '+(cur+1)+' of '+n+': '+k.steps[cur].t;
+  return `<button class="planbar" data-plan="${k.id}"><span class="pb-ring" style="--p:${Math.round(done/n*100)}"><span>${done}/${n}</span></span>
+    <span class="grow"><b>Plan</b><small>${esc(label)}</small></span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>`;
+}
+function planPage(k){
+  const lbl = {ai:'AI', help:'AI helps', you:'You'}; const cur=planCur(k);
+  const rows = k.steps.map((x,i)=>`<div class="step ${x.st} ${i===cur?'cur':''}">
+    <span class="num">${x.st==='done' ? I.check : i+1}</span>
+    <span class="tx"><span>${esc(x.t)}</span>${x.sub?`<small>${esc(x.sub)}</small>`:''}${x.pr?`<button class="steplink" data-pr="${k.id}">View pull request #482 ${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>`:''}</span>
+    <span class="tag ${x.who}">${x.st==='doing'?'AI doing':lbl[x.who]}</span></div>`).join('');
+  const chat=(k.planChat||[]).map(m=>`<div class="msg ${m.f}">${esc(m.t)}</div>`).join('');
+  return `<button class="backbtn" data-plan="${k.id}" style="padding-left:0">${I.back} Back to task</button>
+    <div class="dsec"><h3>Plan</h3>${rows}</div>
+    <div class="dsec"><div class="ctx">Ask lalo to change the plan below, like "add a step to check reviews" or "remove step 2".</div></div>
+    ${chat?`<div class="cu-chat">${chat}</div>`:''}`;
+}
+function planAsk(k, text){
+  k.planChat = k.planChat || [];
+  k.planChat.push({f:'me', t:text});
+  const lc=text.toLowerCase(); const num=(lc.match(/\b(\d+)\b/)||[])[1];
+  let reply;
+  if(/remove|drop|delete|skip/.test(lc) && num && k.steps[+num-1] && k.steps[+num-1].st!=='done'){
+    const gone=k.steps.splice(+num-1,1)[0]; reply=`Removed step ${num}: ${gone.t}.`;
+  } else if(/add|include|also|before|after/.test(lc)){
+    const t=text.replace(/^(please\s+)?(add|include|also)\s+(a\s+step\s+(to|for)\s+)?/i,'').replace(/\.$/,'');
+    const at=Math.max(planCur(k)+1,1);
+    k.steps.splice(at,0,S(t.charAt(0).toUpperCase()+t.slice(1),'ai'));
+    reply=`Added step ${at+1}: ${t}. I'll do it before the rest.`;
+  } else reply="Noted. I'll adjust the plan and keep you posted here.";
+  k.planChat.push({f:'lalo', t:reply});
+  renderWin(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=b.scrollHeight;
+}
+function talkPanel(k){
+  const plan=(ui.planOpen||{})[k.id];
+  const sug = plan ? '' : (quickActions(k)[0] || '');
+  const d = ui.talkDraft || (ui.talkDraft = {});
+  const key = k.id + (plan ? ':plan' : '');
+  const val = d[key] !== undefined ? d[key] : sug;
+  return `<form class="talkpill ${sug && val===sug ? 'suggest' : ''}" id="talkForm" data-card="${k.id}" data-key="${key}" data-sug="${esc(sug)}" data-mode="${plan?'plan':''}" autocomplete="off">
+    <label class="sr" for="talkIn">${plan?'Ask lalo to change the plan':'Talk to lalo about this'}</label>
+    <textarea id="talkIn" rows="1" placeholder="${plan?'Change the plan':'Talk to lalo'}">${esc(val)}</textarea>
+    <button type="button" class="talkact ${val?'send':''}" id="talkAct" aria-label="${val?'Send to lalo':'Say it'}">${val?I.up:I.mic}</button></form>`;
+}
+function quickActions(k){
+  if(k.col!=='need') return [];
+  return ({ ship:['Approve and send to engineering'], draft:['Approve reply'], tickets:['Create 4 tickets'], prep:["I'm ready"] })[k.kind] || [];
+}
+function decisionBar(k){
+  const next = k.col==='need' ? `<button class="nextbtn" data-decide="later" data-card="${k.id}" aria-label="Next" title="Next">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : '';
+  const qa = quickActions(k);
+  return `<div class="talkrow">${talkPanel(k)}${next}</div>`;
+}
+
+function drawerHTML(k, anim){
+  if(!k) return '';
+  return `<aside class="drawer ${anim?'anim':''}" aria-label="Task detail"><div class="dhead"><div class="grow"><h2 style="margin-top:0">${esc(k.title)}</h2><div class="meta" style="font-size:12px;margin-top:4px"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span></div></div>
+    ${planRing(k)}<button class="iconbtn" data-unsel aria-label="Close detail">${I.x}</button></div>
+    <div class="dbody" data-keep="drawer" id="cuBody">${detailBody(k)}</div>
+    <div class="dfoot">${decisionBar(k)}</div></aside>`;
 }
 
 const SCHED = ['Every day at 9am','Every Monday at 9am','Every Friday at 4pm','First of every month'];
@@ -1006,9 +1259,55 @@ function meetingsHTML(){
   if(ui.phone){
     if(!ui.meetOpen) return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio')
       + `<div class="meet-phone" data-keep="mlistp">${list}${ui.rec?'':`<div style="padding:4px 16px 16px"><button class="btn" data-act-rec="1">${I.mic} Record a new meeting</button></div>`}</div>`;
-    return `<div class="backbar"><button class="backbtn" data-meetback="1">${I.back} Meetings</button></div><div class="mdetail meet-phone" data-keep="mdetail">${d.replace(/<div class="dsec"><button class="btn" data-act-rec="1">[\s\S]*?<\/div>$/, '')}</div>`;
+    return `<div class="mdetail meet-phone" data-keep="mdetail">${d.replace(/<div class="dsec"><button class="btn" data-act-rec="1">[\s\S]*?<\/div>$/, '')}</div>`;
   }
   return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you') + `<div class="meet">${list}<div class="mdetail" data-keep="mdetail">${d}</div></div>`;
+}
+
+/* ---------- Ask lalo (global chat, phone) ---------- */
+ui.askChat = [];
+const QWORDS = /^(what|who|when|where|why|how|did|do|does|is|are|was|were|which|any|can|should|tell me|show me|summari[sz]e what)\b/i;
+function lalAnswer(q){
+  const s=q.toLowerCase();
+  const need=cards.filter(k=>k.col==='need').sort(byPri);
+  if(/nov ?3|jordan|launch|deadline/.test(s)) return { t:"Jordan asked if Nov 3 is realistic. Your draft says no and proposes a smaller test on Nov 10. In today's Checkout launch sync, the team aimed for 10% of customers by next Friday, if engineering can release Wednesday.",
+    links:[['Reply to Jordan','data-open="c2"'],['Checkout launch sync','data-meet-open="u1"']] };
+  if(/\bana\b/.test(s)) return { t:"Ana is shortening the toggle copy (from the launch sync), owns \"Show saved cards at checkout\" in your draft tickets, and is in the 4:30pm designer interview.",
+    links:[['Draft tickets','data-open="c5"'],['Upcoming meetings','data-go="meetings"']] };
+  if(/sara|1:1/.test(s)) return { t:"Your 1:1 with Sara is Tuesday at 2pm. She's blocked on the checkout API, and Payments is changing the same API next sprint. Your brief suggests connecting them and offering her the November launch.",
+    links:[['Prep for 1:1 with Sara','data-open="c4"']] };
+  if(/meeting|calendar|today|schedule/.test(s) && !/need|waiting/.test(s)) return { t:'Today: '+upcoming.map(u=>`${u.time} ${u.title}${u.rec?'':' (not recording)'}`).join(', ')+'.',
+    links:[['Open meetings','data-go="meetings"']] };
+  if(/need|waiting|todo|to do|left|pending|me today/.test(s)) return { t: need.length ? `${need.length} things need you: `+need.map(k=>k.title).join('; ')+'.' : 'Nothing needs you right now.',
+    links: need.length ? [['Catch up','data-catchup="1"']] : [] };
+  if(/save|money|cost|spend|tool/.test(s)) return { t:"The biggest saving lalo found: 3 meeting-notes tools doing the same job, about $20k a year. Across the organization it's about 77 hours a month and $31k a year.",
+    links:[['Open insights','data-go="insights"']] };
+  return { t:"I couldn't find that in your tasks or meetings. In the real app I'd also search Slack, Notion, Linear, and your meeting notes.", links:[] };
+}
+function askSend(text){
+  ui.askChat.push({f:'me', t:text});
+  if(QWORDS.test(text.trim()) || /\?\s*$/.test(text)){
+    const a=lalAnswer(text); ui.askChat.push({f:'lalo', t:a.t, links:a.links});
+  } else {
+    addTask(text.charAt(0).toUpperCase()+text.slice(1), false, true);
+    const k=cards[0];
+    ui.askChat.push({f:'lalo', t:`Added to your board${k.repeat?' as a recurring task':''}. I'm starting on the parts I can do.`, links:[['Open task',`data-open="${k.id}"`]]});
+  }
+  renderWin();
+  const th=document.getElementById('askThread'); if(th) th.scrollTop=th.scrollHeight;
+}
+function askHTML(){
+  const sugg=['What needs me today?','What did we decide about Nov 3?',"What's on my calendar?",'Remind me to send Jordan the launch doc'];
+  return `<div class="asksheet" role="dialog" aria-label="Ask lalo">
+    <div class="askhead"><button class="backbtn" data-askclose="1">${I.back} Back</button><span class="grow"></span><b>Ask lalo</b><span class="grow"></span><span style="width:64px"></span></div>
+    <div class="askthread" id="askThread" data-keep="ask">
+      ${ui.askChat.length ? '' : `<div class="askintro">${I.spark}<p>Ask about your tasks and meetings, or tell lalo something to do. Questions get answers. Everything else becomes a task.</p></div>`}
+      ${ui.askChat.map(m=>`<div class="msg ${m.f}">${esc(m.t)}${m.links&&m.links.length?`<div class="asklinks">${m.links.map(l=>`<button class="chip" ${l[1]}>${esc(l[0])}</button>`).join('')}</div>`:''}</div>`).join('')}
+    </div>
+    ${ui.askChat.length ? '' : `<div class="ph-ex" style="padding:0 16px 8px">${sugg.map(e=>`<button class="chip" data-askfill="${esc(e)}">${esc(e)}</button>`).join('')}</div>`}
+    <form class="askform" id="askForm" autocomplete="off"><label class="sr" for="askIn">Ask or tell lalo anything</label>
+      <input id="askIn" placeholder="Ask or tell lalo anything"><button type="button" class="askmic sm" data-voice="1" aria-label="Say Hey lalo">${I.mic}</button><button class="iconbtn go" aria-label="Send">${I.up}</button></form>
+  </div>`;
 }
 
 /* ---------- catch up (card stack) ---------- */
@@ -1040,32 +1339,83 @@ function catchHTML(){
   if(!q.length){
     return head('Catch up', 'All done') + `<div class="cu-wrap"><div class="cu-empty">${I.check}<h2>You're all caught up</h2>
       <p>${ui.cqDone||0} approved · ${ui.cqLater||0} kept for later</p>
-      ${ui.phone ? `<button class="btn pri" data-go="home">${I.spark} Back home</button>` : `<button class="btn pri" data-go="board">${I.board} Back to board</button>`}</div></div>`;
+      <button class="btn pri" data-go="board">${I.board} Back to board</button></div></div>`;
   }
   const cardsHTML = q.slice(0,3).map((id,i)=>{ const k=cards.find(x=>x.id===id);
     return `<article class="cu-card" data-depth="${i}" ${i===0?'id="cqTop"':''} style="--d:${i}">
       <div class="cu-stamp ok">Approve</div><div class="cu-stamp later">Later</div>
-      <div class="meta"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span><span class="prio p${k.pri||2}">${PRI[k.pri||2]}</span></div>
-      <h2>${esc(k.title)}</h2>
-      <div class="cu-body" ${i===0?'id="cuBody"':''}>${cardBody(k)}${cuThread(k)}</div>
-      <button class="more" data-open="${k.id}" style="text-align:center">Open full details</button>
+      <div class="cu-titlerow"><div class="grow" style="min-width:0"><h2>${esc(k.title)}</h2>
+      <div class="meta" style="margin-top:4px"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span></div></div>${i===0 ? planRing(k) : ''}</div>
+      <div class="cu-body" ${i===0?'id="cuBody"':''}>${i===0 ? detailBody(k) : cardBody(k)}</div>
     </article>`; }).reverse().join('');
   const top = cards.find(x=>x.id===q[0]);
-  return head('Catch up', `${q.length} left · swipe right to approve, left for later`)
+  return head('Catch up', `${q.length} left · swipe right to mark done, left for next`)
     + `<div class="cu-wrap"><div class="cu-stack">${cardsHTML}</div>
-      <form class="cu-ask" id="cuChatForm" autocomplete="off"><label class="sr" for="cuChatIn">Ask lalo about this card</label>
-        <input id="cuChatIn" placeholder="${top.kind==='draft'?'Make it shorter, say Monday…':'Ask lalo or request a change…'}"><button class="iconbtn" aria-label="Send to lalo">${I.up}</button></form>
-      <div class="cu-acts"><button class="btn cu-later" data-cu="later">${I.back} Keep for later</button>
-      <button class="btn pri cu-ok" data-cu="ok">${approveLabel(top)} ${I.check}</button></div>
-      <div class="cu-hint">Keyboard: ← later · → approve</div></div>`;
+      ${decisionBar(top)}
+      <div class="cu-hint">Swipe left or press ← for next. Swipe right or press → to mark done.</div></div>`;
+}
+function stoveWidth(k){
+  const a=k.qs[3].a; if(!a) return;
+  if(a==='Not sure'){ k.steps[0].sub="I'll send you a 20-second checklist to measure it"; }
+  else { k.steps[0].st='done'; k.steps[0].sub='Space is '+a+' wide'; }
+}
+function cuSuggest(k){
+  return ({ draft:['Make it shorter','Warmer','Say Monday instead'], ship:['What tests ran?','Is it safe to ship?','Move the toggle above the card fields'],
+    prep:['Why Payments?','Add a point about hiring'], tickets:['Who owns these?','Merge the last two'], stove:['30 inches, electric, under $600, this week'] })[k.kind] || ['What happens next?'];
+}
+function slog(k, type, t){ (k.log = k.log || []).push({type, t}); }
+function stoveNextQ(k){ return (k.qOrder||[3,0,1,2]).find(i=>!k.qs[i].a); }
+const STOVE_OPTS = [
+  ['30" smooth-top','$649','$584','10% off with a new-account coupon','Delivery, install, and haul-away included. Easy to wipe down'],
+  ['30" coil, 5 burners','$529','$479','Open-box, full warranty','Cheapest to repair. Haul-away $25 extra'],
+  ['30" smooth-top, self-clean','$819','$719','Price-matched to another store, plus a $50 utility rebate','Best reviews for rentals. Arrives in 6 days']
+];
+function stoveFeed(k){
+  const items = (k.log||[]).map(e=>{
+    if(e.type==='me') return `<div class="fe fe-me"><div class="msg me">${esc(e.t)}</div></div>`;
+    if(e.type==='step') return '';
+    return `<div class="fe fe-lalo"><span class="fe-av">${I.spark}</span><div class="msg lalo ${e.type==='ask'?'asked':''}">${esc(e.t)}</div></div>`;
+  });
+  const qi = stoveNextQ(k);
+  if(k.col==='need' && qi!==undefined){
+    const q=k.qs[qi];
+    items.push(`<div class="fe fe-lalo fe-now"><span class="fe-av">${I.spark}</span><div class="fe-q"><div class="msg lalo">${q.skipped?'<b>Back to this one.</b> ':''}${esc(q.q)}</div>
+      <div class="chips">${q.o.map(o=>`<button class="chip" data-q="${qi}" data-a="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+      <button class="more fe-skip" data-qskip="${qi}">Skip for now</button></div></div>`);
+  }
+  if(k.col==='need' && qi===undefined && k.picked==null){
+    items.push(`<div class="fe fe-lalo fe-now"><span class="fe-av">${I.spark}</span><div class="fe-q"><div class="msg lalo">Here are 3 options with discounts applied. Pick one and I'll open the cart.</div>
+      ${STOVE_OPTS.map((o,i)=>`<div class="opt"><div><b>${o[0]}</b> <span class="p"><s style="color:var(--fg-3)">${o[1]}</s> ${o[2]}</span><small><span class="tag ok" style="margin:3px 0">${o[3]}</span></small><small>${o[4]}</small></div><button class="btn" data-pick="${i}">Pick</button></div>`).join('')}</div></div>`);
+  }
+  return items.join('');
+}
+function stoveCheckDone(k){
+  if(k.col==='need' && k.picked==null && stoveNextQ(k)===undefined && k.steps[2].st!=='done'){
+    k.col='work'; k.steps[2].st='doing';
+    k.steps[2].sub=`Searching ${k.qs[0].a==='Not sure'?'gas and electric':k.qs[0].a.toLowerCase()} ranges, ${k.qs[1].a.toLowerCase()}`;
+    slog(k,'step','All answers in. Step 3 started: shortlisting stoves');
+    if(ui.cq) ui.cq=ui.cq.filter(id=>id!==k.id);
+    toast('Answers saved. lalo is shortlisting stoves.');
+  }
+}
+function stoveAnswer(k, i, a){
+  const q=k.qs[i];
+  slog(k,'ask',q.q); slog(k,'me',a); q.a=a;
+  if(i===3){ stoveWidth(k); slog(k, a==='Not sure'?'lalo':'step', a==='Not sure' ? "I'll text you a 20-second checklist to measure it." : 'Step 1 done: the space is '+a+' wide'); }
+  stoveCheckDone(k);
 }
 function cuThread(k){
+  if(k.kind==='stove') return '';
   const msgs = k.kind==='draft' ? k.draft.chat : (k.cuChat||[]);
   if(!msgs.length) return '';
   return `<div class="cu-chat">${msgs.slice(-4).map(m=>`<div class="msg ${m.f}">${esc(m.t)}</div>`).join('')}</div>`;
 }
 function cuAsk(k, text){
   const lc=text.toLowerCase();
+  if(k.col==='need' && (quickActions(k).some(a=>a.toLowerCase()===lc.trim()) || /\b(mark (it |this )?(as )?done|it'?s done|i did it|all done)\b/.test(lc))){
+    if(ui.view==='catchup'){ cuDecide(1); return; }
+    if(cuApprove(k)!==false){ ui.sel=null; render(); } return;
+  }
   if(k.kind==='draft'){
     const key = /short|brief|trim/.test(lc)?'Shorter':/warm|friend|nice/.test(lc)?'Warmer':/direct|firm|blunt/.test(lc)?'More direct':'custom';
     tone(k, key, text); return;
@@ -1084,15 +1434,30 @@ function cuAsk(k, text){
   if(k.kind==='ship') reply = /test/.test(lc) ? '142 tests passed: 118 unit, 19 integration, and 5 end-to-end, including guest checkout.' : /risk|safe|flag/.test(lc) ? "It's behind checkout_save_card, off for customers. Engineering turns it on after you approve." : 'The change adds the toggle, stores the choice, and tracks clicks. Ask for a change and I will update the PR.';
   else if(k.kind==='prep') reply = /why|payments/.test(lc) ? 'Payments is changing the same API next sprint, so connecting them now avoids Sara redoing work.' : "Noted. I'll add that to the brief before Tuesday.";
   else if(k.kind==='tickets') reply = change ? "Updated. I'll adjust the tickets before creating them." : 'These came from the decisions in the design review. Ana and Theo are listed as owners from the call.';
-  else if(k.kind==='stove') reply = "I can start once I know the hookup type, budget, and timing. Tap Answer questions, or tell me here, like 'electric, under $600, this week'.";
+  else if(k.kind==='stove'){
+    k.cuChat.pop();
+    slog(k,'me',text);
+    const before=k.qs.map(q=>q.a);
+    const pick=(i,v)=>{ if(v && !k.qs[i].a) k.qs[i].a=v; };
+    pick(0, /electric/.test(lc)?'Electric':/gas/.test(lc)?'Gas':null);
+    pick(1, /under|600|cheap/.test(lc)?'Under $600':/900\+|over 900|premium/.test(lc)?'$900+':/600|900|mid/.test(lc)?'$600 to $900':null);
+    pick(2, /this week|asap|soon/.test(lc)?'This week':/tenant/.test(lc)?'Before next tenant':/no rush|whenever/.test(lc)?'No rush':null);
+    pick(3, /\b24\b/.test(lc)?'24 inches':/\b30\b/.test(lc)?'30 inches':/\b36\b/.test(lc)?'36 inches':null);
+    const got=k.qs.filter((q,i)=>q.a && !before[i]);
+    if(k.qs[3].a && !before[3]){ stoveWidth(k); if(k.qs[3].a!=='Not sure') slog(k,'step','Step 1 done: the space is '+k.qs[3].a+' wide'); }
+    if(got.length) slog(k,'lalo','Got it: '+got.map(q=>q.a).join(', ')+'.');
+    else slog(k,'lalo', /\?\s*$/.test(text) ? "Good question. In the real app I'd answer from your notes and the store listings. For now, I still need your answers to keep going." : "Noted. I'll keep that in mind while I shortlist.");
+    stoveCheckDone(k);
+    render(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=b.scrollHeight; return;
+  }
   else reply = "Noted. I'll update this and keep it in your stack.";
   k.cuChat.push({f:'lalo', t:reply});
   renderWin();
   const b=document.getElementById('cuBody'); if(b) b.scrollTop=b.scrollHeight;
 }
 function cuApprove(k){
-  if(k.kind==='stove'){ ui.view='board'; ui.sel=k.id; render(); toast('Answer the 3 questions to keep it moving.'); return false; }
-  if(k.kind==='ship'){ const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work'; toast('Approved. Sending to engineering.'); return true; }
+  if(k.kind==='stove'){ k.col='done'; toast('Marked done.'); return true; }
+  if(k.kind==='ship'){ const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work'; toast('Approved. Sending engineering the PR, test results, flag, and screenshots.'); return true; }
   if(k.kind==='draft'){ k.col='done'; toast('Approved. Draft copied and marked sent.'); try{ navigator.clipboard.writeText(k.draft.v[k.draft.cur]).catch(()=>{}); }catch(_){} return true; }
   if(k.kind==='tickets'){ k.col='done'; k.steps.forEach(x=>x.st='done'); toast('Created 4 tickets.'); return true; }
   k.col='done'; if(k.steps) k.steps.forEach(x=>x.st='done'); toast('Done.'); return true;
@@ -1228,7 +1593,7 @@ const profile = {
   'People you work with most': [['Sara · weekly 1:1, design','Calendar'],['Jordan · launch planning','Slack'],['Maya · marketing','Slack']]
 };
 function profileHTML(){
-  return head('Your profile','Learned from how you write and talk. Private to you') + `<div class="profile" data-keep="profile">
+  return head('Your profile','Learned from how you write and talk. Private to you', ui.phone ? `<button class="iconbtn" data-theme-toggle="1" aria-label="${isDark()?'Switch to light mode':'Switch to dark mode'}">${isDark()?I.sun:I.moon}</button>` : '') + `<div class="profile" data-keep="profile">
     ${Object.entries(profile).map(([h,ls])=>`<div class="pcard"><h3>${h}</h3>${ls.map((l,i)=>`<div class="pline"><span>${esc(l[0])}</span><span class="from">${esc(l[1])}</span><button data-del="${esc(h)}|${i}" aria-label="Remove this line">${I.x.replace('<svg','<svg width="13" height="13"')}</button></div>`).join('') || '<div class="empty">Nothing here yet</div>'}</div>`).join('')}
     <div class="pnote">Every draft, plan, and 1:1 brief reads this page. Remove anything that's wrong and lalo stops using it.</div></div>`;
 }
@@ -1275,10 +1640,10 @@ function renderVoice(){
   </div>`;
 }
 
-function addTask(text, viaVoice){
+function addTask(text, viaVoice, quiet){
   const t = text.trim();
   if(!t){ ui.err='Type something first'; ui.phone ? renderWin() : renderPop(); return; }
-  const k = { id:'c'+(uid++), col:'work', kind:'generic', src:'You · menu bar', title:t, type:guessType(t), pri:2,
+  const k = { id:'c'+(uid++), col:'work', kind:'generic', src:'You', title:t, type:guessType(t), pri:2,
     steps:[ S('Work out what done looks like','ai','doing'), S('Pull related context from Slack, docs, and tickets','ai'),
             S('Break it into steps and do the ones it can','ai'), S('Review the plan and take the first step','you') ] };
   if(/stove|buy|order|purchase/i.test(t)){ k.steps[2].sub='Questions will show up here if the answers change the plan'; }
@@ -1290,7 +1655,7 @@ function addTask(text, viaVoice){
   }
   cards.unshift(k); ui.err='';
   const inp=document.getElementById('capIn'); if(inp) inp.value='';
-  render(); toast((viaVoice ? 'Heard you. ' : '') + (rep ? 'Added as a recurring task: '+rep.toLowerCase()+'.' : 'Added. lalo is planning it now.'));
+  render(); if(!quiet) toast((viaVoice ? 'Heard you. ' : '') + (rep ? 'Added as a recurring task: '+rep.toLowerCase()+'.' : 'Added. lalo is planning it now.'));
 }
 function parseRepeat(t){
   const s=t.toLowerCase();
@@ -1309,12 +1674,14 @@ function tick(){
     const i = k.steps.findIndex(s=>s.st==='doing');
     if(i<0) return;
     k.steps[i].st='done'; changed=true;
+    if(k.kind==='stove') slog(k,'step','Step '+(i+1)+' done: '+k.steps[i].t);
     if(k.kind==='ship'){ const DONE_SUB={3:'All comments fixed, replied on each thread',4:'142 passed, 0 failed',5:'Live on staging, flag off for customers',6:'4 screenshots'}; if(DONE_SUB[i]) k.steps[i].sub=DONE_SUB[i]; }
     let j=i+1;
     while(j<k.steps.length && k.steps[j].st==='done') j++;
     if(j>=k.steps.length){ k.col='done'; if(k.repeat && !k.repeat.runs.length) k.repeat.runs.unshift(['Today','First run done, posted to your Notes']); return; }
     if(k.steps[j].who==='ai'){ k.steps[j].st='doing'; }
     else { k.col='need'; }
+    if(k.kind==='stove' && k.col==='need' && k.picked==null) slog(k,'lalo','Shortlist ready with discounts applied.');
   });
   if(changed) render();
 }
@@ -1342,9 +1709,9 @@ document.addEventListener('click', e=>{
   if(t.dataset.voice){ ui.hinted=true; render(); startVoice(); return; }
   if(t.id==='spark'){ openPop(); return; }
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
-  if(t.dataset.open){ openCard(t.dataset.open); return; }
-  if(t.dataset.go){ ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
-  if(t.hasAttribute('data-close')){ if(ui.phone){ ui.view='home'; ui.sel=null; } else { ui.win=false; ui.sel=null; } render(); return; }
+  if(t.dataset.open){ ui.ask=false; openCard(t.dataset.open); return; }
+  if(t.dataset.go){ ui.ask=false; ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
+  if(t.hasAttribute('data-close')){ if(ui.phone){ ui.view='board'; ui.sel=null; } else { ui.win=false; ui.sel=null; } render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
   if(t.hasAttribute('data-unsel')){ ui.sel=null; renderWin(); return; }
   if(t.id==='recpill'){ ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
@@ -1368,12 +1735,30 @@ document.addEventListener('click', e=>{
     cards.unshift(k); x.state = isProp ? 'Proposal on board' : 'On board';
     render(); toast(isProp ? 'Added a proposal to your board. lalo is drafting it.' : 'Added to your board.'); return;
   }
-  if(t.dataset.catchup){ startCatchup(); return; }
+  if(t.dataset.ask){ ui.ask=true; renderWin(); const a=document.getElementById('askIn'); if(a) a.focus(); return; }
+  if(t.dataset.askclose){ ui.ask=false; renderWin(); return; }
+  if(t.dataset.askfill){ ui.ask=true; renderWin(); askSend(t.dataset.askfill); return; }
+  if(t.dataset.reviewnext){ const first=cards.filter(x=>x.col==='need').sort(byPri)[0]; if(first){ openCard(first.id); } else toast("You're all caught up."); return; }
+  if(t.dataset.catchup){ ui.ask=false; startCatchup(); return; }
+  if(t.dataset.cusay){ const k=cards.find(x=>x.id===t.dataset.card); if(k){ ui._cuFocus=true; cuAsk(k, t.dataset.cusay); } return; }
+  if(t.dataset.decide){
+    const k=cards.find(x=>x.id===t.dataset.card); const dir=t.dataset.decide==='ok'?1:-1;
+    if(ui.view==='catchup'){ cuDecide(dir); return; }
+    const order=cards.filter(x=>x.col==='need').sort(byPri).map(x=>x.id);
+    const after=order[(order.indexOf(k.id)+1)%order.length];
+    if(dir>0){ if(cuApprove(k)===false) return; }
+    const nextId = cards.filter(x=>x.col==='need').sort(byPri).map(x=>x.id).find(id=>id===after && id!==k.id);
+    ui.sel = nextId || null; render(); if(!nextId) toast(dir>0?'Done. Nothing else needs you.':'That was the last item.'); return;
+  }
   if(t.dataset.cu){ cuDecide(t.dataset.cu==='ok'?1:-1); return; }
+  if(t.dataset.plan){ ui.planOpen=ui.planOpen||{}; ui.planOpen[t.dataset.plan]=!ui.planOpen[t.dataset.plan]; renderWin(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=0; return; }
+  if(t.dataset.pr){ ui.prOpen=ui.prOpen||{}; ui.prOpen[t.dataset.pr]=!ui.prOpen[t.dataset.pr]; renderWin(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=0; return; }
+  if(t.dataset.steps){ ui.stepsOpen=ui.stepsOpen||{}; ui.stepsOpen[t.dataset.steps]=!ui.stepsOpen[t.dataset.steps]; renderWin(); return; }
+  if(t.id==='talkAct'){ const inp=document.getElementById('talkIn'); if(inp && inp.value.trim()) document.getElementById('talkForm').requestSubmit(); else { ui.pop=false; startVoice(); } return; }
   if(t.dataset.ptab){ ui.ptab=t.dataset.ptab; renderPop(); return; }
   if(t.dataset.more){ ui.more = ui.more || {}; ui.more[t.dataset.more] = !ui.more[t.dataset.more]; render(); return; }
   if(t.dataset.uprec){ const u=upcoming.find(x=>x.id===t.dataset.uprec); u.rec=!u.rec; if(!u.rec) u.why='You turned recording off for this one.'; render(); toast(u.rec ? 'lalo will record '+u.title+'.' : 'lalo won\'t record '+u.title+'.'); return; }
-  if(t.dataset.meetOpen){ ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=t.dataset.meetOpen; ui.pop=false; ui.sel=null; render(); return; }
+  if(t.dataset.meetOpen){ ui.ask=false; ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=t.dataset.meetOpen; ui.pop=false; ui.sel=null; render(); return; }
   if(t.dataset.recUp){ startRec(upcoming.find(x=>x.id===t.dataset.recUp)); return; }
   if(t.dataset.meetback){ ui.meetOpen=false; renderWin(); return; }
   if(t.dataset.meet){ ui.meet=t.dataset.meet; ui.meetOpen=true; renderWin(); const md=document.querySelector('.mdetail'); if(md) md.scrollTop=0; return; }
@@ -1381,7 +1766,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.addall){ const m=meetings.find(x=>x.id===t.dataset.addall); let n=0; m.actions.forEach(a=>{ if(a.o==='You' && !a.added){ addAction(m,a); n++; } }); render(); toast('Added '+n+' action items to the board.'); return; }
   if(t.dataset.type){ ui.type=t.dataset.type; ui.sel=null; renderWin(); return; }
   if(t.dataset.del){ const [h,i]=t.dataset.del.split('|'); profile[h].splice(+i,1); renderWin(); toast('Removed. lalo will stop using it.'); return; }
-  const k = cards.find(x=>x.id===ui.sel);
+  const k = cards.find(x=>x.id===(t.dataset.card||ui.sel)) || (ui.view==='catchup' && cards.find(x=>x.id===(ui.cq||[])[0]));
   if(!k){ if(ui.pop && !t.closest('.pop')){ ui.pop=false; render(); } return; }
   if(t.dataset.tone){ ui._chatFocus=false; tone(k, t.dataset.tone); return; }
   if(t.dataset.pri){ k.pri=+t.dataset.pri; k.whyYou=true; render(); toast('Moved to '+PRI[k.pri]+'. lalo will rank similar '+TYPES[typeOf(k)][0].toLowerCase()+' tasks the same way.'); return; }
@@ -1392,8 +1777,19 @@ document.addEventListener('click', e=>{
     setTimeout(()=>{ k.repeat.runs.unshift(['Today', k.kind==='summary' ? '8 new messages since Friday, 1 new theme' : 'Ran early, results in your Notes']); render(); toast('Done. Results added below.'); }, 1800);
     return;
   }
+  if(t.dataset.qskip!==undefined){
+    const i=+t.dataset.qskip, q=k.qs[i];
+    slog(k,'ask',q.q); slog(k,'me','Skip for now'); slog(k,'lalo',"No problem. I'll come back to it.");
+    q.skipped=true; k.qOrder=k.qOrder.filter(x=>x!==i).concat(i);
+    renderWin(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=b.scrollHeight; return;
+  }
+  if(t.dataset.q!==undefined && k.kind==='stove'){
+    stoveAnswer(k, +t.dataset.q, t.dataset.a);
+    render(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=b.scrollHeight; return;
+  }
   if(t.dataset.q!==undefined){
     k.qs[+t.dataset.q].a = t.dataset.a;
+    if(+t.dataset.q===3) stoveWidth(k);
     if(k.qs.every(q=>q.a)){
       k.col='work'; k.steps[2].st='doing';
       k.steps[2].sub = `Searching ${k.qs[0].a==='Not sure'?'gas and electric':k.qs[0].a.toLowerCase()} ranges, ${k.qs[1].a.toLowerCase()}`;
@@ -1403,6 +1799,7 @@ document.addEventListener('click', e=>{
   }
   if(t.dataset.pick!==undefined){
     k.picked=+t.dataset.pick; const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work';
+    slog(k,'me','Picked the '+STOVE_OPTS[k.picked][0]+' for '+STOVE_OPTS[k.picked][2]); slog(k,'step','Step '+(y+1)+' done: '+k.steps[y].t);
     toast('In the real app, lalo opens the cart with the discount applied. You pay.'); render(); return;
   }
   const a = t.dataset.act;
@@ -1427,10 +1824,15 @@ function selectDraft(){ const el=document.getElementById('draftText'); if(!el) r
 document.addEventListener('submit', e=>{
   e.preventDefault();
   if(e.target.id==='capForm'){ addTask(document.getElementById('capIn').value); }
-  if(e.target.id==='cuChatForm'){
-    const inp=document.getElementById('cuChatIn'); const v=inp.value.trim(); const k=cards.find(x=>x.id===(ui.cq||[])[0]);
+  if(e.target.id==='askForm'){
+    const inp=document.getElementById('askIn'); const v=inp.value.trim();
+    if(!v){ inp.placeholder='Type a question or a task first'; inp.focus(); return; }
+    inp.value=''; ui._askFocus=true; askSend(v); return;
+  }
+  if(e.target.id==='talkForm'){
+    const inp=document.getElementById('talkIn'); const v=inp.value.trim(); const k=cards.find(x=>x.id===e.target.dataset.card);
     if(!v){ inp.placeholder='Type a question or a change first'; inp.focus(); return; }
-    inp.value=''; ui._cuFocus=true; if(k) cuAsk(k, v); return;
+    inp.value=''; (ui.talkDraft||(ui.talkDraft={}))[e.target.dataset.key]=''; ui._cuFocus=true; if(k){ if(e.target.dataset.mode==='plan') planAsk(k, v); else cuAsk(k, v); } return;
   }
   if(e.target.id==='changeForm'){
     const k=cards.find(x=>x.id===ui.sel); const inp=document.getElementById('changeIn'); const v=inp.value.trim();
@@ -1449,8 +1851,16 @@ document.addEventListener('submit', e=>{
     tone(k, key, v);
   }
 });
-document.addEventListener('input', e=>{ if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">Type here, or just say <b>"Hey lalo…"</b> anytime. Tasks, reminders, or "every Friday, summarize #design".</div>'; } });
+document.addEventListener('input', e=>{
+  if(e.target.id==='talkIn'){
+    fitTalk(e.target);
+    const f=e.target.form; f.classList.toggle('suggest', !!f.dataset.sug && e.target.value===f.dataset.sug); (ui.talkDraft||(ui.talkDraft={}))[f.dataset.key]=e.target.value;
+    const b=document.getElementById('talkAct'); const has=!!e.target.value.trim();
+    if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Send to lalo':'Say it'); }
+  } if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">Type here, or just say <b>"Hey lalo…"</b> anytime. Tasks, reminders, or "every Friday, summarize #design".</div>'; } });
+function fitTalk(t){ t.style.height='auto'; t.style.height=Math.min(t.scrollHeight, 120)+'px'; t.closest('.talkpill').classList.toggle('multi', t.scrollHeight>30); }
 document.addEventListener('keydown', e=>{
+  if(e.target.id==='talkIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('talkForm').requestSubmit(); return; }
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
   if(ui.win && ui.view==='catchup' && !e.target.closest('input,textarea')){ if(e.key==='ArrowRight'){ cuDecide(1); return; } if(e.key==='ArrowLeft'){ cuDecide(-1); return; } }
   if(e.key==='Escape'){ if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
@@ -1480,7 +1890,7 @@ const PHONE = window.matchMedia('(max-width: 600px)');
 function applyPhone(){
   ui.phone = PHONE.matches;
   document.body.classList.toggle('phone', ui.phone);
-  if(ui.phone){ ui.pop=false; ui.hinted=true; ui.win=true; if(!ui.view || ui.view==='board' && !ui._phoneInit) ui.view='home'; ui._phoneInit=true; }
+  if(ui.phone){ ui.pop=false; ui.hinted=true; ui.win=true; if(!ui.view || ui.view==='home') ui.view='board'; ui._phoneInit=true; }
   else if(ui.view==='home'){ ui.view='board'; }
 }
 applyPhone();
