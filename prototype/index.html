@@ -402,6 +402,14 @@ body.phone .mdetail.meet-phone{padding:0 16px 20px}
 .cu-empty p{margin:0 0 8px}
 body.phone .cu-stack{height:calc(100% - 120px);min-height:360px}
 body.phone .cu-hint{display:none}
+.cu-banner{display:flex;align-items:center;gap:10px;width:calc(100% - 24px);margin:10px 12px 0;padding:10px 12px;border-radius:12px;border:1px solid var(--accent);background:var(--accent-bg);color:var(--fg);text-align:left}
+.cu-banner:hover{filter:brightness(.98)}
+.cu-banner b{display:block;font-weight:600;color:var(--accent-ink)}
+.cu-banner small{display:block;font-size:12px;color:var(--fg-2)}
+.cu-banner>svg{width:18px;height:18px;color:var(--accent-ink);flex:none}
+.cu-ic{width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
+.cu-ic svg{width:17px;height:17px}
+.phonehome .cu-banner{width:100%;margin:12px 0 0;padding:12px 14px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -621,12 +629,13 @@ function homeBody(){
       <button type="submit" class="iconbtn go" aria-label="Add task">${I.up}</button>
     </form>
     ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : `<div class="caphelp">Type here, or just say <b>"Hey lalo…"</b> anytime. Tasks, reminders, or "every Friday, summarize #design".</div>`}
+    ${cuBanner(need.length)}
     <div class="tabs" role="tablist" aria-label="Show">
       <button class="tab" role="tab" data-ptab="tasks" aria-selected="${tab==='tasks'}">${I.board} Tasks ${need.length?`<span class="badge">${need.length}</span>`:''}</button>
       <button class="tab" role="tab" data-ptab="meetings" aria-selected="${tab==='meetings'}">${I.mic} Meetings ${ui.rec?'<span class="recdot"></span>':upcoming.length?`<span class="badge muted">${upcoming.length}</span>`:''}</button>
     </div>
     ${tab==='tasks' ? `
-    <div class="sec"><h3><span>Needs you</span><span>${need.length ? `<button class="cubtn" data-catchup="1">${I.stack} Catch up</button>` : '0'}</span></h3>${capped('p-need', need, row, '<div class="empty">Nothing waiting on you</div>')}</div>
+    <div class="sec"><h3><span>Needs you</span><span>${need.length}</span></h3>${capped('p-need', need, row, '<div class="empty">Nothing waiting on you</div>')}</div>
     <div class="sec"><h3><span>Working</span><span>${work.length}</span></h3>${capped('p-work', work, row, '<div class="empty">Nothing running</div>')}</div>
     ${(()=>{ const rs=cards.filter(k=>k.repeat); return rs.length ? `<div class="sec"><h3><span>Recurring</span><span>${rs.length}</span></h3>${capped('p-rep', rs, k=>`<button class="row" data-open="${k.id}"><span class="rep" style="flex:none">${I.repeat}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.repeat.paused?'Paused':k.repeat.next)}</span></button>`)}</div>` : ''; })()}
     <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button></div>`
@@ -689,6 +698,7 @@ function homeHTML(){
   const ex = ['Remind me to send Jordan the launch doc','Every Friday, summarize #design',"Buy a stove for mom's rental"];
   return `<div class="phonehome" data-keep="home">
     <div class="ph-top"><div class="brand" style="padding:0">${I.spark} lalo</div><span class="grow"></span><button class="iconbtn themebtn-ph" data-theme-toggle="1" aria-label="${isDark()?'Switch to light mode':'Switch to dark mode'}">${isDark()?I.sun:I.moon}</button></div>
+    ${cuBanner(counts().need)}
     <div class="ph-center">
       <button class="heybig" data-voice="1" aria-label="Start Hey lalo">${I.mic}</button>
       <h1>Say "Hey lalo" to begin</h1>
@@ -991,6 +1001,11 @@ function meetingsHTML(){
 }
 
 /* ---------- catch up (card stack) ---------- */
+function cuBanner(n){
+  if(!n) return '';
+  return `<button class="cu-banner" data-catchup="1"><span class="cu-ic">${I.stack}</span>
+    <span class="grow"><b>Catch up</b><small>${n} ${n>1?'items need':'item needs'} you · swipe through them</small></span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>`;
+}
 function startCatchup(){
   ui.cq = cards.filter(k=>k.col==='need').sort(byPri).map(k=>k.id);
   ui.cqDone = 0; ui.cqLater = 0;
@@ -1014,7 +1029,7 @@ function catchHTML(){
   if(!q.length){
     return head('Catch up', 'All done') + `<div class="cu-wrap"><div class="cu-empty">${I.check}<h2>You're all caught up</h2>
       <p>${ui.cqDone||0} approved · ${ui.cqLater||0} kept for later</p>
-      <button class="btn pri" data-go="board">${I.board} Back to board</button></div></div>`;
+      ${ui.phone ? `<button class="btn pri" data-go="home">${I.spark} Back home</button>` : `<button class="btn pri" data-go="board">${I.board} Back to board</button>`}</div></div>`;
   }
   const cardsHTML = q.slice(0,3).map((id,i)=>{ const k=cards.find(x=>x.id===id);
     return `<article class="cu-card" data-depth="${i}" ${i===0?'id="cqTop"':''} style="--d:${i}">
