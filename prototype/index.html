@@ -274,6 +274,24 @@ details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing
 .tab[aria-selected="true"]{background:var(--panel);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.1),0 0 0 1px var(--line)}
 .badge{font-family:var(--mono);font-size:11px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:#1d1600;display:inline-grid;place-items:center}
 .badge.muted{background:var(--panel-3);color:var(--fg-2)}
+.hint b{font-weight:600}
+.trybtn{display:flex;align-items:center;gap:6px;margin-top:8px;height:28px;padding:0 10px;border-radius:7px;border:0;background:var(--accent);color:#1d1600;font-size:12px;font-weight:600}
+.trybtn svg{width:14px;height:14px;display:block}
+.trybtn:hover{filter:brightness(1.05)}
+.caphelp b{font-weight:600;color:var(--fg-2)}
+.voice{position:absolute;z-index:50;top:38px;left:50%;transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:#121317;color:#f1f2f4;border-radius:20px;padding:12px 16px 10px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.voice.anim{animation:drop .22s ease-out}
+@keyframes drop{from{opacity:0;transform:translate(-50%,-10px) scale(.96)}}
+.vtop{display:flex;align-items:center;gap:10px}
+.vglyph svg{width:20px;height:20px;color:#f2b632;display:block}
+.vlabel{font-weight:600;font-size:14px}
+.vw{flex:1;justify-content:flex-end;height:20px}
+.vw i{background:#f2b632;height:5px;animation-fill-mode:both}
+.vok{margin-left:auto;width:22px;height:22px;border-radius:50%;background:#2f9e55;display:grid;place-items:center}
+.vok svg{width:14px;height:14px;color:#fff}
+.vtext{margin-top:8px;font-size:15px;line-height:1.45;color:#d9dbe0}
+.vtext b{color:#f2b632;font-weight:600}
+.vfoot{margin-top:8px;font-size:11px;color:#8b8f99}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -320,8 +338,10 @@ details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing
     </div>
   </header>
 
-  <div class="hint" id="hint">Click the spark to try lalo, or press <kbd>⌥ Space</kbd></div>
-  <div class="wordmark" aria-hidden="true">lalo<small>Tell it anything. It starts on the parts it can do.</small></div>
+  <div class="hint" id="hint">Just say <b>"Hey lalo…"</b> from anywhere, or click the spark.
+    <button class="trybtn" data-voice="1"><span aria-hidden="true" id="i-mic-hint"></span> Try "Hey lalo"</button></div>
+  <div class="wordmark" aria-hidden="true">lalo<small>Say "Hey lalo" and tell it anything. It starts on the parts it can do.</small></div>
+  <div id="voiceMount" aria-live="polite"></div>
 
   <div id="popMount"></div>
   <div id="winMount"></div>
@@ -354,6 +374,7 @@ const I = {
 document.getElementById('i-spark').innerHTML = I.spark;
 document.getElementById('i-wifi').innerHTML = I.wifi;
 document.getElementById('i-batt').innerHTML = I.batt;
+document.getElementById('i-mic-hint').innerHTML = I.mic;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const S = (t, who, st, sub) => ({t, who, st: st || 'todo', sub: sub || ''});
@@ -484,10 +505,10 @@ function renderPop(){
     <form class="cap" id="capForm" autocomplete="off">
       <label class="sr" for="capIn">Tell lalo anything</label>
       <input id="capIn" placeholder="Remind me to chase Alex on the pricing doc">
-      <button type="button" class="iconbtn" id="micBtn" aria-label="Hold to talk">${I.mic}</button>
+      <button type="button" class="iconbtn" id="micBtn" aria-label="Say it instead" title="Say it instead">${I.mic}</button>
       <button type="submit" class="iconbtn go" aria-label="Add task">${I.up}</button>
     </form>
-    ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : `<div class="caphelp">A task, a reminder, or something recurring like "every Friday, summarize #design". Press Enter.</div>`}
+    ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : `<div class="caphelp">Type here, or just say <b>"Hey lalo…"</b> anytime. Tasks, reminders, or "every Friday, summarize #design".</div>`}
     <div class="tabs" role="tablist" aria-label="Show">
       <button class="tab" role="tab" data-ptab="tasks" aria-selected="${tab==='tasks'}">${I.board} Tasks ${need.length?`<span class="badge">${need.length}</span>`:''}</button>
       <button class="tab" role="tab" data-ptab="meetings" aria-selected="${tab==='meetings'}">${I.mic} Meetings ${ui.rec?'<span class="recdot"></span>':upcoming.length?`<span class="badge muted">${upcoming.length}</span>`:''}</button>
@@ -836,7 +857,44 @@ function toast(t){ const m=document.getElementById('toastMount'); m.innerHTML=`<
 function openPop(v){ ui.pop = v===undefined ? !ui.pop : v; ui.hinted = true; ui._focused=false; ui.err=''; render(); }
 function openCard(id){ ui.win=true; ui.view='board'; ui.sel=id; ui.pop=false; ui.side=false; render(); }
 
-function addTask(text){
+/* ---------- "Hey lalo" voice capture (simulated) ---------- */
+const PHRASES = [
+  'remind me to send Jordan the launch doc by Thursday',
+  'every Monday, check which tickets slipped',
+  "find a farewell gift for Ana under $50"
+];
+let vi = 0;
+function startVoice(){
+  if(ui.voice) return;
+  const phrase = PHRASES[vi++ % PHRASES.length];
+  ui.voice = { phase:'wake', text:'' }; renderVoice();
+  setTimeout(()=>{
+    ui.voice.phase='hear'; renderVoice();
+    let i=0; const full='Hey lalo, '+phrase;
+    const iv=setInterval(()=>{
+      i+=2; ui.voice.text=full.slice(0,i); renderVoice();
+      if(i>=full.length){ clearInterval(iv);
+        setTimeout(()=>{ ui.voice.phase='done'; renderVoice(); addTask(phrase.charAt(0).toUpperCase()+phrase.slice(1), true);
+          setTimeout(()=>{ ui.voice=null; renderVoice(); }, 1400); }, 450); }
+    }, 45);
+  }, 900);
+}
+function renderVoice(){
+  const m=document.getElementById('voiceMount');
+  if(!ui.voice){ m.innerHTML=''; return; }
+  const v=ui.voice, fresh=!m.firstElementChild;
+  const tx = v.text ? `<b>${esc(v.text.slice(0, Math.min(v.text.length, 9)))}</b>${esc(v.text.slice(9))}` : '';
+  if(!fresh && m.firstElementChild.dataset.phase===v.phase){ const el=m.querySelector('.vtext'); if(el){ el.innerHTML=tx; return; } }
+  m.innerHTML = `<div class="voice ${fresh?'anim':''}" role="status" data-phase="${v.phase}">
+    <div class="vtop"><span class="vglyph">${I.spark}</span>
+      <span class="vlabel">${v.phase==='wake'?'Listening…':v.phase==='hear'?'Go ahead':'Added to your board'}</span>
+      ${v.phase==='done' ? `<span class="vok">${I.check}</span>` : `<span class="wave vw" aria-hidden="true">${Array.from({length:14},(_,i)=>`<i style="animation-delay:${(i*97%800)}ms"></i>`).join('')}</span>`}</div>
+    ${v.phase!=='wake' ? `<div class="vtext">${tx}</div>` : ''}
+    <div class="vfoot">Listens on your Mac for "Hey lalo" only. Nothing is sent until you say it.</div>
+  </div>`;
+}
+
+function addTask(text, viaVoice){
   const t = text.trim();
   if(!t){ ui.err='Type something first'; renderPop(); return; }
   const k = { id:'c'+(uid++), col:'work', kind:'generic', src:'You · menu bar', title:t, type:guessType(t), pri:2,
@@ -851,7 +909,7 @@ function addTask(text){
   }
   cards.unshift(k); ui.err='';
   const inp=document.getElementById('capIn'); if(inp) inp.value='';
-  render(); toast(rep ? 'Added as a recurring task: '+rep.toLowerCase()+'.' : 'Added. lalo is planning it now.');
+  render(); toast((viaVoice ? 'Heard you. ' : '') + (rep ? 'Added as a recurring task: '+rep.toLowerCase()+'.' : 'Added. lalo is planning it now.'));
 }
 function parseRepeat(t){
   const s=t.toLowerCase();
@@ -899,8 +957,9 @@ function tone(k, key, userText){
 document.addEventListener('click', e=>{
   const t = e.target.closest('button');
   if(!t){ if(ui.pop && !e.target.closest('.pop')){ ui.pop=false; render(); } return; }
+  if(t.dataset.voice){ ui.hinted=true; render(); startVoice(); return; }
   if(t.id==='spark'){ openPop(); return; }
-  if(t.id==='micBtn'){ toast('Voice capture comes later. Type for now.'); return; }
+  if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
   if(t.dataset.open){ openCard(t.dataset.open); return; }
   if(t.dataset.go){ ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
   if(t.hasAttribute('data-close')){ ui.win=false; ui.sel=null; render(); return; }
@@ -982,7 +1041,7 @@ document.addEventListener('submit', e=>{
     tone(k, key, v);
   }
 });
-document.addEventListener('input', e=>{ if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">A task, a reminder, or something recurring like "every Friday, summarize #design". Press Enter.</div>'; } });
+document.addEventListener('input', e=>{ if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">Type here, or just say <b>"Hey lalo…"</b> anytime. Tasks, reminders, or "every Friday, summarize #design".</div>'; } });
 document.addEventListener('keydown', e=>{
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
   if(e.key==='Escape'){ if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
