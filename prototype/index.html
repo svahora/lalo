@@ -219,6 +219,41 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .filters .chip[aria-pressed="true"] .n{color:inherit;opacity:.7}
 .why{font-size:12px;color:var(--fg-2);margin-top:6px}
 @media (max-width:760px){.filters{padding:10px 16px 0}}
+.popfoot{flex-wrap:wrap}
+.recpill{display:none;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:6px;border:0;background:var(--hot-bg);color:var(--hot);font-family:var(--mono);font-size:12px;font-weight:500}
+.recpill.on{display:inline-flex}
+.recdot{width:8px;height:8px;border-radius:50%;background:var(--hot);animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+.meet{flex:1;min-height:0;display:grid;grid-template-columns:250px minmax(0,1fr)}
+.mlist{border-right:1px solid var(--line);overflow:auto;padding:10px;display:flex;flex-direction:column;gap:4px}
+.mitem{border:0;background:transparent;text-align:left;border-radius:9px;padding:9px 10px;display:flex;flex-direction:column;gap:2px;width:100%}
+.mitem:hover{background:var(--panel-2)}
+.mitem[aria-current="true"]{background:var(--panel-3)}
+.mitem b{font-weight:500}
+.mitem small{color:var(--fg-3);font-size:12px;display:flex;gap:6px;align-items:center}
+.mdetail{overflow:auto;padding:4px 20px 20px;min-width:0}
+.mhead{display:flex;gap:12px;align-items:flex-start;padding-top:14px}
+.mhead h2{margin:0;font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.02em}
+.mhead small{color:var(--fg-3);font-size:12px}
+.live{border:1px solid var(--hot);border-radius:12px;padding:12px 14px;margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.live .lbl{font-weight:600;color:var(--hot);display:flex;gap:7px;align-items:center;font-family:var(--mono);font-size:13px}
+.wave{display:flex;gap:3px;align-items:center;height:22px;flex:1;min-width:80px}
+.wave i{width:3px;border-radius:2px;background:var(--hot);opacity:.7;animation:wave 1s ease-in-out infinite}
+@keyframes wave{0%,100%{height:5px}50%{height:20px}}
+.consent{font-size:12px;color:var(--fg-2);width:100%}
+.tr{display:flex;flex-direction:column;gap:8px;max-height:300px;overflow:auto;padding-right:4px}
+.tr p{margin:0;font-size:13px;line-height:1.5}
+.tr p b{font-weight:600;margin-right:6px}
+.tr p.new{animation:pop .3s ease-out}
+.action{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
+.action:first-of-type{border-top:0}
+.action .tx{flex:1;min-width:0}
+.action .tx small{display:block;color:var(--fg-3);font-size:12px}
+.action .btn{height:28px;font-size:12px}
+.recbig{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:40px 10px;color:var(--fg-2)}
+.recbig .btn{height:40px;padding:0 18px;font-size:14px}
+details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:8px}
+@media (max-width:760px){.meet{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}.mlist{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;overflow-x:auto}.mitem{min-width:170px}.mdetail{padding:4px 16px 16px}}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -257,6 +292,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
     <div class="right">
       <span aria-hidden="true" id="i-wifi"></span>
       <span aria-hidden="true" id="i-batt"></span>
+      <button class="recpill" id="recpill" aria-label="Recording, open meeting"><span class="recdot"></span><span id="rectime">00:00</span></button>
       <button class="spark" id="spark" aria-haspopup="dialog" aria-expanded="false" aria-label="Open lalo">
         <span class="glyph" id="i-spark"></span><span class="n" id="count">0</span><span class="pip" id="pip"></span>
       </button>
@@ -434,7 +470,7 @@ function renderPop(){
     <div class="sec"><h3><span>Needs you</span><span>${need.length}</span></h3>${need.map(row).join('') || '<div class="empty">Nothing waiting on you</div>'}</div>
     <div class="sec"><h3><span>Working</span><span>${work.length}</span></h3>${work.map(row).join('') || '<div class="empty">Nothing running</div>'}</div>
     ${(()=>{ const rs=cards.filter(k=>k.repeat); return rs.length ? `<div class="sec"><h3><span>Recurring</span><span>${rs.length}</span></h3>${rs.map(k=>`<button class="row" data-open="${k.id}"><span class="rep" style="flex:none">${I.repeat}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.repeat.paused?'Paused':k.repeat.next)}</span></button>`).join('')}</div>` : ''; })()}
-    <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button><button class="btn" data-go="profile">${I.user} Your profile</button></div>
+    <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button><button class="btn" data-act-rec="1">${ui.rec ? '<span class="recdot"></span> Recording' : I.mic+' Record meeting'}</button><button class="btn ghost" data-go="profile">${I.user} Profile</button></div>
   </div>`;
   const inp = document.getElementById('capIn'); inp.value = val;
   if(hadFocus || !ui._focused){ inp.focus(); ui._focused = true; }
@@ -454,16 +490,18 @@ function renderWin(){
       <div class="lights"><button class="c" data-close aria-label="Close window"></button><button class="m" data-close aria-label="Minimize"></button><button class="z" aria-label="Zoom" tabindex="-1"></button></div>
       <div class="brand">${I.spark} lalo</div>
       <button class="nav" data-go="board" ${ui.view==='board'?'aria-current="page"':''}>${I.board} Board <span class="c">${c.need+c.work}</span></button>
+      <button class="nav" data-go="meetings" ${ui.view==='meetings'?'aria-current="page"':''}>${I.mic} Meetings ${ui.rec?'<span class="c"><span class="recdot" style="display:inline-block"></span></span>':`<span class="c">${meetings.length}</span>`}</button>
       <button class="nav" data-go="profile" ${ui.view==='profile'?'aria-current="page"':''}>${I.user} Your profile</button>
       <div class="sidefoot">Prototype. Example data, nothing is connected or sent.</div>
     </aside>
     <div class="main">
-      ${ui.view==='board' ? boardHTML(c) : profileHTML()}
+      ${ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : profileHTML()}
       ${ui.sel && ui.view==='board' ? drawerHTML(cards.find(k=>k.id===ui.sel), drAnim) : ''}
     </div>
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
+  const tl = document.getElementById('trLive'); if(tl) tl.scrollTop = tl.scrollHeight;
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
 }
 
@@ -611,6 +649,110 @@ function repeatHTML(k){
     </div></div>`;
 }
 
+/* ---------- meetings ---------- */
+const meetings = [
+  { id:'m1', title:'Design review', when:'Today · 11:00am', dur:'32 min', people:'Ana, Theo, Ravi, you', status:'done',
+    summary:['Agreed on the new empty state for mobile receipts','Saved cards will show at checkout for signed-in users','Design tokens should be reused in emails'],
+    decisions:['Ship saved cards before the email work'],
+    actions:[ {t:"Turn today's decisions into tickets", o:'You', type:'plan', added:'c5'},
+              {t:'Share the new empty state with support', o:'You', type:'reply'},
+              {t:'Fix empty state on mobile receipts', o:'Theo', type:'build'} ],
+    transcript:[['Ana','Let\'s start with the receipts screen on mobile.'],['Theo','The empty state is just a blank card right now.'],['You','Can we reuse the illustration from the web version?'],['Ravi','Yes, the tokens already match.']] },
+  { id:'m2', title:'1:1 with Sara', when:'Last Tue · 2:00pm', dur:'28 min', people:'Sara, you', status:'done',
+    summary:['Sara is blocked on the checkout API','She wants to own a launch end to end'],
+    decisions:['Revisit ownership of the November launch next week'],
+    actions:[ {t:'Introduce Sara to the Payments team', o:'You', type:'reply'},
+              {t:'Send Sara the Q4 goals doc', o:'You', type:'reply', added:'sent'} ],
+    transcript:[['Sara','I\'ve been waiting on the API for about a week.'],['You','Who on Payments have you talked to?'],['Sara','Nobody yet, I wasn\'t sure who owns it.']] }
+];
+const SCRIPT = [
+  ['Jordan','Quick one. Where are we on the save-card toggle?'],
+  ['You','The PR is up and lalo fixed the review comments this morning. It\'s on staging behind a flag.'],
+  ['Ana','I can do a design pass tomorrow. The toggle copy still feels long.'],
+  ['Jordan','Can we get it to 10 percent of customers by next Friday?'],
+  ['You','Probably, if engineering can release Wednesday. I\'ll check with Ravi.'],
+  ['Ravi','Wednesday works if QA signs off Tuesday.'],
+  ['Jordan','Great. Someone needs to update the launch doc too.'],
+  ['You','I\'ll take the launch doc.']
+];
+function startRec(){
+  if(ui.rec) return;
+  const m = { id:'m'+(uid++), title:'Checkout launch sync', when:'Now', dur:'', people:'Jordan, Ana, Ravi, you', status:'live', transcript:[], summary:[], decisions:[], actions:[] };
+  meetings.unshift(m);
+  ui.rec = { id:m.id, t0:Date.now(), i:0 };
+  ui.win=true; ui.view='meetings'; ui.meet=m.id; ui.pop=false; ui.sel=null;
+  render(); toast('Recording your computer audio and mic. Let everyone know.');
+}
+function stopRec(){
+  if(!ui.rec) return;
+  const m = meetings.find(x=>x.id===ui.rec.id);
+  const secs = Math.round((Date.now()-ui.rec.t0)/1000);
+  ui.rec = null; m.status='processing'; m.dur = Math.max(1,Math.round(secs/60))+' min'; m.when='Today · just now';
+  render();
+  setTimeout(()=>{
+    m.status='done';
+    m.transcript = SCRIPT.slice();
+    m.summary = ['Save-card toggle is on staging behind a flag','Target: 10% of customers by next Friday','Release Wednesday if QA signs off Tuesday'];
+    m.decisions = ['Roll out to 10% first, not everyone'];
+    m.actions = [ {t:'Check the Wednesday release with Ravi', o:'You', type:'task'},
+                  {t:'Update the launch doc with the 10% rollout', o:'You', type:'plan'},
+                  {t:'Shorten the toggle copy', o:'Ana', type:'build'},
+                  {t:'QA sign-off by Tuesday', o:'Ravi', type:'task'} ];
+    render(); toast('Notes and action items are ready.');
+  }, 1800);
+}
+setInterval(()=>{
+  const pill=document.getElementById('recpill');
+  pill.classList.toggle('on', !!ui.rec);
+  if(!ui.rec) return;
+  const s=Math.floor((Date.now()-ui.rec.t0)/1000);
+  document.getElementById('rectime').textContent = String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}, 500);
+setInterval(()=>{
+  if(!ui.rec) return;
+  const m = meetings.find(x=>x.id===ui.rec.id);
+  if(ui.rec.i < SCRIPT.length){ m.transcript.push(SCRIPT[ui.rec.i++]); m._new=true; if(ui.win && ui.view==='meetings') renderWin(); m._new=false; }
+}, 2200);
+
+function addAction(m, a){
+  const mine = a.o==='You';
+  const k = { id:'c'+(uid++), col:'work', kind:'generic', type:a.type, pri:2, why:'Action item from '+m.title, src:'Meeting · '+m.title,
+    title: mine ? a.t : 'Follow up with '+a.o+': '+a.t.charAt(0).toLowerCase()+a.t.slice(1),
+    steps:[ S('Read the meeting notes and transcript','ai','doing'), S('Pull related context from Slack, docs, and tickets','ai'),
+            S(mine?'Draft the first step for you':'Draft a follow-up message to '+a.o,'ai'), S(mine?'Review and take the first step':'Review and send the follow-up','you') ] };
+  cards.unshift(k); a.added=k.id;
+}
+
+function meetingsHTML(){
+  if(!ui.meet || !meetings.find(m=>m.id===ui.meet)) ui.meet = meetings[0] && meetings[0].id;
+  const m = meetings.find(x=>x.id===ui.meet);
+  const list = `<nav class="mlist" aria-label="Meetings">${meetings.map(x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
+      <b>${esc(x.title)}</b><small>${x.status==='live'?'<span class="recdot"></span> Recording':x.status==='processing'?'Writing notes…':esc(x.when)+' · '+esc(x.dur)}</small></button>`).join('')}</nav>`;
+  let d = '';
+  if(m){
+    d += `<div class="mhead"><div class="grow"><h2>${esc(m.title)}</h2><small>${esc(m.people)}${m.status==='done'?' · '+esc(m.when)+' · '+esc(m.dur):''}</small></div></div>`;
+    if(m.status==='live'){
+      d += `<div class="live"><span class="lbl"><span class="recdot"></span> Recording</span><span class="wave" aria-hidden="true">${Array.from({length:18},(_,i)=>`<i style="animation-delay:${(i*73%900)}ms"></i>`).join('')}</span>
+        <button class="btn pri" data-act-stop="1">Stop and write notes</button>
+        <span class="consent">Recording computer audio and your mic. Tell everyone on the call they're being recorded.</span></div>
+        <div class="dsec"><h3>Live transcript</h3><div class="tr" data-keep="tr" id="trLive">${m.transcript.map((l,i)=>`<p class="${m._new && i===m.transcript.length-1?'new':''}"><b>${esc(l[0])}</b>${esc(l[1])}</p>`).join('') || '<p style="color:var(--fg-3)">Listening…</p>'}</div></div>`;
+    } else if(m.status==='processing'){
+      d += `<div class="recbig"><span class="ring doing" style="width:22px;height:22px"></span>Writing notes and pulling out action items…</div>`;
+    } else {
+      const mine = m.actions.filter(a=>a.o==='You' && !a.added).length;
+      d += `<div class="dsec"><h3>Summary</h3>${m.summary.map(x=>`<div class="li"><span>${esc(x)}</span></div>`).join('')}</div>
+        <div class="dsec"><h3>Decisions</h3>${m.decisions.map(x=>`<div class="li"><span>${esc(x)}</span></div>`).join('')}</div>
+        <div class="dsec"><h3 style="display:flex;justify-content:space-between;align-items:center">Action items ${mine?`<button class="btn" data-addall="${m.id}" style="height:26px;font-size:12px;text-transform:none;letter-spacing:0">${I.board} Add all yours (${mine})</button>`:''}</h3>
+          ${m.actions.map((a,i)=>`<div class="action"><span class="type" title="${TYPES[a.type][0]}">${I[TYPES[a.type][1]]}</span><span class="tx">${esc(a.t)}<small>${a.o==='You'?'You':esc(a.o)} · ${TYPES[a.type][0]}</small></span>
+            ${a.added ? (a.added==='sent' ? '<span class="tag ok">Done</span>' : `<button class="btn" data-open="${a.added}">${I.check} On board</button>`)
+                      : `<button class="btn" data-add="${m.id}|${i}">${I.board} ${a.o==='You'?'Add to board':'Track follow-up'}</button>`}</div>`).join('')}</div>
+        <div class="dsec"><details class="trx"><summary>Transcript · ${m.transcript.length} lines</summary><div class="tr">${m.transcript.map(l=>`<p><b>${esc(l[0])}</b>${esc(l[1])}</p>`).join('')}</div></details></div>`;
+    }
+  }
+  if(!ui.rec) d += `<div class="dsec"><button class="btn" data-act-rec="1">${I.mic} Record a new meeting</button></div>`;
+  return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you') + `<div class="meet">${list}<div class="mdetail" data-keep="mdetail">${d}</div></div>`;
+}
+
 const profile = {
   'How you prioritize': [['Product changes before Slack replies','You said'],['Anything blocking a teammate goes first','Slack'],['Customer-facing bugs are always Now','Tickets'],['Errands can wait until evenings','Calendar']],
   'How you write': [['Short, warm replies. Rarely over 3 lines','Slack'],['Answers first, then the reason','Slack'],['Notes are bullets, decisions first','Docs']],
@@ -699,6 +841,12 @@ document.addEventListener('click', e=>{
   if(t.hasAttribute('data-close')){ ui.win=false; ui.sel=null; render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
   if(t.hasAttribute('data-unsel')){ ui.sel=null; renderWin(); return; }
+  if(t.id==='recpill'){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
+  if(t.dataset.actRec){ if(ui.rec){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec.id; ui.pop=false; render(); } else startRec(); return; }
+  if(t.dataset.actStop){ stopRec(); return; }
+  if(t.dataset.meet){ ui.meet=t.dataset.meet; renderWin(); return; }
+  if(t.dataset.add){ const [mid,i]=t.dataset.add.split('|'); const m=meetings.find(x=>x.id===mid); addAction(m, m.actions[+i]); render(); toast('Added to the board. lalo is starting on it.'); return; }
+  if(t.dataset.addall){ const m=meetings.find(x=>x.id===t.dataset.addall); let n=0; m.actions.forEach(a=>{ if(a.o==='You' && !a.added){ addAction(m,a); n++; } }); render(); toast('Added '+n+' action items to the board.'); return; }
   if(t.dataset.type){ ui.type=t.dataset.type; ui.sel=null; renderWin(); return; }
   if(t.dataset.del){ const [h,i]=t.dataset.del.split('|'); profile[h].splice(+i,1); renderWin(); toast('Removed. lalo will stop using it.'); return; }
   const k = cards.find(x=>x.id===ui.sel);
