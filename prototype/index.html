@@ -292,6 +292,33 @@ details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing
 .vtext{margin-top:8px;font-size:15px;line-height:1.45;color:#d9dbe0}
 .vtext b{color:#f2b632;font-weight:600}
 .vfoot{margin-top:8px;font-size:11px;color:#8b8f99}
+.phonehead,.tabbar,.greet{display:none}
+body.phone .bar,body.phone .hint,body.phone .wordmark{display:none}
+body.phone .win{top:0;left:0;transform:none;width:100%;height:100%;max-height:none;border-radius:0;border:0;grid-template-columns:minmax(0,1fr);box-shadow:none}
+body.phone .main{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+body.phone [data-close],body.phone .menu-btn{display:none}
+body.phone .mainhead{padding:14px max(16px,env(safe-area-inset-left,0px)) 10px}
+body.phone .phonehead{display:flex;align-items:center;gap:10px;padding:14px max(16px,env(safe-area-inset-left,0px)) 6px max(16px,env(safe-area-inset-left,0px))}
+body.phone .greet{display:block;font-size:13px;color:var(--fg-2);padding:0 16px 4px}
+body.phone .homebody{flex:1;overflow:auto}
+body.phone .homebody .cap{border-bottom:0}
+body.phone .homebody .cap input{height:44px;font-size:16px}
+body.phone .homebody .iconbtn{width:44px;height:44px}
+body.phone .homebody .tabs{margin:6px 12px 0}
+body.phone .homebody .row{padding:10px 8px}
+body.phone .homebody .popfoot{border-top:0}
+body.phone .homebody .popfoot [data-go]{display:none}
+body.phone .drawer{z-index:7;bottom:0}
+body.phone .dbody{padding-bottom:24px}
+body.phone .tabbar{display:flex;position:absolute;left:0;right:0;bottom:0;z-index:6;background:var(--panel);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.tabbar button{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:transparent;color:var(--fg-3);font-size:11px;font-weight:500;padding:4px 0}
+.tabbar button svg{width:22px;height:22px}
+.tabbar button[aria-current="page"]{color:var(--fg)}
+.tabbar button[aria-current="page"] svg{color:var(--accent)}
+.tb-badge{position:absolute;top:0;left:calc(50% + 6px);font-style:normal;font-family:var(--mono);font-size:10px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--accent);color:#1d1600;display:grid;place-items:center}
+.tb-rec{position:absolute;top:3px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:var(--hot)}
+body.phone .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body.phone .voice{top:calc(10px + env(safe-area-inset-top,0px))}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -493,15 +520,11 @@ function render(){
   renderPop(); renderWin();
 }
 
-function renderPop(){
-  const m = document.getElementById('popMount');
-  if(!ui.pop){ m.innerHTML=''; return; }
-  const prev = document.getElementById('capIn'); const val = prev ? prev.value : '';
-  const hadFocus = prev && document.activeElement === prev; const anim = !prev;
+function homeBody(){
   const need = cards.filter(k=>k.col==='need').sort(byPri), work = cards.filter(k=>k.col==='work').sort(byPri);
   const tab = ui.ptab || (ui.rec ? 'meetings' : 'tasks');
   const row = k => `<button class="row" data-open="${k.id}"><span class="mark ${k.col}"></span><span class="type" title="${TYPES[typeOf(k)][0]}" style="flex:none">${I[TYPES[typeOf(k)][1]]}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.col==='work' && progress(k) ? 'Step '+Math.min(progress(k).d+1,progress(k).n)+' of '+progress(k).n : status(k))}</span></button>`;
-  m.innerHTML = `<div class="pop ${anim?'anim':''}" role="dialog" aria-label="lalo">
+  return `
     <form class="cap" id="capForm" autocomplete="off">
       <label class="sr" for="capIn">Tell lalo anything</label>
       <input id="capIn" placeholder="Remind me to chase Alex on the pricing doc">
@@ -523,7 +546,15 @@ function renderPop(){
       <div class="uprow"><button class="row" data-meet-open="${lm.id}"><span class="recdot" style="flex:none"></span><span class="t">${esc(lm.title)}</span><span class="s" id="popRecTime">${(()=>{ const x=Math.floor((Date.now()-ui.rec.t0)/1000); return String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0'); })()}</span></button><button class="btn" data-act-stop="1" style="height:26px;font-size:12px;margin-right:4px">Stop</button></div></div>`; })() : ''}
     <div class="sec"><h3><span>Up next today</span><span>${upcoming.filter(u=>u.rec).length} to record</span></h3>${capped('p-up', upcoming, u=>`<div class="uprow"><button class="row" data-meet-open="${u.id}"><span class="time">${esc(u.time)}</span><span class="t">${esc(u.title)}</span></button>${recTog(u)}</div>`, '<div class="empty">No more meetings today</div>')}</div>
     <div class="sec"><h3><span>Recent</span></h3>${capped('p-recent', meetings.filter(x=>x.status!=='live'), x=>{ const left=(x.actions||[]).filter(a=>!a.added).length; return `<button class="row" data-meet-open="${x.id}"><span class="type" style="flex:none">${I.mic}</span><span class="t">${esc(x.title)}</span><span class="s">${x.status==='processing'?'Writing notes…':left?left+' action item'+(left>1?'s':'')+' to add':esc(x.when.split(' · ')[0])}</span></button>`; })}</div>
-    <div class="popfoot"><button class="btn pri" data-go="meetings">${I.mic} Open meetings</button>${ui.rec?'':`<button class="btn" data-act-rec="1">${I.mic} Record now</button>`}</div>`}
+    <div class="popfoot"><button class="btn pri" data-go="meetings">${I.mic} Open meetings</button>${ui.rec?'':`<button class="btn" data-act-rec="1">${I.mic} Record now</button>`}</div>`}`;
+}
+
+function renderPop(){
+  const m = document.getElementById('popMount');
+  if(!ui.pop || ui.phone){ m.innerHTML=''; return; }
+  const prev = document.getElementById('capIn'); const val = prev ? prev.value : '';
+  const hadFocus = prev && document.activeElement === prev; const anim = !prev;
+  m.innerHTML = `<div class="pop ${anim?'anim':''}" role="dialog" aria-label="lalo">${homeBody()}
   </div>`;
   const inp = document.getElementById('capIn'); inp.value = val;
   if(hadFocus || !ui._focused){ inp.focus(); ui._focused = true; }
@@ -537,6 +568,7 @@ function renderWin(){
   const oldChange = document.getElementById('changeIn'); const changeVal = oldChange ? oldChange.value : ''; const changeFocus = oldChange && document.activeElement === oldChange;
   const oldChat = document.getElementById('chatIn'); const chatVal = oldChat ? oldChat.value : '';
   const chatFocus = (oldChat && document.activeElement === oldChat) || ui._chatFocus; ui._chatFocus = false;
+  const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
   m.innerHTML = `<section class="win ${winAnim?'anim':''}" role="dialog" aria-label="lalo board">
     <aside class="side ${ui.side?'open':''}">
@@ -548,14 +580,24 @@ function renderWin(){
       <div class="sidefoot">Prototype. Example data, nothing is connected or sent.</div>
     </aside>
     <div class="main">
-      ${ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : profileHTML()}
+      ${ui.view==='home' ? homeHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : profileHTML()}
       ${ui.sel && ui.view==='board' ? drawerHTML(cards.find(k=>k.id===ui.sel), drAnim) : ''}
     </div>
+    ${ui.phone ? `<nav class="tabbar" aria-label="Sections">${[['home','spark','Home'],['board','board','Board'],['meetings','mic','Meetings'],['profile','user','Profile']].map(([v,ic,l])=>
+      `<button data-go="${v}" ${ui.view===v?'aria-current="page"':''}>${I[ic]}<span>${l}</span>${v==='home'&&c.need?`<i class="tb-badge">${c.need}</i>`:''}${v==='meetings'&&ui.rec?'<i class="tb-rec"></i>':''}</button>`).join('')}</nav>` : ''}
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
   const tl = document.getElementById('trLive'); if(tl) tl.scrollTop = tl.scrollHeight;
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
+  const cp = document.getElementById('capIn'); if(cp){ cp.value = capVal; if(capFocus) cp.focus(); }
+}
+
+function homeHTML(){
+  const c = counts();
+  return `<div class="phonehead"><div class="brand" style="padding:0">${I.spark} lalo</div><span class="grow"></span>
+      <button class="trybtn" data-voice="1" style="margin:0">${I.mic} Hey lalo</button></div>
+    <div class="homebody" data-keep="home"><div class="greet">${c.need} need you · ${c.work} working</div>${homeBody()}</div>`;
 }
 
 function head(title, sub){
@@ -962,7 +1004,7 @@ document.addEventListener('click', e=>{
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
   if(t.dataset.open){ openCard(t.dataset.open); return; }
   if(t.dataset.go){ ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
-  if(t.hasAttribute('data-close')){ ui.win=false; ui.sel=null; render(); return; }
+  if(t.hasAttribute('data-close')){ if(ui.phone){ ui.view='home'; ui.sel=null; } else { ui.win=false; ui.sel=null; } render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
   if(t.hasAttribute('data-unsel')){ ui.sel=null; renderWin(); return; }
   if(t.id==='recpill'){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
@@ -1049,5 +1091,14 @@ document.addEventListener('keydown', e=>{
 
 function clock(){ const d=new Date(); document.getElementById('clock').textContent = d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}); }
 clock(); setInterval(clock, 15000);
+const PHONE = window.matchMedia('(max-width: 600px)');
+function applyPhone(){
+  ui.phone = PHONE.matches;
+  document.body.classList.toggle('phone', ui.phone);
+  if(ui.phone){ ui.pop=false; ui.hinted=true; ui.win=true; if(!ui.view || ui.view==='board' && !ui._phoneInit) ui.view='home'; ui._phoneInit=true; }
+  else if(ui.view==='home'){ ui.view='board'; }
+}
+applyPhone();
+try{ PHONE.addEventListener('change', ()=>{ applyPhone(); render(); }); }catch(_){}
 render();
 </script>
