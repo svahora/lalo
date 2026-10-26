@@ -467,7 +467,7 @@ body.phone .askbar{bottom:calc(14px + env(safe-area-inset-bottom,0px))}
 body.phone .main{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
 body.phone .main:has(.cu-wrap){padding-bottom:env(safe-area-inset-bottom,0px)}
 .asksheet{padding-bottom:env(safe-area-inset-bottom,0px)}
-body.phone .toast{bottom:auto;top:calc(64px + env(safe-area-inset-top,0px))}
+body.phone .toast{top:auto;bottom:calc(82px + env(safe-area-inset-bottom,0px))}
 body.phone .main>.filters{flex-wrap:nowrap;overflow-x:auto;padding:8px max(16px,env(safe-area-inset-left,0px)) 10px;border-bottom:1px solid var(--line);scrollbar-width:none}
 body.phone .main>.filters::-webkit-scrollbar{display:none}
 body.phone .main>.filters .chip{flex:none}
@@ -592,8 +592,10 @@ body.phone .cu-stack{max-height:none}
 .nextbtn{border:0!important;background:transparent!important;box-shadow:none!important;color:var(--fg-3)!important;width:36px!important;height:52px}
 .nextbtn svg{width:26px;height:26px}
 .nextbtn:hover{color:var(--fg-2)!important}
-.talkpill.suggest textarea{color:var(--fg);font-weight:500}
-.talkpill.suggest .talkact.send{background:var(--accent);color:#fff}
+.talkpill.suggest textarea{color:#fff;font-weight:600}
+.talkpill.suggest{background:var(--accent)}
+.talkpill.suggest textarea::selection{background:rgba(255,255,255,.3)}
+.talkpill.suggest .talkact.send{background:#fff;color:var(--accent)}
 .talkpill.suggest{border-color:var(--accent)}
 .talkpill{padding-left:18px}
 .welcome{flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:8px max(16px,env(safe-area-inset-left,0px)) 24px}
@@ -708,6 +710,22 @@ body.phone .cu-stack{max-height:none}
 body.phone .main:has(.welcome){padding-bottom:env(safe-area-inset-bottom,0px)}
 .welcome{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
 body.phone input,body.phone textarea,body.phone select{font-size:16px!important}
+.splash{position:absolute;inset:0;z-index:12;background:var(--panel);display:flex;flex-direction:column;justify-content:space-between;padding:24px max(20px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px));animation:pop .18s ease-out}
+.sp-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.sp-ic{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--ok-bg);color:var(--ok);margin-bottom:6px}
+.sp-ic svg{width:34px;height:34px}
+.splash.discard .sp-ic{background:var(--panel-2);color:var(--fg-2)}
+.sp-body h2{margin:0;font-family:var(--display);font-weight:500;font-size:24px;letter-spacing:-.02em;text-wrap:balance;max-width:22ch}
+.sp-body p{margin:0;color:var(--fg-2);font-size:14px;max-width:32ch}
+.sp-acts{display:flex;flex-direction:column;gap:10px;width:min(440px,100%);align-self:center}
+.sp-undo{display:flex;align-items:center;justify-content:center;gap:10px;height:48px;border-radius:14px;border:1px solid var(--line-strong);background:var(--panel-2);font-size:15px;font-weight:600;color:var(--fg)}
+.sp-ring{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--fg-2) calc(var(--p) * 1%), var(--line) 0);transition:background .9s linear}
+.sp-ring span{width:20px;height:20px;border-radius:50%;background:var(--panel-2);display:grid;place-items:center;font-size:11px;font-weight:700;font-family:var(--mono)}
+.sp-next{display:flex;align-items:center;gap:10px;text-align:left;min-height:60px;border-radius:14px;border:0;background:var(--accent);color:#fff;padding:10px 16px}
+.sp-next b{display:block;font-weight:600;font-size:15px}
+.sp-next small{display:block;font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-next .grow{min-width:0}
+.sp-next>svg{width:20px;height:20px;flex:none}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -999,6 +1017,7 @@ function renderWin(){
       <button class="askcu" data-reviewnext="1" aria-label="Review the next item, ${c.need} need you">${c.need ? c.need : I.check}</button></div>` : ''}
     ${ui.ask ? askHTML() : ''}
     ${ui.planning ? planningHTML() : ''}
+    ${ui.splash ? splashHTML() : ''}
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
@@ -1612,7 +1631,7 @@ function cuAsk(k, text){
   if(DISCARD_RE.test(text.trim())){ discardTask(k); return; }
   if(k.col==='need' && (quickActions(k).some(a=>a.toLowerCase()===lc.trim()) || /\b(mark (it |this )?(as )?done|it'?s done|i did it|all done)\b/.test(lc))){
     if(ui.view==='catchup'){ cuDecide(1); return; }
-    if(cuApprove(k)!==false){ ui.sel=null; render(); } return;
+    actWithSplash(k, ()=>cuApprove(k)); return;
   }
   if(k.kind==='draft'){
     const key = /short|brief|trim/.test(lc)?'Shorter':/warm|friend|nice/.test(lc)?'Warmer':/direct|firm|blunt/.test(lc)?'More direct':'custom';
@@ -1656,7 +1675,7 @@ function cuAsk(k, text){
 function cuApprove(k){
   if(k.kind==='stove'){ k.col='done'; toast('Marked done.'); return true; }
   if(k.kind==='ship'){ const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work'; toast('Approved. Sending engineering the PR, test results, flag, and screenshots.'); return true; }
-  if(k.kind==='draft'){ k.col='done'; toast('Approved. Draft copied and marked sent.'); try{ navigator.clipboard.writeText(k.draft.v[k.draft.cur]).catch(()=>{}); }catch(_){} return true; }
+  if(k.kind==='draft'){ k.col='done'; toast('Reply approved and marked sent'); try{ navigator.clipboard.writeText(k.draft.v[k.draft.cur]).catch(()=>{}); }catch(_){} return true; }
   if(k.kind==='tickets'){ k.col='done'; k.steps.forEach(x=>x.st='done'); toast('Created 4 tickets.'); return true; }
   k.col='done'; if(k.steps) k.steps.forEach(x=>x.st='done'); toast('Done.'); return true;
 }
@@ -1797,15 +1816,71 @@ function profileHTML(){
 }
 
 /* ---------- behaviour ---------- */
-function toast(t, act){ const m=document.getElementById('toastMount'); toast.act=act||null; m.innerHTML=`<div class="toast">${esc(t)}${act?`<button class="toast-act" data-toastact="1">${esc(act.label)}</button>`:''}</div>`; clearTimeout(toast.t); toast.t=setTimeout(()=>{ m.innerHTML=''; toast.act=null; }, act?5000:2600); }
+function toast(t, act){ if(ui.captureToast){ ui.capturedMsg=t; return; } const m=document.getElementById('toastMount'); toast.act=act||null; m.innerHTML=`<div class="toast">${esc(t)}${act?`<button class="toast-act" data-toastact="1">${esc(act.label)}</button>`:''}</div>`; clearTimeout(toast.t); toast.t=setTimeout(()=>{ m.innerHTML=''; toast.act=null; }, act?5000:2600); }
 function openPop(v){ ui.pop = v===undefined ? !ui.pop : v; ui.hinted = true; ui._focused=false; ui.err=''; render(); }
+function nextNeedAfter(id){
+  const order=cards.filter(x=>x.col==='need').sort(byPri).map(x=>x.id);
+  const i=order.indexOf(id);
+  return (i<0 ? order : order.slice(i+1).concat(order.slice(0,i))).filter(x=>x!==id);
+}
+function goNextFrom(list, quiet){
+  const nxt=list.find(id=>{ const c=cards.find(x=>x.id===id); return c && c.col==='need'; });
+  ui.sel = nxt || null; render();
+  if(nxt){ const b=document.getElementById('cuBody'); if(b) b.scrollTop=0; }
+  else if(!quiet) toast("You're all caught up.");
+}
+const SPLASH_SECS = 5;
+function actWithSplash(k, fn, opts){
+  opts=opts||{};
+  const idx=cards.indexOf(k); const snap=JSON.parse(JSON.stringify(k, (key,v)=> key==='liveP'||key==='planning' ? undefined : v));
+  const keep={ liveP:k.liveP, planning:k.planning };
+  const nl=nextNeedAfter(k.id);
+  ui.captureToast=true; ui.capturedMsg=''; let res;
+  try{ res=fn(); } finally{ ui.captureToast=false; }
+  if(res===false) return;
+  const next=nl.map(id=>cards.find(x=>x.id===id)).find(c=>c && c.col==='need');
+  clearInterval(ui.splashTimer);
+  ui.splash={ id:k.id, title:k.title, msg: opts.msg || ui.capturedMsg || 'Done.', kind: opts.kind || 'done', snap, keep, idx, next: next ? next.id : null, nextTitle: next ? next.title : '', left:SPLASH_SECS };
+  ui.sel=null; ui.menuFor=null; render();
+  ui.splashTimer=setInterval(()=>{ if(!ui.splash){ clearInterval(ui.splashTimer); return; } ui.splash.left--; if(ui.splash.left<=0) splashContinue(); else { const c=document.getElementById('spCount'); if(c) c.textContent=ui.splash.left; const r=document.querySelector('.sp-ring'); if(r) r.style.setProperty('--p', Math.round(ui.splash.left/SPLASH_SECS*100)); } }, 1000);
+}
+function splashContinue(){
+  const S0=ui.splash; clearInterval(ui.splashTimer); if(!S0) return; ui.splash=null;
+  if(S0.next && cards.find(x=>x.id===S0.next && x.col==='need')){ ui.sel=S0.next; render(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=0; }
+  else { ui.sel=null; if(ui.phone){ ui.view='board'; } render(); }
+}
+function splashUndo(){
+  const S0=ui.splash; clearInterval(ui.splashTimer); if(!S0) return; ui.splash=null;
+  let k=cards.find(x=>x.id===S0.id);
+  if(k){ Object.keys(k).forEach(key=>delete k[key]); Object.assign(k, S0.snap, S0.keep); }
+  else { k=Object.assign(S0.snap, S0.keep); cards.splice(Math.min(S0.idx,cards.length),0,k); }
+  Object.keys(k).forEach(key=>{ if(k[key]===undefined) delete k[key]; });
+  if(ui.talkDraft) Object.keys(ui.talkDraft).forEach(key=>{ if(key===k.id || key.startsWith(k.id+':')) delete ui.talkDraft[key]; });
+  ui.sel=k.id; render();
+}
+function splashHTML(){
+  const S0=ui.splash; const ic = S0.kind==='discard' ? I.trash : I.check;
+  return `<div class="splash ${S0.kind}" role="status" aria-live="polite">
+    <div class="sp-body">
+      <div class="sp-ic">${ic}</div>
+      <h2>${esc(S0.msg)}</h2>
+      <p>${esc(S0.title)}</p>
+    </div>
+    <div class="sp-acts">
+      <button class="sp-undo" data-spundo="1"><span class="sp-ring" style="--p:${Math.round(S0.left/SPLASH_SECS*100)}"><span id="spCount">${S0.left}</span></span>Undo</button>
+      <button class="sp-next" data-spnext="1"><span class="grow"><b>${S0.next ? 'Next task' : "You're all caught up"}</b>${S0.next?`<small>${esc(S0.nextTitle)}</small>`:'<small>Back to your tasks</small>'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>
+    </div>
+  </div>`;
+}
 function discardTask(k){
+  if(ui.sel===k.id){ return actWithSplash(k, ()=>{ const i=cards.indexOf(k); cards.splice(i,1); if(ui.planning && ui.planning.cardId===k.id) ui.planning=null; return true; }, {msg:'Task discarded', kind:'discard'}); }
   const idx=cards.indexOf(k); if(idx<0) return;
   cards.splice(idx,1);
   if(ui.planning && ui.planning.cardId===k.id) ui.planning=null;
-  if(ui.sel===k.id) ui.sel=null;
+  const wasOpen = ui.sel===k.id; const nl = wasOpen ? nextNeedAfter(k.id) : [];
+  if(wasOpen) ui.sel=null;
   if(ui.cq) ui.cq=ui.cq.filter(id=>id!==k.id);
-  ui.menuFor=null; render();
+  ui.menuFor=null; if(wasOpen) goNextFrom(nl, true); else render();
   toast('Task discarded', {label:'Undo', fn:()=>{ cards.splice(Math.min(idx,cards.length),0,k); render(); toast('Task restored'); }});
 }
 function kebab(id){
@@ -2049,6 +2124,8 @@ document.addEventListener('click', e=>{
   if(!t && ui.menuFor){ ui.menuFor=null; renderWin(); return; }
   if(!t){ if(e.target.classList && e.target.classList.contains('fs-scrim')){ ui.filterSheet=false; renderWin(); return; } if(ui.pop && !e.target.closest('.pop')){ ui.pop=false; render(); } return; }
   if(t.dataset.themeToggle){ setTheme(isDark() ? 'light' : 'dark'); return; }
+  if(t.dataset.spundo){ splashUndo(); return; }
+  if(t.dataset.spnext){ splashContinue(); return; }
   if(t.dataset.toastact){ const a=toast.act; document.getElementById('toastMount').innerHTML=''; toast.act=null; if(a) a.fn(); return; }
   if(t.dataset.kmenu){ ui.menuFor = ui.menuFor===t.dataset.kmenu ? null : t.dataset.kmenu; renderWin(); return; }
   if(t.dataset.discard){ const k=cards.find(x=>x.id===t.dataset.discard); if(k){ if(ui.view==='catchup' && !ui.sel){ ui.cq=ui.cq.filter(id=>id!==k.id); } discardTask(k); } return; }
@@ -2092,11 +2169,10 @@ document.addEventListener('click', e=>{
   if(t.dataset.decide){
     const k=cards.find(x=>x.id===t.dataset.card); const dir=t.dataset.decide==='ok'?1:-1;
     if(ui.view==='catchup'){ cuDecide(dir); return; }
-    const order=cards.filter(x=>x.col==='need').sort(byPri).map(x=>x.id);
-    const after=order[(order.indexOf(k.id)+1)%order.length];
-    if(dir>0){ if(cuApprove(k)===false) return; }
-    const nextId = cards.filter(x=>x.col==='need').sort(byPri).map(x=>x.id).find(id=>id===after && id!==k.id);
-    ui.sel = nextId || null; render(); if(!nextId) toast(dir>0?'Done. Nothing else needs you.':'That was the last item.'); return;
+    if(dir>0){ actWithSplash(k, ()=>cuApprove(k)); return; }
+    const nl=nextNeedAfter(k.id);
+    if(!nl.length){ toast('This is the only item that needs you.'); return; }
+    goNextFrom(nl); return;
   }
   if(t.dataset.cu){ cuDecide(t.dataset.cu==='ok'?1:-1); return; }
   if(t.dataset.plan){ ui.planOpen=ui.planOpen||{}; ui.planOpen[t.dataset.plan]=!ui.planOpen[t.dataset.plan]; renderWin(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=0; return; }
@@ -2157,9 +2233,10 @@ document.addEventListener('click', e=>{
     render(); return;
   }
   if(t.dataset.pick!==undefined){
-    k.picked=+t.dataset.pick; const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work';
-    slog(k,'me','Picked the '+STOVE_OPTS[k.picked][0]+' for '+STOVE_OPTS[k.picked][2]); slog(k,'step','Step '+(y+1)+' done: '+k.steps[y].t);
-    toast('In the real app, lalo opens the cart with the discount applied. You pay.'); render(); return;
+    const pi=+t.dataset.pick;
+    actWithSplash(k, ()=>{ k.picked=pi; const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work';
+      slog(k,'me','Picked the '+STOVE_OPTS[k.picked][0]+' for '+STOVE_OPTS[k.picked][2]); slog(k,'step','Step '+(y+1)+' done: '+k.steps[y].t); }, {msg:'Stove picked. The cart is ready for you to pay.'});
+    return;
   }
   const a = t.dataset.act;
   if(a==='copy'){
@@ -2172,11 +2249,10 @@ document.addEventListener('click', e=>{
   if(a==='sent'){ k.col='done'; render(); toast('Marked sent. Your edits teach lalo your voice.'); return; }
   if(a==='dismiss'){ cards.splice(cards.indexOf(k),1); ui.sel=null; render(); toast("Dismissed. lalo will flag fewer messages like this."); return; }
   if(a==='ship'){
-    const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work'; ui.changes=null;
-    render(); toast('Approved. Sending engineering the PR, test results, flag, and screenshots.'); return;
+    actWithSplash(k, ()=>{ const y=k.steps.findIndex(s=>s.who==='you'); k.steps[y].st='done'; k.steps[y+1].st='doing'; k.col='work'; ui.changes=null; }, {msg:'Approved and sent to engineering'}); return;
   }
   if(a==='changes'){ ui.changes = ui.changes===k.id ? null : k.id; renderWin(); const ci=document.getElementById('changeIn'); if(ci) ci.focus(); return; }
-  if(a==='ready' || a==='approve'){ k.col='done'; k.steps && k.steps.forEach(s=>s.st='done'); render(); toast(a==='approve'?'Created 4 tickets.':'Done.'); return; }
+  if(a==='ready' || a==='approve'){ actWithSplash(k, ()=>{ k.col='done'; k.steps && k.steps.forEach(s=>s.st='done'); }, {msg: a==='approve'?'Created 4 tickets':'Done'}); return; }
 });
 function selectDraft(){ const el=document.getElementById('draftText'); if(!el) return; const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
 
