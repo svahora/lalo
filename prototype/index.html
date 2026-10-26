@@ -75,6 +75,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .pop{position:absolute;z-index:40;top:36px;right:max(8px,env(safe-area-inset-right,0px));width:min(360px,calc(100% - 16px));background:var(--panel);
   border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;transform-origin:top right}
 .pop.anim{animation:pop .16s ease-out}
+.pop{max-height:calc(100% - 44px);overflow:auto}
 @keyframes pop{from{opacity:0;transform:scale(.97) translateY(-4px)}}
 .cap{display:flex;gap:8px;align-items:center;padding:12px;border-bottom:1px solid var(--line)}
 .cap input{flex:1;min-width:0;height:38px;border-radius:9px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--fg);padding:0 12px;font:inherit}
@@ -254,7 +255,19 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .recbig{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:40px 10px;color:var(--fg-2)}
 .recbig .btn{height:40px;padding:0 18px;font-size:14px}
 details.trx summary{cursor:pointer;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:8px}
-@media (max-width:760px){.meet{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}.mlist{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;overflow-x:auto}.mitem{min-width:170px}.mdetail{padding:4px 16px 16px}}
+@media (max-width:760px){.meet{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}.mlist{border-right:0;border-bottom:1px solid var(--line);max-height:230px}.mdetail{padding:4px 16px 16px}}
+.more{border:0;background:transparent;color:var(--fg-2);font-size:12px;font-weight:500;padding:6px 8px;border-radius:7px;text-align:left;width:100%}
+.more:hover{background:var(--panel-2);color:var(--fg)}
+.col .more{text-align:center;background:var(--panel);border:1px dashed var(--line-strong)}
+.uprow{display:flex;align-items:center;gap:8px;padding:2px 0 2px 0}
+.uprow .row{flex:1;min-width:0}
+.time{font-family:var(--mono);font-size:12px;color:var(--fg-2);min-width:52px;font-variant-numeric:tabular-nums}
+.rectog{flex:none;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:6px;border:1px solid var(--line-strong);background:var(--panel);font-size:11px;font-weight:500;color:var(--fg-3);margin-right:4px}
+.rectog .d{width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor}
+.rectog.on{color:var(--hot);border-color:var(--hot);background:var(--hot-bg)}
+.rectog.on .d{background:var(--hot);border-color:var(--hot)}
+.mgroup{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin:8px 10px 2px}
+.mgroup:first-child{margin-top:2px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -468,9 +481,10 @@ function renderPop(){
       <button type="submit" class="iconbtn go" aria-label="Add task">${I.up}</button>
     </form>
     ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : `<div class="caphelp">A task, a reminder, or something recurring like "every Friday, summarize #design". Press Enter.</div>`}
-    <div class="sec"><h3><span>Needs you</span><span>${need.length}</span></h3>${need.map(row).join('') || '<div class="empty">Nothing waiting on you</div>'}</div>
-    <div class="sec"><h3><span>Working</span><span>${work.length}</span></h3>${work.map(row).join('') || '<div class="empty">Nothing running</div>'}</div>
-    ${(()=>{ const rs=cards.filter(k=>k.repeat); return rs.length ? `<div class="sec"><h3><span>Recurring</span><span>${rs.length}</span></h3>${rs.map(k=>`<button class="row" data-open="${k.id}"><span class="rep" style="flex:none">${I.repeat}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.repeat.paused?'Paused':k.repeat.next)}</span></button>`).join('')}</div>` : ''; })()}
+    <div class="sec"><h3><span>Needs you</span><span>${need.length}</span></h3>${capped('p-need', need, row, '<div class="empty">Nothing waiting on you</div>')}</div>
+    <div class="sec"><h3><span>Up next today</span><span>${upcoming.filter(u=>u.rec).length} to record</span></h3>${capped('p-up', upcoming, u=>`<div class="uprow"><button class="row" data-meet-open="${u.id}"><span class="time">${esc(u.time)}</span><span class="t">${esc(u.title)}</span></button>${recTog(u)}</div>`, '<div class="empty">No more meetings today</div>')}</div>
+    <div class="sec"><h3><span>Working</span><span>${work.length}</span></h3>${capped('p-work', work, row, '<div class="empty">Nothing running</div>')}</div>
+    ${(()=>{ const rs=cards.filter(k=>k.repeat); return rs.length ? `<div class="sec"><h3><span>Recurring</span><span>${rs.length}</span></h3>${capped('p-rep', rs, k=>`<button class="row" data-open="${k.id}"><span class="rep" style="flex:none">${I.repeat}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(k.repeat.paused?'Paused':k.repeat.next)}</span></button>`)}</div>` : ''; })()}
     <div class="popfoot"><button class="btn pri" data-go="board">${I.board} Open board</button><button class="btn" data-act-rec="1">${ui.rec ? '<span class="recdot"></span> Recording' : I.mic+' Record meeting'}</button></div>
   </div>`;
   const inp = document.getElementById('capIn'); inp.value = val;
@@ -516,7 +530,7 @@ function boardHTML(c){
   const col = (key, label, mark) => {
     const list = cards.filter(k=>k.col===key && (ui.type==='all' || typeOf(k)===ui.type)).sort(byPri);
     return `<div class="col"><h2><span class="mark ${mark}"></span>${label}<span class="c">${list.length}</span></h2>
-      ${list.map(cardHTML).join('') || '<div class="empty">Empty</div>'}</div>`;
+      ${capped('col-'+key, list, cardHTML, '<div class="empty">Empty</div>')}</div>`;
   };
   const tc = {}; cards.forEach(k=>{ const t=typeOf(k); tc[t]=(tc[t]||0)+1; });
   const filters = `<div class="filters" role="group" aria-label="Filter by type"><button class="chip" data-type="all" aria-pressed="${ui.type==='all'}">All <span class="n">${cards.length}</span></button>${
@@ -650,7 +664,24 @@ function repeatHTML(k){
     </div></div>`;
 }
 
+/* ---------- section caps ---------- */
+const CAP = 4;
+function capped(key, items, renderItem, emptyHTML){
+  if(!items.length) return emptyHTML || '';
+  const all = ui.more && ui.more[key];
+  const shown = all ? items : items.slice(0, CAP);
+  return shown.map(renderItem).join('') + (items.length > CAP ? `<button class="more" data-more="${key}">${all ? 'Show less' : 'Show all '+items.length}</button>` : '');
+}
+
 /* ---------- meetings ---------- */
+const upcoming = [
+  { id:'u1', title:'Checkout launch sync', time:'2:00pm', people:'Jordan, Ana, Ravi, you', rec:true },
+  { id:'u2', title:'Weekly product review', time:'3:30pm', people:'Product team, 9 people', rec:true },
+  { id:'u3', title:'Interview: senior designer', time:'4:30pm', people:'Candidate, Ana, you', rec:false, why:'Interviews are off by default' },
+  { id:'u4', title:'Ads planning', time:'5:00pm', people:'Imani, Theo, you', rec:true },
+  { id:'u5', title:'Coffee chat with Priya', time:'5:30pm', people:'Priya, you', rec:false, why:'Coffee chats are off by default' }
+];
+function recTog(u){ return `<button class="rectog ${u.rec?'on':''}" data-uprec="${u.id}" aria-pressed="${u.rec}" aria-label="${u.rec?'Will record. Turn off':'Won\'t record. Turn on'}"><span class="d"></span>${u.rec?'Records':'Off'}</button>`; }
 const meetings = [
   { id:'m1', title:'Design review', when:'Today · 11:00am', dur:'32 min', people:'Ana, Theo, Ravi, you', status:'done',
     summary:['Agreed on the new empty state for mobile receipts','Saved cards will show at checkout for signed-in users','Design tokens should be reused in emails'],
@@ -676,9 +707,11 @@ const SCRIPT = [
   ['Jordan','Great. Someone needs to update the launch doc too.'],
   ['You','I\'ll take the launch doc.']
 ];
-function startRec(){
+function startRec(u){
   if(ui.rec) return;
-  const m = { id:'m'+(uid++), title:'Checkout launch sync', when:'Now', dur:'', people:'Jordan, Ana, Ravi, you', status:'live', transcript:[], summary:[], decisions:[], actions:[] };
+  u = u || upcoming[0];
+  if(u) upcoming.splice(upcoming.indexOf(u),1);
+  const m = { id:'m'+(uid++), title:u ? u.title : 'Untitled meeting', when:'Now', dur:'', people:u ? u.people : 'You', status:'live', transcript:[], summary:[], decisions:[], actions:[] };
   meetings.unshift(m);
   ui.rec = { id:m.id, t0:Date.now(), i:0 };
   ui.win=true; ui.view='meetings'; ui.meet=m.id; ui.pop=false; ui.sel=null;
@@ -725,11 +758,23 @@ function addAction(m, a){
 }
 
 function meetingsHTML(){
-  if(!ui.meet || !meetings.find(m=>m.id===ui.meet)) ui.meet = meetings[0] && meetings[0].id;
+  if(!ui.meet || !(meetings.find(m=>m.id===ui.meet) || upcoming.find(u=>u.id===ui.meet))) ui.meet = meetings[0] && meetings[0].id;
   const m = meetings.find(x=>x.id===ui.meet);
-  const list = `<nav class="mlist" aria-label="Meetings">${meetings.map(x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
-      <b>${esc(x.title)}</b><small>${x.status==='live'?'<span class="recdot"></span> Recording':x.status==='processing'?'Writing notes…':esc(x.when)+' · '+esc(x.dur)}</small></button>`).join('')}</nav>`;
+  const up = upcoming.find(x=>x.id===ui.meet);
+  const list = `<nav class="mlist" aria-label="Meetings">
+    <div class="mgroup">Up next today</div>
+    ${capped('m-up', upcoming, x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
+      <b>${esc(x.title)}</b><small><span class="time" style="min-width:0">${esc(x.time)}</span> · ${x.rec?'<span style="color:var(--hot)">Will record</span>':'Won\'t record'}</small></button>`, '<div class="empty">No more meetings today</div>')}
+    <div class="mgroup">Recorded</div>
+    ${capped('m-rec', meetings, x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
+      <b>${esc(x.title)}</b><small>${x.status==='live'?'<span class="recdot"></span> Recording':x.status==='processing'?'Writing notes…':esc(x.when)+' · '+esc(x.dur)}</small></button>`)}</nav>`;
   let d = '';
+  if(up){
+    d += `<div class="mhead"><div class="grow"><h2>${esc(up.title)}</h2><small>Today · ${esc(up.time)} · ${esc(up.people)}</small></div></div>
+      <div class="dsec"><div class="sched ${up.rec?'':'off'}"><div class="sched-top">${I.mic}<div class="grow"><b>${up.rec?'lalo will record this meeting':'lalo won\'t record this meeting'}</b>
+        <small>${up.rec?'Recording starts when the call starts at '+esc(up.time)+' and stops when it ends. Notes and action items show up here after.':esc(up.why||'You turned recording off for this one.')}</small></div>${recTog(up)}</div>
+        ${!ui.rec?`<div class="acts"><button class="btn pri" data-rec-up="${up.id}">${I.mic} Start recording now</button></div>`:''}</div></div>`;
+  }
   if(m){
     d += `<div class="mhead"><div class="grow"><h2>${esc(m.title)}</h2><small>${esc(m.people)}${m.status==='done'?' · '+esc(m.when)+' · '+esc(m.dur):''}</small></div></div>`;
     if(m.status==='live'){
@@ -845,6 +890,10 @@ document.addEventListener('click', e=>{
   if(t.id==='recpill'){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
   if(t.dataset.actRec){ if(ui.rec){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec.id; ui.pop=false; render(); } else startRec(); return; }
   if(t.dataset.actStop){ stopRec(); return; }
+  if(t.dataset.more){ ui.more = ui.more || {}; ui.more[t.dataset.more] = !ui.more[t.dataset.more]; render(); return; }
+  if(t.dataset.uprec){ const u=upcoming.find(x=>x.id===t.dataset.uprec); u.rec=!u.rec; if(!u.rec) u.why='You turned recording off for this one.'; render(); toast(u.rec ? 'lalo will record '+u.title+'.' : 'lalo won\'t record '+u.title+'.'); return; }
+  if(t.dataset.meetOpen){ ui.win=true; ui.view='meetings'; ui.meet=t.dataset.meetOpen; ui.pop=false; ui.sel=null; render(); return; }
+  if(t.dataset.recUp){ startRec(upcoming.find(x=>x.id===t.dataset.recUp)); return; }
   if(t.dataset.meet){ ui.meet=t.dataset.meet; renderWin(); return; }
   if(t.dataset.add){ const [mid,i]=t.dataset.add.split('|'); const m=meetings.find(x=>x.id===mid); addAction(m, m.actions[+i]); render(); toast('Added to the board. lalo is starting on it.'); return; }
   if(t.dataset.addall){ const m=meetings.find(x=>x.id===t.dataset.addall); let n=0; m.actions.forEach(a=>{ if(a.o==='You' && !a.added){ addAction(m,a); n++; } }); render(); toast('Added '+n+' action items to the board.'); return; }
