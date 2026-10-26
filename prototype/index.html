@@ -351,6 +351,15 @@ body.phone .voice{top:calc(10px + env(safe-area-inset-top,0px))}
 .ins-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ins-conf{font-size:12px;color:var(--fg-3)}
 @media (max-width:760px){.insights{padding:12px 16px 20px}}
+.meet-phone{flex:1;overflow:auto}
+.meet-phone.mlist,.meet-phone .mlist{border:0;max-height:none;padding:8px 10px}
+body.phone .meet-phone .mitem{padding:12px 10px;border-bottom:1px solid var(--line);border-radius:0}
+body.phone .meet-phone .mitem[aria-current="true"]{background:transparent}
+body.phone .meet-phone .mitem:active{background:var(--panel-2)}
+body.phone .mdetail.meet-phone{padding:0 16px 20px}
+.backbar{display:flex;align-items:center;padding:10px max(8px,env(safe-area-inset-left,0px)) 4px;border-bottom:1px solid var(--line)}
+.backbtn{display:inline-flex;align-items:center;gap:2px;border:0;background:transparent;color:var(--accent-ink);font-size:16px;font-weight:500;padding:6px 8px;border-radius:8px}
+.backbtn svg{width:20px;height:20px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -428,6 +437,7 @@ const I = {
   list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg>',
   dot:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>',
   bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0012 3z"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
   repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/></svg>',
   menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 };
@@ -840,7 +850,7 @@ function startRec(u){
   const m = { id:'m'+(uid++), title:u ? u.title : 'Untitled meeting', when:'Now', dur:'', people:u ? u.people : 'You', status:'live', transcript:[], summary:[], decisions:[], actions:[] };
   meetings.unshift(m);
   ui.rec = { id:m.id, t0:Date.now(), i:0 };
-  ui.win=true; ui.view='meetings'; ui.meet=m.id; ui.pop=false; ui.sel=null;
+  ui.win=true; ui.view='meetings'; ui.meet=m.id; ui.meetOpen=true; ui.pop=false; ui.sel=null;
   render(); toast('Recording your computer audio and mic. Let everyone know.');
 }
 function stopRec(){
@@ -924,6 +934,11 @@ function meetingsHTML(){
     }
   }
   if(!ui.rec) d += `<div class="dsec"><button class="btn" data-act-rec="1">${I.mic} Record a new meeting</button></div>`;
+  if(ui.phone){
+    if(!ui.meetOpen) return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio')
+      + `<div class="meet-phone" data-keep="mlistp">${list}${ui.rec?'':`<div style="padding:4px 16px 16px"><button class="btn" data-act-rec="1">${I.mic} Record a new meeting</button></div>`}</div>`;
+    return `<div class="backbar"><button class="backbtn" data-meetback="1">${I.back} Meetings</button></div><div class="mdetail meet-phone" data-keep="mdetail">${d.replace(/<div class="dsec"><button class="btn" data-act-rec="1">[\s\S]*?<\/div>$/, '')}</div>`;
+  }
   return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you') + `<div class="meet">${list}<div class="mdetail" data-keep="mdetail">${d}</div></div>`;
 }
 
@@ -1125,11 +1140,11 @@ document.addEventListener('click', e=>{
   if(t.id==='spark'){ openPop(); return; }
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
   if(t.dataset.open){ openCard(t.dataset.open); return; }
-  if(t.dataset.go){ ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
+  if(t.dataset.go){ ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
   if(t.hasAttribute('data-close')){ if(ui.phone){ ui.view='home'; ui.sel=null; } else { ui.win=false; ui.sel=null; } render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
   if(t.hasAttribute('data-unsel')){ ui.sel=null; renderWin(); return; }
-  if(t.id==='recpill'){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
+  if(t.id==='recpill'){ ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
   if(t.dataset.actRec){ if(ui.rec){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec.id; ui.pop=false; render(); } else startRec(); return; }
   if(t.dataset.actStop){ stopRec(); return; }
   if(t.dataset.fill){ const ci=document.getElementById('capIn'); if(ci){ ci.value=t.dataset.fill; ci.focus(); } return; }
@@ -1152,9 +1167,10 @@ document.addEventListener('click', e=>{
   if(t.dataset.ptab){ ui.ptab=t.dataset.ptab; renderPop(); return; }
   if(t.dataset.more){ ui.more = ui.more || {}; ui.more[t.dataset.more] = !ui.more[t.dataset.more]; render(); return; }
   if(t.dataset.uprec){ const u=upcoming.find(x=>x.id===t.dataset.uprec); u.rec=!u.rec; if(!u.rec) u.why='You turned recording off for this one.'; render(); toast(u.rec ? 'lalo will record '+u.title+'.' : 'lalo won\'t record '+u.title+'.'); return; }
-  if(t.dataset.meetOpen){ ui.win=true; ui.view='meetings'; ui.meet=t.dataset.meetOpen; ui.pop=false; ui.sel=null; render(); return; }
+  if(t.dataset.meetOpen){ ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=t.dataset.meetOpen; ui.pop=false; ui.sel=null; render(); return; }
   if(t.dataset.recUp){ startRec(upcoming.find(x=>x.id===t.dataset.recUp)); return; }
-  if(t.dataset.meet){ ui.meet=t.dataset.meet; renderWin(); return; }
+  if(t.dataset.meetback){ ui.meetOpen=false; renderWin(); return; }
+  if(t.dataset.meet){ ui.meet=t.dataset.meet; ui.meetOpen=true; renderWin(); const md=document.querySelector('.mdetail'); if(md) md.scrollTop=0; return; }
   if(t.dataset.add){ const [mid,i]=t.dataset.add.split('|'); const m=meetings.find(x=>x.id===mid); addAction(m, m.actions[+i]); render(); toast('Added to the board. lalo is starting on it.'); return; }
   if(t.dataset.addall){ const m=meetings.find(x=>x.id===t.dataset.addall); let n=0; m.actions.forEach(a=>{ if(a.o==='You' && !a.added){ addAction(m,a); n++; } }); render(); toast('Added '+n+' action items to the board.'); return; }
   if(t.dataset.type){ ui.type=t.dataset.type; ui.sel=null; renderWin(); return; }
