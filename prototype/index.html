@@ -321,6 +321,36 @@ body.phone .tabbar{display:flex;position:absolute;left:0;right:0;bottom:0;z-inde
 .tb-rec{position:absolute;top:3px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:var(--hot)}
 body.phone .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 body.phone .voice{top:calc(10px + env(safe-area-inset-top,0px))}
+.phonehome{flex:1;display:flex;flex-direction:column;overflow:auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.ph-top{padding:16px 0 0}
+.ph-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:24px 8px}
+.ph-center h1{margin:8px 0 0;font-family:var(--display);font-weight:500;font-size:28px;letter-spacing:-.03em;text-wrap:balance}
+.ph-center p{margin:0;color:var(--fg-2);font-size:15px;max-width:30ch}
+.heybig{width:96px;height:96px;border-radius:50%;border:0;background:var(--accent);color:#1d1600;display:grid;place-items:center;box-shadow:0 0 0 10px var(--accent-bg)}
+.heybig svg{width:38px;height:38px}
+.heybig:active{transform:scale(.97)}
+.ph-cap{padding:0 0 10px;border-bottom:0}
+.ph-cap input{height:48px;font-size:16px;border-radius:12px}
+.ph-cap .iconbtn{width:48px;height:48px;border-radius:12px}
+.ph-ex{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:16px}
+.ph-ex .chip{height:auto;padding:6px 12px;text-align:left}
+.insights{flex:1;overflow:auto;padding:14px 18px 20px;display:flex;flex-direction:column;gap:12px}
+.ins-tabs{margin:0;max-width:420px}
+.ins-sum{display:flex;align-items:center;gap:12px;background:var(--ok-bg);border-radius:12px;padding:12px 14px}
+.ins-sum b{display:block;font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.02em;color:var(--ok)}
+.ins-sum small{color:var(--fg-2);font-size:13px}
+.ins-note{font-size:12px;color:var(--fg-2);background:var(--panel-2);border-radius:10px;padding:8px 12px}
+.ins{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.ins-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ins-dept{font-size:12px;color:var(--fg-3)}
+.ins-imp{font-family:var(--mono);font-size:12px;color:var(--ok);font-weight:500}
+.ins h3{margin:0;font-size:15px;font-weight:600;line-height:1.35;text-wrap:balance}
+.ins-ev{margin:0;padding-left:18px;color:var(--fg-2);font-size:13px;display:flex;flex-direction:column;gap:2px}
+.ins-fix{font-size:13px;background:var(--panel-2);border-radius:8px;padding:8px 10px}
+.ins-fix b{font-weight:600;margin-right:4px}
+.ins-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ins-conf{font-size:12px;color:var(--fg-3)}
+@media (max-width:760px){.insights{padding:12px 16px 20px}}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -397,6 +427,7 @@ const I = {
   bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 016 0v2"/></svg>',
   list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg>',
   dot:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>',
+  bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0012 3z"/></svg>',
   repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/></svg>',
   menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 };
@@ -578,15 +609,16 @@ function renderWin(){
       <div class="brand">${I.spark} lalo</div>
       <button class="nav" data-go="board" ${ui.view==='board'?'aria-current="page"':''}>${I.board} Board <span class="c">${c.need+c.work}</span></button>
       <button class="nav" data-go="meetings" ${ui.view==='meetings'?'aria-current="page"':''}>${I.mic} Meetings ${ui.rec?'<span class="c"><span class="recdot" style="display:inline-block"></span></span>':`<span class="c">${meetings.length}</span>`}</button>
+      <button class="nav" data-go="insights" ${ui.view==='insights'?'aria-current="page"':''}>${I.bulb} Insights <span class="c">${insights.personal.filter(x=>!x.state).length}</span></button>
       <button class="nav" data-go="profile" ${ui.view==='profile'?'aria-current="page"':''}>${I.user} Your profile</button>
       <div class="sidefoot">Prototype. Example data, nothing is connected or sent.</div>
     </aside>
     <div class="main">
-      ${ui.view==='home' ? homeHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : profileHTML()}
+      ${ui.view==='home' ? homeHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : ui.view==='insights' ? insightsHTML() : profileHTML()}
       ${ui.sel && ui.view==='board' ? drawerHTML(cards.find(k=>k.id===ui.sel), drAnim) : ''}
     </div>
-    ${ui.phone ? `<nav class="tabbar" aria-label="Sections">${[['home','spark','Home'],['board','board','Board'],['meetings','mic','Meetings'],['profile','user','Profile']].map(([v,ic,l])=>
-      `<button data-go="${v}" ${ui.view===v?'aria-current="page"':''}>${I[ic]}<span>${l}</span>${v==='home'&&c.need?`<i class="tb-badge">${c.need}</i>`:''}${v==='meetings'&&ui.rec?'<i class="tb-rec"></i>':''}</button>`).join('')}</nav>` : ''}
+    ${ui.phone ? `<nav class="tabbar" aria-label="Sections">${[['home','spark','Home'],['board','board','Board'],['meetings','mic','Meetings'],['insights','bulb','Insights'],['profile','user','Profile']].map(([v,ic,l])=>
+      `<button data-go="${v}" ${ui.view===v?'aria-current="page"':''}>${I[ic]}<span>${l}</span>${v==='board'&&c.need?`<i class="tb-badge">${c.need}</i>`:''}${v==='meetings'&&ui.rec?'<i class="tb-rec"></i>':''}</button>`).join('')}</nav>` : ''}
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
@@ -596,10 +628,22 @@ function renderWin(){
 }
 
 function homeHTML(){
-  const c = counts();
-  return `<div class="phonehead"><div class="brand" style="padding:0">${I.spark} lalo</div><span class="grow"></span>
-      <button class="trybtn" data-voice="1" style="margin:0">${I.mic} Hey lalo</button></div>
-    <div class="homebody" data-keep="home"><div class="greet">${c.need} need you · ${c.work} working</div>${homeBody()}</div>`;
+  const ex = ['Remind me to send Jordan the launch doc','Every Friday, summarize #design',"Buy a stove for mom's rental"];
+  return `<div class="phonehome" data-keep="home">
+    <div class="ph-top"><div class="brand" style="padding:0">${I.spark} lalo</div></div>
+    <div class="ph-center">
+      <button class="heybig" data-voice="1" aria-label="Start Hey lalo">${I.mic}</button>
+      <h1>Say "Hey lalo" to begin</h1>
+      <p>Or type what you need. lalo turns it into a task and starts on the parts it can do.</p>
+    </div>
+    <form class="cap ph-cap" id="capForm" autocomplete="off">
+      <label class="sr" for="capIn">Tell lalo anything</label>
+      <input id="capIn" placeholder="Tell lalo anything">
+      <button type="submit" class="iconbtn go" aria-label="Add task">${I.up}</button>
+    </form>
+    ${ui.err ? `<div class="err" style="padding:0 20px">${esc(ui.err)}</div>` : ''}
+    <div class="ph-ex">${ex.map(e=>`<button class="chip" data-fill="${esc(e)}">${esc(e)}</button>`).join('')}</div>
+  </div>`;
 }
 
 function head(title, sub){
@@ -883,6 +927,82 @@ function meetingsHTML(){
   return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you') + `<div class="meet">${list}<div class="mdetail" data-keep="mdetail">${d}</div></div>`;
 }
 
+/* ---------- insights ---------- */
+const insights = {
+  personal: [
+    { id:'p1', kind:'save', title:"6 of your 14 meetings this week ended with no decisions or action items",
+      ev:['4 of the 6 are recurring','Weekly product review produced nothing 3 weeks running','Source: your meeting notes'],
+      fix:'Turn the weekly product review into a written update. lalo drafts the template from your board.', hours:5, conf:'High', acts:['task'] },
+    { id:'p2', kind:'save', title:'38% of your Slack replies happen during your 2 to 4pm focus block',
+      ev:['54 replies in focus time this week','Most were non-urgent questions','Source: Slack, your calendar'],
+      fix:'lalo holds non-urgent messages until 4pm and has the drafts ready when you open them.', hours:6, conf:'High', acts:['task'] },
+    { id:'p3', kind:'save', title:'You wrote a similar Friday status update 4 weeks in a row',
+      ev:['Same 3 headings each time','About 45 minutes each','Source: Slack #product'],
+      fix:'Make it a recurring task that drafts itself from your board and tickets every Friday at 3pm.', hours:3, conf:'High', acts:['routine'] },
+    { id:'p4', kind:'save', title:'3 build tasks waited more than 2 days for your review',
+      ev:['Average wait: 2.6 days','2 were copy-only changes','Source: lalo board'],
+      fix:'Add a daily 15-minute review slot, or let Ana approve copy-only changes.', hours:0, impact:'Unblocks about 4 days of waiting a month', conf:'Medium', acts:['task'] },
+    { id:'p5', kind:'coach', title:'In 4 of 6 meetings, you proposed a solution in the first 5 minutes',
+      ev:['Linked to a growth area in your profile','Source: meeting transcripts'],
+      fix:'Next week, ask one question before suggesting a fix. lalo will remind you before your 1:1s.', conf:'Medium', acts:['task'] },
+    { id:'p6', kind:'win', title:"You now send 82% of lalo's drafts with only small edits",
+      ev:['Up from 60% a month ago','Source: your edits to drafts'],
+      fix:'Nothing to change. lalo keeps learning from each edit.', conf:'High', acts:[] }
+  ],
+  org: [
+    { id:'o1', kind:'save', dept:'Marketing, Support', title:'Two teams wrote FAQ docs for the same checkout feature this month',
+      ev:['Marketing: 2 docs, Support: 3 docs','About 70% overlap in content','Source: shared docs'],
+      fix:'One shared help doc that both teams own, with lalo flagging new duplicates.', hours:12, conf:'High', acts:['proposal','pilot'] },
+    { id:'o2', kind:'save', dept:'Design, Engineering', title:'Design to Engineering handoffs wait 3.2 days on average',
+      ev:['Most waits are for missing specs','14 handoffs this month','Source: tickets, Slack threads'],
+      fix:'A handoff checklist that lalo fills in from design review notes before the ticket moves.', hours:0, impact:'About 2 days faster per feature', conf:'Medium', acts:['proposal','pilot'] },
+    { id:'o3', kind:'save', dept:'All teams', title:'"Where is the brand kit?" was asked 41 times across 5 teams',
+      ev:['Plus 23 similar questions about logos and templates','Source: Slack, public channels only'],
+      fix:'Pin one answer and let lalo reply automatically in those channels.', hours:7, conf:'High', acts:['proposal'] },
+    { id:'o4', kind:'save', dept:'Product', title:'Product averages 22 hours of meetings per person each week',
+      ev:['30% of recurring Product meetings produce no action items','Company average: 14 hours','Source: calendars, meeting notes'],
+      fix:'Review recurring meetings and move status meetings to written updates.', hours:40, conf:'Medium', acts:['proposal','pilot'] },
+    { id:'o5', kind:'save', dept:'Operations, Support', title:'12 people copy form responses into spreadsheets every week',
+      ev:['About 1.5 hours per person each week','Source: lalo tasks, spreadsheet edits'],
+      fix:'One automation. lalo can draft the ticket for Engineering.', hours:18, conf:'High', acts:['proposal'] },
+    { id:'o6', kind:'adopt', dept:'Finance', title:"Teams using lalo's drafts reply 40% faster. Finance hasn't started yet",
+      ev:['0 of 7 people in Finance use lalo','Source: lalo usage'],
+      fix:'A 30-minute walkthrough with Finance, focused on invoice and approval replies.', hours:0, impact:'Unclear until they try it', conf:'Low', acts:['pilot'] },
+    { id:'o7', kind:'risk', dept:'Support', title:'All refund approvals go through a single approver',
+      ev:['Wait time doubles when the approver is away','Process risk, not a performance issue','Source: tickets'],
+      fix:'Add a second approver for refunds under $200.', hours:0, impact:'Avoids week-long delays during time off', conf:'High', acts:['proposal'] }
+  ]
+};
+const KIND = { save:['Save time','ai'], coach:['Coaching','you'], win:['Win','ok'], adopt:['Adoption','help'], risk:['Process risk','you'] };
+
+function insightCard(x, mode){
+  const k = KIND[x.kind];
+  const impact = x.hours ? `About ${x.hours} hrs a month` : (x.impact || '');
+  const btn = { task:['Make it a task','task'], routine:['Make it recurring','routine'], proposal:['Draft a proposal','proposal'], pilot:['Pilot with one team','pilot'] };
+  return `<article class="ins">
+    <div class="ins-top"><span class="tag ${k[1]}">${k[0]}</span>${x.dept?`<span class="ins-dept">${esc(x.dept)}</span>`:''}<span class="grow"></span>${impact?`<span class="ins-imp">${esc(impact)}</span>`:''}</div>
+    <h3>${esc(x.title)}</h3>
+    <ul class="ins-ev">${x.ev.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>
+    <div class="ins-fix"><b>Try this</b> ${esc(x.fix)}</div>
+    <div class="ins-foot"><span class="ins-conf">${x.conf} confidence</span><span class="grow"></span>
+      ${x.state ? `<span class="tag ok">${esc(x.state)}</span>` : x.acts.map((a,i)=>`<button class="btn ${i===0?'pri':''}" data-ins="${mode}|${x.id}|${a}">${btn[a][0]}</button>`).join('') + (x.kind!=='win'?`<button class="btn ghost" data-ins="${mode}|${x.id}|dismiss">Dismiss</button>`:'')}
+    </div></article>`;
+}
+function insightsHTML(){
+  const mode = ui.ins || 'personal';
+  const list = insights[mode].filter(x=>x.state!=='dismissed');
+  const hrs = list.filter(x=>!x.state).reduce((a,x)=>a+(x.hours||0),0);
+  const sw = `<div class="tabs ins-tabs" role="tablist" aria-label="Insights for">
+      <button class="tab" role="tab" data-insmode="personal" aria-selected="${mode==='personal'}">${I.user} Personal</button>
+      <button class="tab" role="tab" data-insmode="org" aria-selected="${mode==='org'}">${I.board} Organization <span class="badge muted">Admin</span></button></div>`;
+  const sum = `<div class="ins-sum"><div><b>About ${hrs} hours a month</b><small>${mode==='personal'?'you could get back from the ideas below':'the organization could get back, across '+new Set(list.map(x=>x.dept)).size+' areas'}</small></div></div>`;
+  const note = mode==='org'
+    ? `<div class="ins-note">${I.lock||''}Organization insights cover groups of 5 or more. Admins never see message contents, can't drill down to a person, and nobody is ranked. Everyone can see what data feeds this page.</div>`
+    : `<div class="ins-note">Only you can see your personal insights, even if you're an admin.</div>`;
+  return head('Insights', mode==='personal' ? 'How you work, from your tasks, meetings, and messages' : 'How the organization works, and where lalo sees room to improve')
+    + `<div class="insights" data-keep="ins">${sw}${sum}${note}${capped('ins-'+mode, list, x=>insightCard(x, mode), '<div class="empty">No insights right now</div>')}</div>`;
+}
+
 const profile = {
   'How you prioritize': [['Product changes before Slack replies','You said'],['Anything blocking a teammate goes first','Slack'],['Customer-facing bugs are always Now','Tickets'],['Errands can wait until evenings','Calendar']],
   'How you write': [['Short, warm replies. Rarely over 3 lines','Slack'],['Answers first, then the reason','Slack'],['Notes are bullets, decisions first','Docs']],
@@ -940,7 +1060,7 @@ function renderVoice(){
 
 function addTask(text, viaVoice){
   const t = text.trim();
-  if(!t){ ui.err='Type something first'; renderPop(); return; }
+  if(!t){ ui.err='Type something first'; ui.phone ? renderWin() : renderPop(); return; }
   const k = { id:'c'+(uid++), col:'work', kind:'generic', src:'You · menu bar', title:t, type:guessType(t), pri:2,
     steps:[ S('Work out what done looks like','ai','doing'), S('Pull related context from Slack, docs, and tickets','ai'),
             S('Break it into steps and do the ones it can','ai'), S('Review the plan and take the first step','you') ] };
@@ -1012,6 +1132,23 @@ document.addEventListener('click', e=>{
   if(t.id==='recpill'){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
   if(t.dataset.actRec){ if(ui.rec){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec.id; ui.pop=false; render(); } else startRec(); return; }
   if(t.dataset.actStop){ stopRec(); return; }
+  if(t.dataset.fill){ const ci=document.getElementById('capIn'); if(ci){ ci.value=t.dataset.fill; ci.focus(); } return; }
+  if(t.dataset.insmode){ ui.ins=t.dataset.insmode; renderWin(); return; }
+  if(t.dataset.ins){
+    const [mode,id,a] = t.dataset.ins.split('|'); const x = insights[mode].find(y=>y.id===id);
+    if(a==='dismiss'){ x.state='dismissed'; render(); toast("Dismissed. lalo will show fewer insights like this."); return; }
+    if(a==='pilot'){ x.state='Pilot planned'; render(); toast('lalo will suggest a team and draft the pilot plan for you.'); return; }
+    const isProp = a==='proposal';
+    const k = { id:'c'+(uid++), col:'work', kind:'generic', type: a==='routine' ? 'routine' : isProp ? 'plan' : 'task', pri:2,
+      why:'From an insight', src: isProp ? 'Insight · '+x.dept : 'Insight · Personal',
+      title: isProp ? 'Proposal: '+x.fix.split('.')[0] : x.fix.split('.')[0],
+      steps: isProp
+        ? [ S('Pull the evidence behind this insight','ai','doing'), S('Estimate cost and time saved','ai'), S('Draft a one-page proposal','ai'), S('Review and share with the department leads','you') ]
+        : [ S('Work out what done looks like','ai','doing'), S('Set it up','ai'), S('Check it with you','you') ] };
+    if(a==='routine'){ k.repeat={label:'Every Friday at 4pm', next:'Fri 4:00pm', paused:false, runs:[]}; k.pri=3; }
+    cards.unshift(k); x.state = isProp ? 'Proposal on board' : 'On board';
+    render(); toast(isProp ? 'Added a proposal to your board. lalo is drafting it.' : 'Added to your board.'); return;
+  }
   if(t.dataset.ptab){ ui.ptab=t.dataset.ptab; renderPop(); return; }
   if(t.dataset.more){ ui.more = ui.more || {}; ui.more[t.dataset.more] = !ui.more[t.dataset.more]; render(); return; }
   if(t.dataset.uprec){ const u=upcoming.find(x=>x.id===t.dataset.uprec); u.rec=!u.rec; if(!u.rec) u.why='You turned recording off for this one.'; render(); toast(u.rec ? 'lalo will record '+u.title+'.' : 'lalo won\'t record '+u.title+'.'); return; }

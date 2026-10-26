@@ -22,6 +22,9 @@ It covers:
 - A personal errand (buying a stove) with questions, discounts, and a shortlist
 - 1:1 prep with context from other teams and a coaching tip
 - A profile of you that you can read and edit
+- Meetings: record from the menu bar, live transcript, notes, and action items you send to the board
+- Insights: personal ideas to save time, and an admin view of patterns across the organization
+- A phone layout with "Hey lalo" on the home screen
 
 ## Plan for v1 (personal use)
 
