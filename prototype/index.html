@@ -939,8 +939,11 @@ body.phone .wl-row{flex-direction:column}
 .tds-s .mw-cd{vertical-align:middle;margin:0 2px;height:20px;padding:0 8px;font-size:var(--fs-2xs);background:var(--accent-bg);color:var(--accent-ink)}
 .tds-chev{flex:none;color:var(--fg-3);transition:transform .15s;display:grid}
 .tds-chev svg{width:16px;height:16px}
-.tds-sec.open .tds-chev{transform:rotate(90deg)}
-.tds-body{padding:0 0 14px;display:flex;flex-direction:column;gap:8px}
+.tds-sec.on .tds-h{background:var(--panel-3)}
+.tdpanel .dhead{align-items:center}
+.tdpanel .dhead .tds-ic{width:34px;height:34px}
+.tdpanel h2 .tds-n{display:inline-grid;vertical-align:middle;margin-left:4px}
+.tdp-body{display:flex;flex-direction:column;gap:10px;padding-top:12px}
 body.phone .tds-h{flex-wrap:wrap;row-gap:2px}
 body.phone .tds-s{order:5;flex-basis:100%;text-align:left;padding-left:38px}
 body.phone .tds-chev{margin-left:auto}
@@ -1714,6 +1717,7 @@ function todayHTML(){
   const gaps = tm.filter(u=>u.gap);
   const clashes = tm.filter(u=>tm.some(v=>v!==u && +v.at<end(u) && +u.at<end(v))).length/2|0;
   const openDue = dueToday.filter(d=>!d.done);
+  tdSec.panel=null;
   return `<div class="today" data-keep="today"><div class="td-wrap">
     ${gsHTML()}
     <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1>${topList}</div>
@@ -1727,15 +1731,22 @@ function todayHTML(){
     ${learn ? tdSec('learn', I.user, 'Getting to know you', learnings.filter(l=>!l.state).length, 'Confirm what lalo noticed about how you work', `<div class="td-learns">${learn}</div>`) : ''}
     ${c.work ? `<button class="td-working" data-go="board"><span class="mark work"></span><span class="grow">I'm working on ${c.work} ${c.work>1?'tasks':'task'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}
     </div>
-  </div></div>`;
+  </div></div>${tdPanelHTML()}`;
 }
 function homeHTML(){ return todayHTML(); }
+/* Today's sections are summary rows; the chosen one opens in a side panel, like task and meeting details */
 function tdSec(key, icon, title, n, summary, inner){
   if(!inner) return '';
-  const open=!!(ui.tdOpen||{})[key];
-  return `<section class="tds-sec ${open?'open':''}"><button class="tds-h" data-tdsec="${key}" aria-expanded="${open}"><span class="tds-ic">${icon}</span>
-    <span class="tds-t"><b>${esc(title)}</b>${n?`<span class="tds-n">${n}</span>`:''}</span><span class="tds-s">${summary}</span><span class="tds-chev">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</span></button>
-    ${open?`<div class="tds-body">${inner}</div>`:''}</section>`;
+  const on=ui.tdPanel===key;
+  if(on) tdSec.panel={ key, icon, title, n, summary, inner };
+  return `<section class="tds-sec ${on?'on':''}"><button class="tds-h" data-tdsec="${key}" aria-expanded="${on}"><span class="tds-ic">${icon}</span>
+    <span class="tds-t"><b>${esc(title)}</b>${n?`<span class="tds-n">${n}</span>`:''}</span><span class="tds-s">${summary}</span><span class="tds-chev">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</span></button></section>`;
+}
+function tdPanelHTML(){
+  const p=tdSec.panel; if(!p || p.key!==ui.tdPanel) return '';
+  const anim=tdPanelHTML.last!==p.key; tdPanelHTML.last=p.key;
+  return `<aside class="drawer tdpanel ${anim?'anim':''}" aria-label="${esc(p.title)}"><div class="dhead"><span class="tds-ic">${p.icon}</span><div class="grow"><h2 style="margin-top:0">${esc(p.title)}${p.n?` <span class="tds-n">${p.n}</span>`:''}</h2><div class="meta" style="font-size:var(--fs-xs);margin-top:4px">${p.summary}</div></div><button class="iconbtn" data-tdsec="0" aria-label="Close ${esc(p.title)}">${I.x}</button></div>
+    <div class="dbody" data-keep="tdpanel-${p.key}"><div class="tdp-body">${p.inner}</div></div></aside>`;
 }
 
 function head(title, sub, action){
@@ -3154,7 +3165,7 @@ document.addEventListener('click', e=>{
   if(t.id==='spark'){ openPop(); return; }
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
   if(t.dataset.open){ ui.ask=false; if(ui.planning && ui.planning.started) ui.planning=null; openCard(t.dataset.open); return; }
-  if(t.dataset.go){ ui.sigCfg=false; sigCfgHTML.shown=false; ui.returnTo=null; ui.boardSec=null; ui.ask=false; ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
+  if(t.dataset.go){ ui.tdPanel=null; tdPanelHTML.last=null; ui.sigCfg=false; sigCfgHTML.shown=false; ui.returnTo=null; ui.boardSec=null; ui.ask=false; ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
   if(t.hasAttribute('data-close')){ if(ui.phone){ ui.view='board'; ui.sel=null; } else { ui.win=false; ui.sel=null; } render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
   if(t.hasAttribute('data-unsel')){ ui.sel=null; if(ui.returnTo){ ui.view=ui.returnTo; ui.returnTo=null; } renderWin(); return; }
@@ -3223,7 +3234,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.obhelp){ const h=t.dataset.obhelp; ui.obData.helps[h]=!ui.obData.helps[h]; renderWin(); return; }
   if(t.dataset.obrec){ ui.obData.record=t.dataset.obrec; renderWin(); return; }
   if(t.dataset.obfinish){ ui.obDone=true; ui.ob=null; ui.view='today'; render(); if(!ui.phone) toast('lalo also lives in your menu bar. Click ✦ anytime.'); return; }
-  if(t.dataset.tdsec){ const k=t.dataset.tdsec; ui.tdOpen=ui.tdOpen||{}; ui.tdOpen[k]=!ui.tdOpen[k]; renderWin(); return; }
+  if(t.dataset.tdsec){ const k=t.dataset.tdsec; ui.tdPanel = (k==='0' || ui.tdPanel===k) ? null : k; if(!ui.tdPanel) tdPanelHTML.last=null; renderWin(); return; }
   if(t.dataset.gshide){ ui.gs.hidden=true; renderWin(); return; }
   if(t.dataset.nudge){ ui.nudge=t.dataset.nudge; renderNudge(); return; }
   if(t.dataset.nudgerec){ const u=upcoming.find(x=>x.id===t.dataset.nudgerec); ui.nudge=null; renderNudge(); if(u) startRec(u); return; }
@@ -3458,7 +3469,7 @@ document.addEventListener('keydown', e=>{
   if(e.target.id==='talkIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('talkForm').requestSubmit(); return; }
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
   if(ui.win && ui.view==='catchup' && !e.target.closest('input,textarea')){ if(e.key==='ArrowRight'){ cuDecide(1); return; } if(e.key==='ArrowLeft'){ cuDecide(-1); return; } }
-  if(e.key==='Escape'){ if(ui.compose){ ui.compose=false; renderWin(); } else if(ui.win && ui.view==='meetings' && ui.meetOpen && !ui.phone){ ui.meetOpen=false; renderWin(); } else if(ui.win && ui.view==='signals' && ui.sigCfg){ ui.sigCfg=false; sigCfgHTML.shown=false; renderWin(); } else if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
+  if(e.key==='Escape'){ if(ui.compose){ ui.compose=false; renderWin(); } else if(ui.win && ui.view==='meetings' && ui.meetOpen && !ui.phone){ ui.meetOpen=false; renderWin(); } else if(ui.win && (ui.view==='today'||ui.view==='home') && ui.tdPanel){ ui.tdPanel=null; tdPanelHTML.last=null; renderWin(); } else if(ui.win && ui.view==='signals' && ui.sigCfg){ ui.sigCfg=false; sigCfgHTML.shown=false; renderWin(); } else if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
 });
 
 function clock(){ const d=new Date(); document.getElementById('clock').textContent = d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}); }
