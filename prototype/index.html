@@ -821,6 +821,38 @@ body.phone input,body.phone textarea,body.phone select{font-size:var(--fs-md)!im
 .sig-quotes{display:flex;flex-direction:column;gap:4px;border-left:3px solid var(--line-strong);padding-left:10px;font-size:var(--fs-sm);color:var(--fg-2);font-style:italic}
 .sig .ins-foot .btn{height:32px}
 .sg{gap:10px}
+.sg.open{padding-right:calc(460px + 18px)}
+.sg.open .pulse{grid-template-columns:minmax(0,1fr)}
+.sgcfg .dbody>*{flex-shrink:0}
+.sig-edit{border:0;background:transparent;padding:0 4px;color:var(--accent-ink);font-size:var(--fs-xs);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.sgcfg .dsec>h3{display:flex;align-items:center;gap:6px}
+.cf-n{font-family:var(--mono);font-weight:500;color:var(--fg-3);letter-spacing:0}
+.cf-help{margin:0 0 8px;font-size:var(--fs-xs);color:var(--fg-2)}
+.cf-list{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.cf-row{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 12px;font-size:var(--fs-sm)}
+.cf-row+.cf-row{border-top:1px solid var(--line)}
+.cf-hash{color:var(--fg-3);font-family:var(--mono)}
+.cf-rm{width:28px;height:28px;color:var(--fg-3)}
+.cf-rm svg{width:14px;height:14px}
+.cf-add,.cf-addcomp{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.cf-add input,.cf-addcomp input,.cf-addurl input{flex:1;min-width:120px;height:34px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--fg);padding:0 10px;font:inherit;font-size:var(--fs-sm)}
+.cf-add input:focus,.cf-addcomp input:focus,.cf-addurl input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.cf-add .btn,.cf-addcomp .btn{height:34px}
+.cf-comps{display:flex;flex-direction:column;gap:8px}
+.cf-comp{border:1px solid var(--line);border-radius:10px;padding:6px 6px 8px 12px;display:flex;flex-direction:column;gap:2px}
+.cf-ch{display:flex;align-items:center;font-size:var(--fs-sm)}
+.cf-ch b{font-weight:600}
+.cf-url{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:var(--fs-xs);color:var(--fg-2);padding:2px 0}
+.cf-x{border:0;background:transparent;color:var(--fg-3);padding:2px;display:grid;place-items:center;border-radius:4px}
+.cf-x svg{width:12px;height:12px}
+.cf-addurl{margin:4px 6px 0 0}
+.cf-addurl input{height:30px;font-size:var(--fs-xs);border-style:dashed}
+.cf-tog{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:var(--fs-sm);border-top:1px solid var(--line)}
+.cf-tog:first-of-type{border-top:0}
+.cf-tog small{display:block;font-size:var(--fs-xs);color:var(--fg-3)}
+.cf-sel{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:var(--fs-sm)}
+.cf-sel label{width:80px;color:var(--fg-2)}
+.cf-sel select{height:32px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--fg);padding:0 8px;font:inherit;font-size:var(--fs-sm)}
 .sg>*{flex-shrink:0}
 .sg-h{margin:14px 0 0;font-family:var(--display);font-size:var(--fs-lg);font-weight:500;letter-spacing:-.02em;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;scroll-margin-top:12px}
 .sg-h small{font-family:var(--body);font-size:var(--fs-xs);color:var(--fg-3);letter-spacing:0}
@@ -1304,6 +1336,7 @@ function renderWin(){
   const oldMq = document.getElementById('mqIn'); const mqVal = oldMq ? oldMq.value : ''; const mqFocus = (oldMq && document.activeElement===oldMq) || ui._mqFocus; ui._mqFocus=false;
   const oldNote = document.getElementById('noteIn'); const noteSel = oldNote && document.activeElement===oldNote ? [oldNote.selectionStart, oldNote.selectionEnd, oldNote.scrollTop] : null; const noteFocus = ui._noteFocus; ui._noteFocus=false;
   const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
+  const kv={}; m.querySelectorAll('input[data-keepval]').forEach(i=>{ kv[i.id]=[i.value, document.activeElement===i ? i.selectionStart : null]; });
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
   m.innerHTML = `<section class="win ${winAnim?'anim':''}" role="dialog" aria-label="lalo board">
     <aside class="side ${ui.side?'open':''}">
@@ -1340,6 +1373,7 @@ function renderWin(){
   { const pi=document.getElementById('pIn'); if(pi){ pi.value=pVal; if(pFocus) pi.focus(); } const pt=document.getElementById('pThread'); if(pt){ if(pNearBottom) pt.scrollTop=pt.scrollHeight; else if(pScrollTop!==null) pt.scrollTop=pScrollTop; } }
   const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; syncAct('askAct', askVal); if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
   { const hi=document.getElementById('homeIn'); if(hi) fitTalk(hi); }
+  Object.keys(kv).forEach(id=>{ const i=document.getElementById(id); if(!i) return; i.value=kv[id][0]; if(kv[id][1]!=null){ i.focus(); i.setSelectionRange(kv[id][1], kv[id][1]); } });
   { const mi=document.getElementById('mqIn'); if(mi){ mi.value=mqVal; document.getElementById('mqAct').classList.toggle('send', !!mqVal.trim()); if(mqFocus) mi.focus(); }
     if(ui._mqScroll){ ui._mqScroll=false; const sc=document.querySelector('.mdrawer .dbody, .mdetail.meet-phone'); if(sc) sc.scrollTop=sc.scrollHeight; } }
   { const ni=document.getElementById('noteIn'); if(ni){ fitNote(ni); if(noteSel){ ni.focus(); ni.setSelectionRange(noteSel[0], noteSel[1]); ni.scrollTop=noteSel[2]; } else if(noteFocus){ ni.focus(); ni.setSelectionRange(ni.value.length, ni.value.length); } } }
@@ -2341,6 +2375,17 @@ const signals = {
   ]
 };
 signals.users.forEach(x=>x.n=x.weeks.reduce((a,b)=>a+b,0));
+signals.config = {
+  channels:['#feedback','#website-support','#creator-surveys','#embedded-feedback','#trust-and-safety','#product-requests'],
+  competitors:[
+    { id:'c1', name:'Pledgely', urls:['pledgely.example/pricing','pledgely.example/changelog'] },
+    { id:'c2', name:'Kindra', urls:['kindra.example/blog'] },
+    { id:'c3', name:'Tandem Giving', urls:['tandemgiving.example/news'] }
+  ],
+  also:{ news:true, reviews:true },
+  surveys:signals.pulse.map(m=>({ k:m.k, on:true })),
+  cadence:'Every Monday', window:28
+};
 const sigVal = v => v.toFixed(1);
 function sparkSVG(v, labels){
   const W=132, H=36, lo=Math.min(...v)-.2, hi=Math.max(...v)+.2, X=i=>4+i*(W-8)/(v.length-1), Y=x=>H-4-(x-lo)/(hi-lo)*(H-8);
@@ -2382,9 +2427,10 @@ function signalsHTML(){
       ${x.suggest?`<div class="wl-hint">${I.spark} Seen twice this week. Worth tracking as a theme?</div>`:''}</div>
       <div class="wl-acts"><button class="btn" data-sigpromote="${x.id}">Make it a theme</button><button class="btn ghost" data-sigdrop="${x.id}">Drop</button></div></div>`;
   const jump = `<div class="sg-jump">${[['pulse','How creators feel'],['themes','Themes',themes.length],['market','Competitors',moves.length],['watch','Watchlist',watch.length]].map(([k,l,n])=>`<button class="chip" data-sigjump="sec-${k}">${l}${n!=null?` <span class="n">${n}</span>`:''}</button>`).join('')}</div>`;
-  return head('Signals', 'Your weekly pulse from Slack, surveys, and competitors')
-    + `<div class="insights sg" data-keep="sig">
-      <div class="sig-watch">${I.radar}<span class="grow">Week of <b>${sigWeek.range}</b> · 6 Slack channels, 3 surveys, 10 competitors · 28-day window</span><span class="sig-time">Updated ${sigWeek.ran}</span></div>
+  const cf=signals.config, nS=cf.surveys.filter(x=>x.on).length;
+  return head('Signals', 'Your weekly pulse from Slack, surveys, and competitors', `<button class="btn" data-sigcfg="1">${I.radar} Sources</button>`)
+    + `<div class="insights sg ${ui.sigCfg && !ui.phone?'open':''}" data-keep="sig">
+      <div class="sig-watch">${I.radar}<span class="grow">Week of <b>${sigWeek.range}</b> · ${cf.channels.length} Slack channel${cf.channels.length===1?'':'s'}, ${nS} survey${nS===1?'':'s'}, ${cf.competitors.length} competitor${cf.competitors.length===1?'':'s'} · ${cf.window}-day window</span><button class="sig-edit" data-sigcfg="1">Edit</button><span class="sig-time">Updated ${sigWeek.ran}</span></div>
       ${jump}
       <h2 class="sg-h" id="sig-sec-pulse">How creators feel</h2><div class="pulse">${pulse}</div>
       <h2 class="sg-h" id="sig-sec-themes">Friction themes <small>Sorted by mentions in the last 4 weeks</small></h2>
@@ -2393,7 +2439,33 @@ function signalsHTML(){
       ${moves.map(moveCard).join('') || '<div class="empty">Nothing new right now</div>'}
       <h2 class="sg-h" id="sig-sec-watch">Watchlist <small>Single mentions that aren't a theme yet</small></h2>
       ${watch.length ? `<div class="wl">${watch.map(watchRow).join('')}</div>` : '<div class="empty">Nothing on the watchlist</div>'}
-      <div class="ins-note">Example data. In the real app, lalo reads your weekly signals database (themes, mentions, survey pulse, watchlist) and the Notion pages it syncs to.</div></div>`;
+      <div class="ins-note">Example data. In the real app, lalo reads your weekly signals database (themes, mentions, survey pulse, watchlist) and the Notion pages it syncs to.</div></div>`
+    + (ui.sigCfg ? sigCfgHTML() : '');
+}
+function sigCfgHTML(){
+  const cf=signals.config, anim=!sigCfgHTML.shown; sigCfgHTML.shown=true;
+  const tog=(key,on,label)=>`<button class="rectog ${on?'on':''}" data-sigtog="${key}" role="switch" aria-checked="${on}" aria-label="${esc(label)}"></button>`;
+  return `<aside class="drawer sgcfg ${anim?'anim':''}" aria-label="Signal sources"><div class="dhead"><div class="grow"><h2 style="margin-top:0">Signal sources</h2><div class="meta" style="font-size:var(--fs-xs);margin-top:4px">lalo checks these ${esc(cf.cadence.charAt(0).toLowerCase()+cf.cadence.slice(1))} and saves changes as you go</div></div><button class="iconbtn" data-sigcfg="0" aria-label="Close sources">${I.x}</button></div>
+    <div class="dbody" data-keep="sgcfg">
+      <div class="dsec"><h3>Slack channels <span class="cf-n">${cf.channels.length}</span></h3>
+        <p class="cf-help">lalo reads new messages here and groups repeated problems into themes.</p>
+        <div class="cf-list">${cf.channels.map((c,i)=>`<div class="cf-row"><span class="cf-hash">#</span><span class="grow">${esc(c.slice(1))}</span><button class="iconbtn cf-rm" data-chanrm="${i}" aria-label="Remove ${esc(c)}">${I.x}</button></div>`).join('') || '<div class="empty">No channels yet</div>'}</div>
+        <form class="cf-add" id="chanForm" autocomplete="off"><label class="sr" for="chanIn">Add a Slack channel</label><input id="chanIn" data-keepval placeholder="#channel-name"><button class="btn" type="submit">${I.plus} Add</button></form></div>
+      <div class="dsec"><h3>Competitors <span class="cf-n">${cf.competitors.length}</span></h3>
+        <p class="cf-help">lalo checks these pages for launches, pricing changes, and news.</p>
+        <div class="cf-comps">${cf.competitors.map(c=>`<div class="cf-comp"><div class="cf-ch"><b class="grow">${esc(c.name)}</b><button class="iconbtn cf-rm" data-comprm="${c.id}" aria-label="Remove ${esc(c.name)}">${I.x}</button></div>
+          ${c.urls.map((u,i)=>`<div class="cf-url"><span class="grow">${esc(u)}</span><button class="cf-x" data-urlrm="${c.id}|${i}" aria-label="Remove ${esc(u)}">${I.x}</button></div>`).join('')}
+          <form class="cf-addurl" data-comp="${c.id}" autocomplete="off"><label class="sr" for="url-${c.id}">Add a page to watch for ${esc(c.name)}</label><input id="url-${c.id}" data-keepval placeholder="Add another page to watch"></form></div>`).join('')}</div>
+        <form class="cf-addcomp" id="compForm" autocomplete="off"><label class="sr" for="compName">Competitor name</label><input id="compName" data-keepval placeholder="Competitor name"><label class="sr" for="compUrl">Page to watch</label><input id="compUrl" data-keepval placeholder="Web address to watch"><button class="btn" type="submit">${I.plus} Add</button></form></div>
+      <div class="dsec"><h3>Also watch</h3>
+        <div class="cf-tog"><span class="grow">News coverage<small>Funding, partnerships, and press about your competitors</small></span>${tog('news',cf.also.news,'News coverage')}</div>
+        <div class="cf-tog"><span class="grow">App Store and Google Play reviews<small>New reviews that mention you or a competitor</small></span>${tog('reviews',cf.also.reviews,'App reviews')}</div></div>
+      <div class="dsec"><h3>Surveys</h3>
+        ${cf.surveys.map((x,i)=>`<div class="cf-tog"><span class="grow">${esc(x.k)}</span>${tog('survey:'+i,x.on,x.k)}</div>`).join('')}</div>
+      <div class="dsec"><h3>Schedule</h3>
+        <div class="cf-sel"><label for="sigCad">Check</label><select id="sigCad">${['Every day','Every Monday','Every Friday'].map(o=>`<option ${o===cf.cadence?'selected':''}>${o}</option>`).join('')}</select></div>
+        <div class="cf-sel"><label for="sigWin">Look back</label><select id="sigWin">${[14,28,56].map(o=>`<option value="${o}" ${o===cf.window?'selected':''}>${o} days</option>`).join('')}</select></div></div>
+    </div></aside>`;
 }
 
 function insightsHTML(){
@@ -2756,7 +2828,7 @@ document.addEventListener('click', e=>{
   if(t.id==='spark'){ openPop(); return; }
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
   if(t.dataset.open){ ui.ask=false; if(ui.planning && ui.planning.started) ui.planning=null; openCard(t.dataset.open); return; }
-  if(t.dataset.go){ ui.returnTo=null; ui.boardSec=null; ui.ask=false; ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
+  if(t.dataset.go){ ui.sigCfg=false; sigCfgHTML.shown=false; ui.returnTo=null; ui.boardSec=null; ui.ask=false; ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
   if(t.hasAttribute('data-close')){ if(ui.phone){ ui.view='board'; ui.sel=null; } else { ui.win=false; ui.sel=null; } render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
   if(t.hasAttribute('data-unsel')){ ui.sel=null; if(ui.returnTo){ ui.view=ui.returnTo; ui.returnTo=null; } renderWin(); return; }
@@ -2816,6 +2888,11 @@ document.addEventListener('click', e=>{
   if(t.dataset.pcancel){ const P=ui.planning; ui.planning=null; if(P && P.started){ if(ui.phone){ ui.view='board'; ui.jump='work'; } render(); return; } render(); toast("Saved in Needs you. Pick up the plan any time."); return; }
   if(t.dataset.pstart){ if(pNextQ()!==undefined){ toast('Answer or skip the question first.'); return; } pStart(); return; }
   if(t.dataset.sigjump){ const el=document.getElementById('sig-'+t.dataset.sigjump); if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); el.classList.remove('flash'); void el.offsetWidth; if(!t.dataset.sigjump.startsWith('sec-')) el.classList.add('flash'); } return; }
+  if(t.dataset.sigcfg){ ui.sigCfg = t.dataset.sigcfg==='1'; if(!ui.sigCfg) sigCfgHTML.shown=false; renderWin(); return; }
+  if(t.dataset.chanrm){ const cf=signals.config, i=+t.dataset.chanrm, c=cf.channels[i]; cf.channels.splice(i,1); renderWin(); toast(`Stopped watching ${c}.`, {label:'Undo', fn:()=>{ cf.channels.splice(i,0,c); renderWin(); }}); return; }
+  if(t.dataset.comprm){ const cf=signals.config, i=cf.competitors.findIndex(x=>x.id===t.dataset.comprm), c=cf.competitors[i]; cf.competitors.splice(i,1); renderWin(); toast(`Stopped watching ${c.name}.`, {label:'Undo', fn:()=>{ cf.competitors.splice(i,0,c); renderWin(); }}); return; }
+  if(t.dataset.urlrm){ const [id,i]=t.dataset.urlrm.split('|'); const c=signals.config.competitors.find(x=>x.id===id); const u=c.urls.splice(+i,1)[0]; renderWin(); toast(`Removed ${u}.`, {label:'Undo', fn:()=>{ c.urls.splice(+i,0,u); renderWin(); }}); return; }
+  if(t.dataset.sigtog){ const cf=signals.config, k=t.dataset.sigtog; if(k.startsWith('survey:')){ const x=cf.surveys[+k.slice(7)]; x.on=!x.on; } else cf.also[k]=!cf.also[k]; renderWin(); return; }
   if(t.dataset.sigpromote){ const w=signals.watch.find(x=>x.id===t.dataset.sigpromote); w.state='promoted';
     const th={ id:'t'+(uid++), theme:w.item, weeks:[0,0,0,w.n], n:w.n, trend:'New', promoted:true, chans:[w.chan], quotes:[[w.quote,w.chan,w.date]], ticket:null, task:'Look into: '+w.item };
     signals.users.unshift(th); renderWin(); toast('Now tracked as a theme.', {label:'Undo', fn:()=>{ delete w.state; signals.users.splice(signals.users.indexOf(th),1); renderWin(); }}); return; }
@@ -2909,6 +2986,11 @@ document.addEventListener('click', e=>{
 });
 function selectDraft(){ const el=document.getElementById('draftText'); if(!el) return; const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
 
+const cleanUrl = v => v.trim().replace(/^https?:\/\//i,'').replace(/^www\./i,'').replace(/\/+$/,'');
+document.addEventListener('change', e=>{
+  if(e.target.id==='sigCad'){ signals.config.cadence=e.target.value; renderWin(); toast('Schedule saved.'); }
+  if(e.target.id==='sigWin'){ signals.config.window=+e.target.value; renderWin(); toast('Look-back window saved.'); }
+});
 document.addEventListener('submit', e=>{
   e.preventDefault();
   if(e.target.id==='capForm'){ const v=document.getElementById('capIn').value; if(!v.trim()){ ui.err='Type something first'; renderPop(); return; }
@@ -2917,6 +2999,21 @@ document.addEventListener('submit', e=>{
     if(QWORDS.test(v.trim()) || /\?\s*$/.test(v)){ document.getElementById('capIn').value=''; ui.pop=false; ui.win=true; ui.view='today'; ui.sel=null; ui.todayQA={q:v, thinking:true}; render();
       setTimeout(()=>{ const r=lalAnswer(v); ui.todayQA={q:v, a:r.t, links:r.links||[]}; renderWin(); }, 750); return; } document.getElementById('capIn').value=''; startPlanning(v); }
   if(e.target.id==='pForm'){ const inp=document.getElementById('pIn'); const v=inp.value.trim(); if(!v){ inp.focus(); return; } inp.value=''; pSend(v); const n=document.getElementById('pIn'); if(n) n.focus(); return; }
+  if(e.target.id==='chanForm'){
+    const inp=document.getElementById('chanIn'); let v=inp.value.trim().toLowerCase().replace(/\s+/g,'-'); if(!v){ inp.focus(); return; }
+    if(!v.startsWith('#')) v='#'+v; const cf=signals.config;
+    if(cf.channels.includes(v)){ toast(`Already watching ${v}.`); return; }
+    cf.channels.push(v); inp.value=''; renderWin(); const n=document.getElementById('chanIn'); if(n) n.focus(); toast(`Watching ${v}. It shows up in next week's pulse.`); return;
+  }
+  if(e.target.id==='compForm'){
+    const nm=document.getElementById('compName'), ur=document.getElementById('compUrl'); const name=nm.value.trim(), url=cleanUrl(ur.value);
+    if(!name){ nm.focus(); return; } if(!url){ ur.focus(); ur.placeholder='Add a web address to watch'; return; }
+    signals.config.competitors.push({ id:'c'+(uid++), name, urls:[url] }); nm.value=''; ur.value=''; renderWin(); toast(`Watching ${name}.`); return;
+  }
+  if(e.target.classList.contains('cf-addurl')){
+    const c=signals.config.competitors.find(x=>x.id===e.target.dataset.comp); const inp=e.target.querySelector('input'); const url=cleanUrl(inp.value);
+    if(!url) return; if(!c.urls.includes(url)) c.urls.push(url); inp.value=''; renderWin(); const n=document.getElementById('url-'+c.id); if(n) n.focus(); return;
+  }
   if(e.target.id==='mqForm'){
     const m=meetings.find(x=>x.id===e.target.dataset.mid); const inp=document.getElementById('mqIn'); const v=inp.value.trim();
     if(!v){ inp.focus(); return; } if(m.thinking) return; inp.value=''; ui._mqFocus=true; mqSend(m, v); return;
@@ -3013,7 +3110,7 @@ document.addEventListener('keydown', e=>{
   if(e.target.id==='talkIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('talkForm').requestSubmit(); return; }
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
   if(ui.win && ui.view==='catchup' && !e.target.closest('input,textarea')){ if(e.key==='ArrowRight'){ cuDecide(1); return; } if(e.key==='ArrowLeft'){ cuDecide(-1); return; } }
-  if(e.key==='Escape'){ if(ui.compose){ ui.compose=false; renderWin(); } else if(ui.win && ui.view==='meetings' && ui.meetOpen && !ui.phone){ ui.meetOpen=false; renderWin(); } else if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
+  if(e.key==='Escape'){ if(ui.compose){ ui.compose=false; renderWin(); } else if(ui.win && ui.view==='meetings' && ui.meetOpen && !ui.phone){ ui.meetOpen=false; renderWin(); } else if(ui.win && ui.view==='signals' && ui.sigCfg){ ui.sigCfg=false; sigCfgHTML.shown=false; renderWin(); } else if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
 });
 
 function clock(){ const d=new Date(); document.getElementById('clock').textContent = d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}); }
