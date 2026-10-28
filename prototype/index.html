@@ -924,6 +924,25 @@ body.phone .wl-row{flex-direction:column}
 .td-qa{display:flex;flex-direction:column;gap:8px}
 .td-qa .msg{max-width:90%}
 .td-cards{display:flex;flex-direction:column;gap:10px}
+.tds{display:flex;flex-direction:column;gap:8px}
+.tds-sec{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+.tds-h{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:12px 14px;color:var(--fg)}
+.tds-h:hover{background:var(--panel-2)}
+.tds-ic{flex:none;width:28px;height:28px;border-radius:8px;background:var(--accent-bg);color:var(--accent-ink);display:grid;place-items:center}
+.tds-ic svg{width:15px;height:15px}
+.tds-t{flex:none;display:flex;align-items:center;gap:6px}
+.tds-t b{font-weight:600;font-size:var(--fs-base)}
+.tds-n{font-family:var(--mono);font-size:var(--fs-2xs);font-weight:600;min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--panel-3);color:var(--fg-2);display:grid;place-items:center}
+.tds-s{flex:1;min-width:0;font-size:var(--fs-sm);color:var(--fg-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.tds-s .mw-cd{vertical-align:middle;margin:0 2px;height:20px;padding:0 8px;font-size:var(--fs-2xs);background:var(--accent-bg);color:var(--accent-ink)}
+.tds-chev{flex:none;color:var(--fg-3);transition:transform .15s;display:grid}
+.tds-chev svg{width:16px;height:16px}
+.tds-sec.open .tds-chev{transform:rotate(90deg)}
+.tds-body{padding:0 12px 12px;display:flex;flex-direction:column;gap:8px}
+.tds-body .td-dues,.tds-body .tms{border-radius:10px}
+body.phone .tds-h{flex-wrap:wrap;row-gap:2px}
+body.phone .tds-s{order:5;flex-basis:100%;text-align:left;padding-left:38px}
+body.phone .tds-chev{margin-left:auto}
 .wl-sub{text-transform:none;letter-spacing:0;font-weight:500;color:var(--accent-ink);margin-left:6px}
 .tr-head{display:flex;align-items:center;gap:10px;font-size:var(--fs-sm)}
 .tr-head b{font-weight:600}
@@ -1086,10 +1105,6 @@ body.phone .tm-prep{margin-left:0}
 .td-learn>svg{width:14px;height:14px;color:var(--accent);flex:none}
 .td-learn .iconbtn{width:32px;height:32px}
 .td-learn .iconbtn svg{width:15px;height:15px}
-.td-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
-.td-links button{display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--line);background:var(--panel-2);border-radius:12px;padding:10px 4px;font-size:var(--fs-xs);color:var(--fg-2)}
-.td-links svg{width:18px;height:18px;color:var(--fg)}
-.td-links b{font-family:var(--mono);font-size:var(--fs-xs);color:var(--fg)}
 .dock{position:absolute;z-index:15;left:50%;bottom:10px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:10px;padding:8px 12px;border-radius:22px;background:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.45);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 10px 30px rgba(0,0,0,.18)}
 :root[data-theme="dark"] .dock{background:rgba(40,42,48,.55);border-color:rgba(255,255,255,.12)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dock{background:rgba(40,42,48,.55);border-color:rgba(255,255,255,.12)}}
@@ -1693,26 +1708,31 @@ function todayHTML(){
     return `<div class="tm"><div class="tm-row"><button class="tm-main" data-meet-open="${u.id}"><span class="tm-time">${rangeH(u.at,u.dur)}</span><span class="tm-t"><b>${esc(u.title)}</b>${u===nxt?`<span class="mw-cd sm">${cd(u,'pill')}</span>`:''}${clash?`<span class="tag hot">Clashes with ${esc(clash.title)}</span>`:''}</span></button></div>
       ${u.prep?`<ul class="tm-prep ${u.gap?'gap':''}">${u.prep.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}</div>`; }).join('');
   const gaps = tm.filter(u=>u.gap);
-  const newSig = signals.users.filter(x=>x.hot&&!x.state).length + signals.market.filter(x=>x.fresh&&!x.state).length;
+  const clashes = tm.filter(u=>tm.some(v=>v!==u && +v.at<end(u) && +u.at<end(v))).length/2|0;
+  const openDue = dueToday.filter(d=>!d.done);
   return `<div class="today" data-keep="today"><div class="td-wrap">
     ${gsHTML()}
     <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1>${topList}</div>
     ${answer}
-    ${due ? `<div class="wl-label">Due today</div><div class="td-dues">${due}</div>` : ''}
-    ${replies.length ? `<div class="wl-label">Waiting on your reply <span class="wl-sub">Drafts are ready</span></div><div class="td-cards">${replyH}</div>` : ''}
-    ${meetH ? `<div class="wl-label">Today's meetings</div><div class="tms">${meetH}</div>${gaps.length?`<div class="td-gap">${I.spark}<span>I couldn't find past notes for ${gaps.map(u=>esc(u.title)).join(' or ')}, so its prep comes from the calendar invite only.</span></div>`:''}` : ''}
-    ${rest.length ? `<div class="wl-label">For you</div><div class="td-cards">${cardsH}</div>` : ''}
+    <div class="tds">
+    ${tdSec('due', I.check, 'Due today', openDue.length, openDue.length ? openDue.map(d=>`${esc(d.short)} ${esc(d.when)}`).join(' · ') : 'All done', due ? `<div class="td-dues">${due}</div>` : '')}
+    ${tdSec('replies', I.chat, 'Waiting on your reply', replies.length, replies.length ? `${replies.map(x=>esc(x.reply.from)).join(' and ')} · drafts ready` : 'Nothing waiting', replies.length ? `<div class="td-cards">${replyH}</div>` : '')}
+    ${tdSec('meetings', I.cal, "Today's meetings", tm.length, nxt && sameDay(nxt.at,new Date()) ? `Next: ${esc(nxt.title)} ${cd(nxt,'pill')}${clashes?` · ${clashes} clash${clashes>1?'es':''}`:''}` : 'No more meetings today',
+      meetH ? `<div class="tms">${meetH}</div>${gaps.length?`<div class="td-gap">${I.spark}<span>I couldn't find past notes for ${gaps.map(u=>esc(u.title)).join(' or ')}, so its prep comes from the calendar invite only.</span></div>`:''}` : '')}
+    ${tdSec('foryou', I.spark, 'For you', rest.length, rest.slice(0,2).map(x=>esc(x.kind)).join(', ')+(rest.length>2?` and ${rest.length-2} more`:''), rest.length ? `<div class="td-cards">${cardsH}</div>` : '')}
+    ${learn ? tdSec('learn', I.user, 'Getting to know you', learnings.filter(l=>!l.state).length, 'Confirm what lalo noticed about how you work', `<div class="td-learns">${learn}</div>`) : ''}
     ${c.work ? `<button class="td-working" data-go="board"><span class="mark work"></span><span class="grow">I'm working on ${c.work} ${c.work>1?'tasks':'task'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}
-    ${learn ? `<div class="wl-label">Getting to know you</div><div class="td-learns">${learn}</div>` : ''}
-    <div class="td-links">
-      <button data-go="board">${I.board}<span>Tasks</span><b>${c.need+c.work}</b></button>
-      <button data-go="meetings">${I.cal}<span>Meetings</span><b>${todayMeets().length}</b></button>
-      <button data-go="signals">${I.radar}<span>Signals</span><b>${newSig}</b></button>
-      <button data-go="insights">${I.bulb}<span>Insights</span><b>${insights.personal.filter(x=>!x.state).length}</b></button>
     </div>
   </div></div>`;
 }
 function homeHTML(){ return todayHTML(); }
+function tdSec(key, icon, title, n, summary, inner){
+  if(!inner) return '';
+  const open=!!(ui.tdOpen||{})[key];
+  return `<section class="tds-sec ${open?'open':''}"><button class="tds-h" data-tdsec="${key}" aria-expanded="${open}"><span class="tds-ic">${icon}</span>
+    <span class="tds-t"><b>${esc(title)}</b>${n?`<span class="tds-n">${n}</span>`:''}</span><span class="tds-s">${summary}</span><span class="tds-chev">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</span></button>
+    ${open?`<div class="tds-body">${inner}</div>`:''}</section>`;
+}
 
 function head(title, sub, action){
   return `<div class="mainhead"><button class="iconbtn menu-btn" data-side aria-label="Show menu">${I.menu}</button>
@@ -1984,11 +2004,11 @@ const cd = (u, mode) => `<span data-cd="${+u.at}|${u.dur}|${mode}">${cdText(u.at
 const nextMeeting = () => upcoming.filter(u=>+u.at+u.dur*60000>Date.now()).sort((a,b)=>a.at-b.at)[0];
 setInterval(()=>document.querySelectorAll('[data-cd]').forEach(el=>{ const [at,dur,mode]=el.dataset.cd.split('|'); el.textContent=cdText(+at,+dur,mode); }), 15000);
 const dueToday = [
-  { id:'d1', kind:'comment', t:'Comment on the Q4 roadmap doc', who:'Jordan', where:'Notion', when:'by 5pm',
+  { id:'d1', kind:'comment', short:'Roadmap comment', t:'Comment on the Q4 roadmap doc', who:'Jordan', where:'Notion', when:'by 5pm',
     why:'Jordan asked for comments by 5pm. I used this month\'s signals and your notes from the design review.',
     draft:"Looks solid. Two thoughts: payout setup is our fastest-rising support theme this month, so I'd pull the payout clarity work into Q4. And recurring giving needs an owner before Tandem's push lands.",
     act:'Approve', done_msg:'Approved. lalo posted your comment on the Q4 roadmap doc.' },
-  { id:'d2', kind:'expense', t:'Submit your October expense report', who:'Finance', where:'Expensify', when:'end of day',
+  { id:'d2', kind:'expense', short:'Expense report', t:'Submit your October expense report', who:'Finance', where:'Expensify', when:'end of day',
     why:'I found these in your email and calendar for October.',
     lines:[ { d:'Oct 3', t:'Ride to the airport', c:'Travel', a:38.40, r:true, on:true },
             { d:'Oct 3–5', t:'Hotel, product offsite', c:'Lodging', a:296.00, r:true, on:true },
@@ -3193,6 +3213,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.obhelp){ const h=t.dataset.obhelp; ui.obData.helps[h]=!ui.obData.helps[h]; renderWin(); return; }
   if(t.dataset.obrec){ ui.obData.record=t.dataset.obrec; renderWin(); return; }
   if(t.dataset.obfinish){ ui.obDone=true; ui.ob=null; ui.view='today'; render(); if(!ui.phone) toast('lalo also lives in your menu bar. Click ✦ anytime.'); return; }
+  if(t.dataset.tdsec){ const k=t.dataset.tdsec; ui.tdOpen=ui.tdOpen||{}; ui.tdOpen[k]=!ui.tdOpen[k]; renderWin(); return; }
   if(t.dataset.gshide){ ui.gs.hidden=true; renderWin(); return; }
   if(t.dataset.nudge){ ui.nudge=t.dataset.nudge; renderNudge(); return; }
   if(t.dataset.nudgerec){ const u=upcoming.find(x=>x.id===t.dataset.nudgerec); ui.nudge=null; renderNudge(); if(u) startRec(u); return; }
