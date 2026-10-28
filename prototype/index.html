@@ -1041,7 +1041,10 @@ body.phone .ob-top{padding:14px 16px 0}
 .ob-fine svg{width:12px;height:12px;color:var(--accent)}
 .ob-need{margin:0;font-size:var(--fs-xs);color:var(--fg-3);text-align:right}
 .ob-read{display:flex;flex-direction:column;gap:10px;padding:6px 2px}
-.ob-line{display:flex;align-items:center;gap:10px;font-size:var(--fs-base);animation:pop .3s ease-out}
+.ob-line{display:flex;align-items:center;gap:10px;font-size:var(--fs-base)}
+.ob-line.in,.ob-found.in{animation:obIn .45s ease-out both}
+@keyframes obIn{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.ob-line.in,.ob-found.in{animation:none}}
 .ob-line svg{width:16px;height:16px;color:var(--ok);flex:none}
 .ob-line.wait{color:var(--fg-3)}
 .ob-found{display:flex;align-items:center;gap:8px;background:var(--accent-bg);color:var(--accent-ink);border-radius:12px;padding:10px 12px;font-size:var(--fs-base);font-weight:500}
@@ -2730,7 +2733,13 @@ const obFresh = () => ({ tools:{}, facts:[{t:"You're a product manager on the Fu
 const obLines = () => OB_TOOLS.filter(t=>ui.obData.tools[t.k]==='on').flatMap(t=>OB_READ[t.k]);
 function obReadStart(){
   clearInterval(obReadStart.iv); ui.obData.read=0;
-  obReadStart.iv=setInterval(()=>{ if(ui.ob!==2){ clearInterval(obReadStart.iv); return; } ui.obData.read++; renderWin(); if(ui.obData.read>obLines().length) clearInterval(obReadStart.iv); }, 650);
+  // Add each finding in place so earlier lines stay put; re-render once at the end for the summary.
+  obReadStart.iv=setInterval(()=>{
+    if(ui.ob!==2){ clearInterval(obReadStart.iv); return; }
+    const L=obLines(), i=ui.obData.read++, box=document.querySelector('.ob-read'), wait=box && box.querySelector('.ob-line.wait');
+    if(i<L.length && box){ const el=document.createElement('div'); el.className='ob-line in'; el.innerHTML=`${I.check}<span>${esc(L[i])}</span>`; box.insertBefore(el, wait); return; }
+    if(i>=L.length){ clearInterval(obReadStart.iv); renderWin(); const f=document.querySelector('.ob-found'); if(f) f.classList.add('in'); }
+  }, 700);
 }
 function setPersona(p){
   ui.persona=p; ui.sel=null; ui.pop=false; ui.compose=false; ui.meetOpen=false; ui.sigCfg=false; ui.ask=false;
