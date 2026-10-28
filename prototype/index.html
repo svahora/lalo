@@ -982,6 +982,78 @@ body.phone .due-draft,body.phone .due-sent{margin-left:0}
 .tm-t .mw-cd.sm{margin-left:0}
 .tm-prep{margin:4px 0 0 124px;padding-left:16px;font-size:var(--fs-sm);color:var(--fg-2);display:flex;flex-direction:column;gap:2px}
 .tm-prep.gap{color:var(--fg-3);font-style:italic}
+.persona{position:fixed;z-index:16;left:14px;bottom:14px;display:flex;align-items:center;gap:4px;padding:4px;border-radius:12px;background:rgba(255,255,255,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 16px rgba(0,0,0,.12);font-size:var(--fs-xs)}
+.persona span{padding:0 6px 0 8px;color:var(--fg-2);font-weight:500}
+.persona button,.ob-seg button{height:28px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:var(--fg-2);font-size:var(--fs-xs);font-weight:600}
+.persona button[aria-pressed="true"],.ob-seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .persona{background:rgba(30,30,40,.6)}
+.ob{position:absolute;inset:0;z-index:14;background:var(--panel);display:flex;flex-direction:column}
+.ob-top{display:flex;align-items:center;gap:10px;padding:16px 20px 0 84px;flex:none}
+body.phone .ob-top{padding:14px 16px 0}
+.ob-dots{display:flex;gap:6px}
+.ob-dots i{width:22px;height:4px;border-radius:2px;background:var(--line)}
+.ob-dots i.on{background:var(--accent)}
+.ob-skip{border:0;background:transparent;color:var(--fg-3);font-size:var(--fs-xs);font-weight:500}
+.ob-body{flex:1;min-height:0;overflow:auto}
+.ob-col{max-width:520px;margin:0 auto;padding:28px 20px 32px;display:flex;flex-direction:column;gap:12px}
+.ob-col h2{margin:0;font-family:var(--display);font-size:var(--fs-xl);font-weight:500;letter-spacing:-.02em}
+.ob-sub{margin:0 0 6px;color:var(--fg-2);font-size:var(--fs-base)}
+.ob-hero{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:24px}
+.ob-hero h1{margin:4px 0 0;font-family:var(--display);font-size:var(--fs-2xl);font-weight:500;letter-spacing:-.03em}
+.ob-hero p{margin:0;color:var(--fg-2);font-size:var(--fs-md);line-height:1.5}
+.ob-logo{width:52px;height:52px;border-radius:14px;background:var(--accent);color:#fff;display:grid;place-items:center}
+.ob-logo svg{width:28px;height:28px}
+.ob-points{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:var(--fs-base)}
+.ob-points li{display:flex;align-items:center;gap:8px}
+.ob-points svg{width:16px;height:16px;color:var(--accent);flex:none}
+.ob-nav{display:flex;align-items:center;gap:8px;margin-top:12px}
+.ob-next{height:40px;padding:0 18px;font-size:var(--fs-base)}
+.ob-next[disabled]{opacity:.45;cursor:not-allowed}
+.ob-tools,.ob-facts,.ob-prefs{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ob-tool,.ob-fact,.ob-pref{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.ob-tool+.ob-tool,.ob-fact+.ob-fact,.ob-pref+.ob-pref{border-top:1px solid var(--line)}
+.ob-tic{flex:none;width:32px;height:32px;border-radius:8px;color:#fff;display:grid;place-items:center;font-weight:700;font-size:var(--fs-base)}
+.ob-tool b,.ob-pref b{display:flex;align-items:center;gap:6px;font-weight:600;font-size:var(--fs-base)}
+.ob-tool small,.ob-pref small{display:block;font-size:var(--fs-xs);color:var(--fg-3)}
+.ob-on{flex:none;display:inline-flex;align-items:center;gap:4px;font-size:var(--fs-xs);font-weight:600;color:var(--ok)}
+.ob-on svg{width:13px;height:13px}
+.ob-wait{flex:none;display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--fg-2)}
+.ob-fine{display:flex;align-items:center;gap:6px;margin:0;font-size:var(--fs-xs);color:var(--fg-2)}
+.ob-fine svg{width:12px;height:12px;color:var(--accent)}
+.ob-need{margin:0;font-size:var(--fs-xs);color:var(--fg-3);text-align:right}
+.ob-read{display:flex;flex-direction:column;gap:10px;padding:6px 2px}
+.ob-line{display:flex;align-items:center;gap:10px;font-size:var(--fs-base);animation:pop .3s ease-out}
+.ob-line svg{width:16px;height:16px;color:var(--ok);flex:none}
+.ob-line.wait{color:var(--fg-3)}
+.ob-found{display:flex;align-items:center;gap:8px;background:var(--accent-bg);color:var(--accent-ink);border-radius:12px;padding:10px 12px;font-size:var(--fs-base);font-weight:500}
+.ob-found svg{width:15px;height:15px;flex:none}
+.ob-fact{font-size:var(--fs-base)}
+.ob-fact.yes .grow{color:var(--fg)}
+.ob-fact input{flex:1;min-width:0;height:34px;border:1.5px solid var(--accent);border-radius:8px;padding:0 10px;font:inherit;font-size:var(--fs-sm);background:var(--panel);color:var(--fg);outline:none}
+.ob-fact .btn{height:30px;font-size:var(--fs-xs)}
+.ob-h3{margin:12px 0 0;font-size:var(--fs-base);font-weight:600}
+.ob-helps{display:flex;flex-wrap:wrap;gap:6px}
+.ob-helps .chip{display:inline-flex;align-items:center;gap:5px}
+.ob-helps .chip[aria-pressed="true"]{background:var(--accent-bg);border-color:var(--accent);color:var(--accent-ink)}
+.ob-helps .chip svg{width:13px;height:13px}
+.ob-pref select{height:32px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel);color:var(--fg);padding:0 8px;font:inherit;font-size:var(--fs-sm)}
+.ob-seg{flex:none;display:flex;gap:2px;padding:3px;border-radius:10px;background:var(--panel-2)}
+.ob-pref.locked{background:var(--panel-2)}
+body.phone .ob-pref{flex-wrap:wrap}
+.gs{border:1px solid var(--accent);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:var(--panel)}
+.gs-top{display:flex;align-items:center;gap:8px}
+.gs-top b{font-weight:600}
+.gs-n{font-size:var(--fs-xs);color:var(--fg-3);font-family:var(--mono)}
+.gs-bar{height:4px;border-radius:2px;background:var(--line)}
+.gs-bar i{display:block;height:100%;border-radius:2px;background:var(--accent);transition:width .3s}
+.gs-item{display:flex;align-items:center;gap:10px;font-size:var(--fs-base)}
+.gs-item .btn{height:30px;font-size:var(--fs-xs)}
+.gs-item.done .grow{color:var(--fg-3);text-decoration:line-through}
+.gs-chk{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line-strong);display:grid;place-items:center;color:#fff}
+.gs-item.done .gs-chk{background:var(--accent);border-color:var(--accent)}
+.gs-chk svg{width:11px;height:11px}
+.gs-done{display:flex;align-items:center;gap:6px;margin:0;font-size:var(--fs-sm);color:var(--accent-ink)}
+.gs-done svg{width:13px;height:13px}
 .nudge{position:fixed;z-index:1000;top:36px;right:12px;width:min(340px,calc(100vw - 24px));display:flex;gap:10px;padding:12px;border-radius:16px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);animation:ngin .22s ease-out}
 @keyframes ngin{from{opacity:0;transform:translateY(-8px)}}
 .ng-ic{flex:none;width:30px;height:30px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center}
@@ -1138,6 +1210,7 @@ body.phone .callout{display:none}
   <nav class="dock" id="dock" aria-label="Dock"></nav>
   <div id="toastMount" aria-live="polite"></div>
   <div id="nudgeMount" aria-live="assertive"></div>
+  <div id="personaMount"></div>
 </div>
 
 <script>
@@ -1288,7 +1361,7 @@ function guessType(t){
   return 'task';
 }
 
-let ui = { pop:false, type:'all', win:false, view:'board', sel:null, side:false, err:'', hinted:false };
+let ui = { pop:false, type:'all', win:false, view:'board', sel:null, side:false, err:'', hinted:false, persona:'existing', obDone:true };
 
 function counts(){ const c={need:0,work:0,done:0}; cards.forEach(k=>c[k.col]++); return c; }
 function progress(k){ if(!k.steps) return null; const d=k.steps.filter(s=>s.st==='done').length; return {d, n:k.steps.length}; }
@@ -1316,7 +1389,7 @@ function render(){
   document.getElementById('pip').hidden = c.need === 0;
   document.getElementById('spark').setAttribute('aria-expanded', ui.pop);
   document.getElementById('hint').hidden = ui.hinted;
-  renderPop(); renderWin(); renderDock(); placeCallout();
+  renderPop(); renderWin(); renderDock(); placeCallout(); renderPersona();
 }
 function placeCallout(){
   const co=document.getElementById('callout'), sp=document.getElementById('spark'); if(!co || !sp) return;
@@ -1439,6 +1512,7 @@ function renderWin(){
     ${ui.planning ? planningHTML() : ''}
     ${ui.splash ? splashHTML() : ''}
     ${ui.compose && !ui.phone ? composeHTML() : ''}
+    ${ui.persona==='new' && !ui.obDone ? obHTML() : ''}
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
@@ -1621,6 +1695,7 @@ function todayHTML(){
   const gaps = tm.filter(u=>u.gap);
   const newSig = signals.users.filter(x=>x.hot&&!x.state).length + signals.market.filter(x=>x.fresh&&!x.state).length;
   return `<div class="today" data-keep="today"><div class="td-wrap">
+    ${gsHTML()}
     <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1>${topList}</div>
     ${answer}
     ${due ? `<div class="wl-label">Due today</div><div class="td-dues">${due}</div>` : ''}
@@ -2617,10 +2692,100 @@ const profile = {
   'Growth areas': [['Let others finish before proposing fixes','Calls ×4'],['Say no earlier on dates you doubt','Slack']],
   'People you work with most': [['Sara · weekly 1:1, design','Calendar'],['Jordan · launch planning','Slack'],['Maya · marketing','Slack']]
 };
+/* ---------- onboarding (prototype: switch between a new and an existing user) ---------- */
+const OB_TOOLS = [
+  { k:'slack', n:'Slack', c:'#4a154b', reads:'Channels you are in and your DMs', key:true },
+  { k:'cal', n:'Google Calendar', c:'#1a73e8', reads:'Your meetings and who is in them', key:true },
+  { k:'granola', n:'Granola', c:'#2f9e55', reads:'Meeting notes and transcripts' },
+  { k:'notion', n:'Notion', c:'#111111', reads:'Docs you own or are asked to comment on' },
+  { k:'linear', n:'Linear', c:'#5e6ad2', reads:'Issues assigned to you or your team' },
+  { k:'gmail', n:'Gmail', c:'#c2412d', reads:'Threads that need you, and receipts' }
+];
+const OB_READ = { slack:['Read 1,240 Slack messages from the last 2 weeks','Found 2 people waiting on a reply from you','Learned your writing style from 40 of your replies'],
+  cal:["Found 5 meetings today and 3 tomorrow"], granola:['Pulled notes from 6 past meetings'], notion:['Found 1 doc that needs your comment by 5pm'],
+  linear:['Found 4 issues assigned to you'], gmail:['Found 4 October receipts for your expense report'] };
+const OB_HELPS = ['Replies in my voice','Meeting prep','Signals from users and competitors','Tickets and specs','Personal errands'];
+const obFresh = () => ({ tools:{}, facts:[{t:"You're a product manager on the Fundraising team"},{t:'You work most closely with Jordan, Ana, and Ravi'},{t:'Your replies are short and warm, and often end with a question'}],
+  helps:{'Replies in my voice':true,'Meeting prep':true,'Signals from users and competitors':true}, brief:'8:00am', record:'ask', read:0 });
+const obLines = () => OB_TOOLS.filter(t=>ui.obData.tools[t.k]==='on').flatMap(t=>OB_READ[t.k]);
+function obReadStart(){
+  clearInterval(obReadStart.iv); ui.obData.read=0;
+  obReadStart.iv=setInterval(()=>{ if(ui.ob!==2){ clearInterval(obReadStart.iv); return; } ui.obData.read++; renderWin(); if(ui.obData.read>obLines().length) clearInterval(obReadStart.iv); }, 650);
+}
+function setPersona(p){
+  ui.persona=p; ui.sel=null; ui.pop=false; ui.compose=false; ui.meetOpen=false; ui.sigCfg=false; ui.ask=false;
+  if(p==='new'){ ui.ob=0; ui.obDone=false; ui.obData=obFresh(); ui.gs={task:false, voice:false, hidden:false}; ui.win=true; ui.view='today'; ui.hinted=true; }
+  else { ui.ob=null; ui.obDone=true; }
+  render();
+}
+function renderPersona(){
+  const m=document.getElementById('personaMount'); if(!m) return;
+  m.innerHTML = ui.phone ? '' : `<div class="persona" role="group" aria-label="Prototype view"><span>Prototype view</span>${['new','existing'].map(p=>`<button data-persona="${p}" aria-pressed="${ui.persona===p}">${p==='new'?'New user':'Existing user'}</button>`).join('')}</div>`;
+}
+function obHTML(){
+  const D=ui.obData, step=ui.ob, N=6;
+  const dots=`<div class="ob-dots" aria-label="Step ${step+1} of ${N}">${Array.from({length:N},(_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('')}</div>`;
+  const nav=(next, label, enabled=true, back=true)=>`<div class="ob-nav">${back&&step>0?`<button class="btn ghost" data-obback="1">Back</button>`:''}<span class="grow"></span><button class="btn pri ob-next" data-obnext="${next}" ${enabled?'':'disabled'}>${label}</button></div>`;
+  let body='';
+  if(step===0){
+    body=`<div class="ob-hero"><span class="ob-logo">${I.spark}</span><h1>Hi, I'm lalo.</h1>
+      <p>Tell me anything. I turn it into a task, draft replies in your voice, prep your meetings, and do the steps I can.</p>
+      <ul class="ob-points"><li>${I.check} Nothing goes out without your OK</li><li>${I.check} You can see and edit everything I learn about you</li><li>${I.check} Setup takes about 2 minutes</li></ul></div>
+      ${nav(1,'Connect your work',true,false)}`;
+  } else if(step===1){
+    const on=k=>D.tools[k]==='on', ok=on('slack')&&on('cal');
+    body=`<h2>Connect your work</h2><p class="ob-sub">Slack and Calendar give lalo the most to work with. You can add the rest later.</p>
+      <div class="ob-tools">${OB_TOOLS.map(t=>{ const st=D.tools[t.k]; return `<div class="ob-tool"><span class="ob-tic" style="background:${t.c}">${esc(t.n.charAt(0))}</span>
+        <span class="grow"><b>${esc(t.n)}${t.key?' <span class="tag muted">Recommended</span>':''}</b><small>Reads: ${esc(t.reads)}</small></span>
+        ${st==='on'?`<span class="ob-on">${I.check} Connected</span>`:st==='wait'?`<span class="ob-wait"><span class="ring doing"></span> Connecting</span>`:`<button class="btn" data-obtool="${t.k}">Connect</button>`}</div>`; }).join('')}</div>
+      <p class="ob-fine">${I.spark} lalo only reads. Sending, posting, and paying always wait for you.</p>
+      ${ok?'':'<p class="ob-need">Connect Slack and Calendar to continue.</p>'}
+      ${nav(2, 'Continue', ok)}`;
+  } else if(step===2){
+    const L=obLines(), shown=Math.min(D.read, L.length), done=D.read>L.length;
+    body=`<h2>${done?'Here\'s what I found':'Getting to know your work'}</h2><p class="ob-sub">${done?'Your Today page is ready.':'This takes a few seconds.'}</p>
+      <div class="ob-read">${L.slice(0,shown).map(l=>`<div class="ob-line">${I.check}<span>${esc(l)}</span></div>`).join('')}${!done?`<div class="ob-line wait"><span class="ring doing"></span><span>Reading…</span></div>`:''}</div>
+      ${done?`<div class="ob-found">${I.spark}<span>I already drafted 2 replies and prepped today's meetings.</span></div>`:''}
+      ${nav(3,'Continue',done)}`;
+  } else if(step===3){
+    body=`<h2>Did I get this right?</h2><p class="ob-sub">This becomes your profile. Fix anything that's off.</p>
+      <div class="ob-facts">${D.facts.map((f,i)=>`<div class="ob-fact ${f.st||''}">${f.st==='edit'
+        ?`<input id="obFact${i}" data-keepval value="${esc(f.t)}" aria-label="Fix this"><button class="btn" data-obfactsave="${i}">Save</button>`
+        :`<span class="grow">${esc(f.t)}</span>${f.st==='yes'?`<span class="ob-on">${I.check} Yes</span>`:`<button class="btn" data-obfact="${i}|yes">Yes</button>`}<button class="btn ghost" data-obfact="${i}|edit">Fix</button>`}</div>`).join('')}</div>
+      <h3 class="ob-h3">What should I help with?</h3>
+      <div class="ob-helps">${OB_HELPS.map(h=>`<button class="chip" data-obhelp="${esc(h)}" aria-pressed="${!!D.helps[h]}">${D.helps[h]?I.check:''} ${esc(h)}</button>`).join('')}</div>
+      ${nav(4,'Continue')}`;
+  } else if(step===4){
+    body=`<h2>How should I check in?</h2><p class="ob-sub">You can change these anytime in your profile.</p>
+      <div class="ob-prefs">
+        <div class="ob-pref"><span class="grow"><b>Morning brief</b><small>Your Today page, ready when you start</small></span><select id="obBrief">${['7:30am','8:00am','9:00am'].map(o=>`<option ${o===D.brief?'selected':''}>${o}</option>`).join('')}</select></div>
+        <div class="ob-pref"><span class="grow"><b>When a meeting starts</b><small>lalo can take notes and pull out action items</small></span>
+          <div class="ob-seg">${[['ask','Ask me to record'],['never',"Don't ask"]].map(([k,l])=>`<button data-obrec="${k}" aria-pressed="${D.record===k}">${l}</button>`).join('')}</div></div>
+        <div class="ob-pref locked"><span class="grow"><b>Drafts wait for your approval</b><small>Replies, comments, and reports never go out on their own</small></span><span class="ob-on">${I.check} Always on</span></div>
+      </div>${nav(5,'Finish setup')}`;
+  } else {
+    body=`<div class="ob-hero"><span class="ob-logo">${I.check}</span><h1>You're all set</h1><p>Here's what's waiting for you today:</p>
+      <ul class="ob-points"><li>${I.spark} 2 replies drafted in your voice</li><li>${I.spark} 2 things due today, already drafted</li><li>${I.spark} Today's meetings prepped</li></ul></div>
+      <div class="ob-nav"><span class="grow"></span><button class="btn pri ob-next" data-obfinish="1">Open Today</button></div>`;
+  }
+  return `<div class="ob" role="dialog" aria-label="Set up lalo"><div class="ob-top">${dots}<span class="grow"></span>${step<5?`<button class="ob-skip" data-obfinish="1">Skip setup</button>`:''}</div><div class="ob-body" data-keep="ob"><div class="ob-col">${body}</div></div></div>`;
+}
+function gsHTML(){
+  if(ui.persona!=='new' || !ui.obDone || !ui.gs || ui.gs.hidden) return '';
+  const reply=cards.find(k=>k.from && k.col==='need');
+  const items=[ { done:cards.some(k=>k.from && k.col==='done'), t:'Approve your first drafted reply', b:'Review a draft', a: reply?`data-open="${reply.id}"`:'data-go="board"' },
+    { done:ui.gs.task, t:'Add a task', b: ui.phone?'Add a task':'Add a task · N', a: ui.phone?'data-ask="1"':'data-compose="1"' },
+    { done:ui.gs.voice, t:'Try saying "Hey lalo"', b:'Try it', a:'data-voice="1"' } ];
+  const n=items.filter(x=>x.done).length;
+  return `<div class="gs"><div class="gs-top"><b>Get started</b><span class="gs-n">${n} of 3</span><span class="grow"></span><button class="iconbtn" data-gshide="1" aria-label="Hide get started">${I.x}</button></div>
+    <div class="gs-bar"><i style="width:${n/3*100}%"></i></div>
+    ${n===3?`<p class="gs-done">${I.spark} You're set. lalo keeps learning as you go.</p>`:items.map(x=>`<div class="gs-item ${x.done?'done':''}"><span class="gs-chk">${x.done?I.check:''}</span><span class="grow">${esc(x.t)}</span>${x.done?'':`<button class="btn" ${x.a}>${esc(x.b)}</button>`}</div>`).join('')}</div>`;
+}
 function profileHTML(){
   return head('Your profile','Learned from how you write and talk. Private to you', ui.phone ? `<button class="iconbtn" data-theme-toggle="1" aria-label="${isDark()?'Switch to light mode':'Switch to dark mode'}">${isDark()?I.sun:I.moon}</button>` : '') + `<div class="profile" data-keep="profile">
     ${Object.entries(profile).map(([h,ls])=>`<div class="pcard"><h3>${h}</h3>${ls.map((l,i)=>`<div class="pline"><span>${esc(l[0])}</span><span class="from">${esc(l[1])}</span><button data-del="${esc(h)}|${i}" aria-label="Remove this line">${I.x.replace('<svg','<svg width="13" height="13"')}</button></div>`).join('') || '<div class="empty">Nothing here yet</div>'}</div>`).join('')}
-    <div class="pnote">Every draft, plan, and 1:1 brief reads this page. Remove anything that's wrong and lalo stops using it.</div></div>`;
+    <div class="pnote">Every draft, plan, and 1:1 brief reads this page. Remove anything that's wrong and lalo stops using it.</div>
+    ${ui.phone?`<div class="pcard"><h3>Prototype view</h3><div class="ob-seg">${['new','existing'].map(p=>`<button data-persona="${p}" aria-pressed="${ui.persona===p}">${p==='new'?'New user':'Existing user'}</button>`).join('')}</div></div>`:''}</div>`;
 }
 
 /* ---------- behaviour ---------- */
@@ -2707,6 +2872,7 @@ const PHRASES = [
 ];
 let vi = 0;
 function startVoice(){
+  if(ui.gs) ui.gs.voice=true;
   if(ui.voice) return;
   const phrase = PHRASES[vi++ % PHRASES.length];
   ui.voice = { phase:'wake', text:'' }; renderVoice();
@@ -2756,6 +2922,7 @@ const PLAN_TPL = {
 };
 const ROUTINE_TPL = [['Set up the schedule','ai'],['Do the first run now','ai'],['Post the results to your Notes','ai']];
 function startPlanning(text, viaVoice){
+  if(ui.gs && text && text.trim()) ui.gs.task=true;
   const t=text.trim(); if(!t) return;
   const title=t.charAt(0).toUpperCase()+t.slice(1);
   const type=guessType(t), rep=parseRepeat(t);
@@ -3017,6 +3184,16 @@ document.addEventListener('click', e=>{
   if(t.dataset.pcancel){ const P=ui.planning; ui.planning=null; if(P && P.started){ if(ui.phone){ ui.view='board'; ui.jump='work'; } render(); return; } render(); toast("Saved in Needs you. Pick up the plan any time."); return; }
   if(t.dataset.pstart){ if(pNextQ()!==undefined){ toast('Answer or skip the question first.'); return; } pStart(); return; }
   if(t.dataset.sigjump){ const el=document.getElementById('sig-'+t.dataset.sigjump); if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); el.classList.remove('flash'); void el.offsetWidth; if(!t.dataset.sigjump.startsWith('sec-')) el.classList.add('flash'); } return; }
+  if(t.dataset.persona){ setPersona(t.dataset.persona); return; }
+  if(t.dataset.obnext){ ui.ob=+t.dataset.obnext; renderWin(); if(ui.ob===2) obReadStart(); const b=document.querySelector('.ob-body'); if(b) b.scrollTop=0; return; }
+  if(t.dataset.obback){ ui.ob=Math.max(0,ui.ob-1); if(ui.ob===2) ui.ob=1; renderWin(); return; }
+  if(t.dataset.obtool){ const k=t.dataset.obtool; ui.obData.tools[k]='wait'; renderWin(); setTimeout(()=>{ ui.obData.tools[k]='on'; renderWin(); }, 800); return; }
+  if(t.dataset.obfact){ const [i,st]=t.dataset.obfact.split('|'); ui.obData.facts[+i].st=st; renderWin(); if(st==='edit'){ const el=document.getElementById('obFact'+i); if(el){ el.focus(); el.select(); } } return; }
+  if(t.dataset.obfactsave){ const i=+t.dataset.obfactsave, el=document.getElementById('obFact'+i); const f=ui.obData.facts[i]; if(el && el.value.trim()) f.t=el.value.trim(); f.st='yes'; renderWin(); return; }
+  if(t.dataset.obhelp){ const h=t.dataset.obhelp; ui.obData.helps[h]=!ui.obData.helps[h]; renderWin(); return; }
+  if(t.dataset.obrec){ ui.obData.record=t.dataset.obrec; renderWin(); return; }
+  if(t.dataset.obfinish){ ui.obDone=true; ui.ob=null; ui.view='today'; render(); if(!ui.phone) toast('lalo also lives in your menu bar. Click ✦ anytime.'); return; }
+  if(t.dataset.gshide){ ui.gs.hidden=true; renderWin(); return; }
   if(t.dataset.nudge){ ui.nudge=t.dataset.nudge; renderNudge(); return; }
   if(t.dataset.nudgerec){ const u=upcoming.find(x=>x.id===t.dataset.nudgerec); ui.nudge=null; renderNudge(); if(u) startRec(u); return; }
   if(t.dataset.nudgeno){ ui.nudge=null; renderNudge(); toast("Okay, I won't record this one."); return; }
@@ -3127,6 +3304,7 @@ function selectDraft(){ const el=document.getElementById('draftText'); if(!el) r
 const cleanUrl = v => v.trim().replace(/^https?:\/\//i,'').replace(/^www\./i,'').replace(/\/+$/,'');
 document.addEventListener('change', e=>{
   if(e.target.dataset && e.target.dataset.dueline){ const [id,i]=e.target.dataset.dueline.split('|'); const d=dueToday.find(x=>x.id===id); d.lines[+i].on=e.target.checked; renderWin(); return; }
+  if(e.target.id==='obBrief'){ ui.obData.brief=e.target.value; }
   if(e.target.id==='sigCad'){ signals.config.cadence=e.target.value; renderWin(); toast('Schedule saved.'); }
   if(e.target.id==='sigWin'){ signals.config.window=+e.target.value; renderWin(); toast('Look-back window saved.'); }
 });
