@@ -135,6 +135,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .mainhead{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
 .mainhead h1{margin:0;font-family:var(--display);font-size:20px;font-weight:500;letter-spacing:-.02em}
 .mainhead .sub{color:var(--fg-3);font-size:13px}
+.mh-rec{height:28px;font-size:12px;padding:0 10px}
+.mh-rec svg{width:14px;height:14px;color:var(--hot)}
 .menu-btn{display:none}
 
 .board{flex:1;overflow:auto;display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:14px;padding:16px 18px}
@@ -193,6 +195,29 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .chatin{display:flex;gap:8px;margin-top:10px}
 .chatin input{flex:1;min-width:0;height:36px;border-radius:9px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--fg);padding:0 12px;font:inherit}
 .li{display:flex;gap:10px;justify-content:space-between;padding:7px 0;border-top:1px solid var(--line);font-size:13px}
+.notes-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.notes-head h3{margin:0;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3)}
+.notes-hint{font-size:11px;color:var(--fg-3)}
+.notes-hint code,.notes-hint kbd{font-family:var(--mono);font-size:10.5px;background:var(--panel-3);border-radius:4px;padding:1px 4px}
+.notes-edit{height:26px;font-size:12px;padding:0 8px}
+.md{font-size:14px;line-height:1.55;border-radius:10px;padding:2px 10px;margin:0 -10px;cursor:text}
+.md:hover{background:var(--panel-2)}
+.md h2{margin:12px 0 4px;font-size:15px;font-weight:600;color:var(--fg)}
+.md h2:first-child,.md h3:first-child{margin-top:4px}
+.md h3,.md h4{margin:10px 0 4px;font-size:14px;font-weight:600}
+.md p{margin:4px 0}
+.md ul,.md ol{margin:2px 0 6px;padding-left:20px}
+.md li{margin:2px 0}
+.md li::marker{color:var(--fg-3)}
+.md .md-task{list-style:none;margin-left:-20px;display:flex;gap:8px;align-items:baseline}
+.md .md-box{flex:none;width:12px;height:12px;border:1.5px solid var(--line-strong);border-radius:3px;transform:translateY(1px)}
+.md .md-task.done{color:var(--fg-3);text-decoration:line-through}
+.md .md-task.done .md-box{background:var(--accent);border-color:var(--accent)}
+.md .md-task.done .md-box::after{content:"";display:block;width:3px;height:6px;margin:1px 0 0 3px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.md code{font-family:var(--mono);font-size:12.5px;background:var(--panel-3);border-radius:4px;padding:1px 4px}
+.md a{color:var(--accent-ink)}
+.note-in{display:block;width:100%;box-sizing:border-box;min-height:160px;resize:vertical;border:1.5px solid var(--accent);box-shadow:0 0 0 3px var(--accent-bg);border-radius:10px;padding:10px 12px;background:var(--panel);color:var(--fg);font-family:var(--mono);font-size:13px;line-height:1.6;outline:none}
+.notes-acts{display:flex;align-items:center;gap:8px;margin-top:8px}
 .li:first-of-type{border-top:0}
 .li .from{font-size:11px;color:var(--fg-3);white-space:nowrap;font-family:var(--mono)}
 .tip{background:var(--accent-bg);color:var(--accent-ink);border-radius:10px;padding:10px 12px;font-size:13px;margin-top:12px}
@@ -245,6 +270,11 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .mitem[aria-current="true"]{background:var(--panel-3)}
 .mitem b{font-weight:500}
 .mitem small{color:var(--fg-3);font-size:12px;display:flex;gap:6px;align-items:center}
+.mup{display:flex;align-items:center;border-radius:9px}
+.mup .mitem{flex:1;min-width:0}
+.mup:hover,.mup.cur{background:var(--panel-2)}
+.mup.cur{background:var(--panel-3)}
+.mup .mitem:hover,.mup .mitem[aria-current="true"]{background:transparent}
 .mdetail{overflow:auto;padding:4px 20px 20px;min-width:0}
 .mhead{display:flex;gap:12px;align-items:flex-start;padding-top:14px}
 .mhead h2{margin:0;font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.02em}
@@ -442,14 +472,14 @@ body.phone .main:has(.cu-wrap){padding-bottom:calc(64px + env(safe-area-inset-bo
 .askintro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;color:var(--fg-2);padding:30px 16px}
 .askintro svg{width:30px;height:30px;color:var(--accent)}
 .askintro p{margin:0;max-width:30ch}
-.askform{display:flex;gap:8px;align-items:center;padding:8px 12px;border-top:1px solid var(--line)}
-.askform input{flex:1;min-width:0;height:44px;border-radius:22px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--fg);padding:0 16px;font:inherit;font-size:16px}
-.askform .iconbtn{width:40px;height:40px;border-radius:50%}
+.askform{display:flex;gap:10px;align-items:center;padding:8px max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.askform .talkpill{flex:1;min-width:0;height:54px;min-height:54px;border-radius:27px;align-items:center;padding:0 6px 0 18px;box-shadow:0 8px 24px rgba(0,0,0,.14)}
 .phonebar{display:flex;align-items:center;gap:6px;padding:10px max(12px,env(safe-area-inset-right,0px)) 2px max(16px,env(safe-area-inset-left,0px))}
 .phonebar .brand{font-size:20px}
 .pb-ic{position:relative;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--fg-2);display:grid;place-items:center}
 .pb-ic svg{width:19px;height:19px}
 .pb-ic[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
+.pb-n{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:9px;background:var(--accent);color:#fff;font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:600;display:grid;place-items:center;box-shadow:0 0 0 2px var(--panel)}
 .pb-rec{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--hot)}
 .pb-me{width:40px;height:40px;border-radius:50%;border:2px solid var(--panel);box-shadow:0 0 0 1px var(--line-strong);background:var(--accent-bg);color:var(--accent-ink);font-weight:600;font-size:15px;margin-left:2px}
 .pb-me[aria-current="page"]{box-shadow:0 0 0 2px var(--accent)}
@@ -463,11 +493,12 @@ body.phone .mainhead{padding-top:6px}
 .askcu{position:relative;flex:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-family:var(--body);font-size:18px;font-weight:800;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.14)}
 .askcu svg{width:20px;height:20px;color:#fff}
 .askcu i{position:absolute;top:-7px;right:-7px;font-style:normal;font-family:var(--body);font-size:13px;font-weight:800;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--accent);color:#fff;box-shadow:0 0 0 2px var(--panel);display:grid;place-items:center;border:2px solid var(--panel)}
-body.phone .askbar{bottom:calc(14px + env(safe-area-inset-bottom,0px))}
-body.phone .main{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+body.phone .askbar{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+body.phone .askopen{font-size:16px}
+body.phone .main{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
 body.phone .main:has(.cu-wrap){padding-bottom:env(safe-area-inset-bottom,0px)}
-.asksheet{padding-bottom:env(safe-area-inset-bottom,0px)}
-body.phone .toast{top:auto;bottom:calc(82px + env(safe-area-inset-bottom,0px))}
+.asksheet{padding-bottom:0}
+body.phone .toast{top:auto;bottom:calc(92px + env(safe-area-inset-bottom,0px))}
 body.phone .main>.filters{flex-wrap:nowrap;overflow-x:auto;padding:8px max(16px,env(safe-area-inset-left,0px)) 10px;border-bottom:1px solid var(--line);scrollbar-width:none}
 body.phone .main>.filters::-webkit-scrollbar{display:none}
 body.phone .main>.filters .chip{flex:none}
@@ -827,8 +858,9 @@ body.phone .callout{display:none}
 .pr-acts{display:flex;align-items:center;gap:6px}
 .pr-acts .pr-cta{margin-top:0}
 .pr-go{height:32px;font-size:13px}
-.pr-next{width:32px;height:32px;border-radius:50%;background:var(--panel)}
-.pr-next svg{width:16px;height:16px}
+.pr-next{display:inline-flex;align-items:center;gap:4px;height:32px;padding:0 10px 0 14px;border-radius:16px;border:1px solid var(--line-strong);background:var(--panel);color:var(--fg);font-size:13px;font-weight:500}
+.pr-next:hover{background:var(--panel-2)}
+.pr-next svg{width:15px;height:15px}
 .pr-pill{margin:12px 12px 0;width:auto;min-height:44px;height:44px;padding:0 4px 0 14px;align-items:center}
 .pr-pill input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:14px;outline:none;height:100%}
 .pr-pill .talkact{width:36px;height:36px}
@@ -937,6 +969,26 @@ document.getElementById('i-batt').innerHTML = I.batt;
 document.getElementById('i-mic-hint').innerHTML = I.spark;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* Small markdown subset for meeting notes: headings, lists, checkboxes, bold, italic, code, links */
+function mdInline(t){
+  return esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|[^*])\*([^*]+)\*/g,'$1<i>$2</i>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+function md(src){
+  const out=[]; let list=null;
+  const close=()=>{ if(list){ out.push('</'+list+'>'); list=null; } };
+  String(src||'').split('\n').forEach(line=>{
+    const l=line.replace(/\s+$/,''); let x;
+    if(!l.trim()){ close(); return; }
+    if((x=l.match(/^(#{1,3})\s+(.*)$/))){ close(); out.push(`<h${x[1].length+1}>${mdInline(x[2])}</h${x[1].length+1}>`); return; }
+    if((x=l.match(/^\s*[-*]\s+\[( |x)\]\s+(.*)$/i))){ if(list!=='ul'){ close(); out.push('<ul>'); list='ul'; } out.push(`<li class="md-task ${x[1].trim()?'done':''}"><span class="md-box"></span>${mdInline(x[2])}</li>`); return; }
+    if((x=l.match(/^\s*[-*]\s+(.*)$/))){ if(list!=='ul'){ close(); out.push('<ul>'); list='ul'; } out.push(`<li>${mdInline(x[1])}</li>`); return; }
+    if((x=l.match(/^\s*\d+[.)]\s+(.*)$/))){ if(list!=='ol'){ close(); out.push('<ol>'); list='ol'; } out.push(`<li>${mdInline(x[1])}</li>`); return; }
+    close(); out.push(`<p>${mdInline(l)}</p>`);
+  });
+  close(); return out.join('');
+}
+const noteMd = m => m.notes!=null ? m.notes : `## Summary\n${m.summary.map(x=>'- '+x).join('\n')}\n\n## Decisions\n${m.decisions.map(x=>'- '+x).join('\n')}`;
 const S = (t, who, st, sub) => ({t, who, st: st || 'todo', sub: sub || ''});
 
 let uid = 10;
@@ -1098,7 +1150,7 @@ function homeBody(){
       <div class="pr-count"><span>${idx+1} of ${n}</span><span class="pr-kind">${I[TYPES[typeOf(k)][1]]} ${esc(TYPES[typeOf(k)][0])}</span></div>
       <p class="pr-tip">${esc(proactive(k).say)}</p>
       <div class="pr-acts"><button class="td-cta pr-cta" data-open="${k.id}">Open</button><span class="grow"></span>
-        ${n>1 ? `<button class="iconbtn pr-next" data-popnext="1" aria-label="Next item" title="Next">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}</div>
+        ${n>1 ? `<button class="pr-next" data-popnext="1" aria-label="Next item">Next ${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}</div>
     </div>` : `<p class="pr-tip">${esc(r.tip)}</p>`;
   const now=new Date();
   const meets = upcoming.map(u=>({u, t:meetTime(u.time)})).filter(x=>!x.t || x.t>now).slice(0,4);
@@ -1146,6 +1198,7 @@ function renderWin(){
   const oldAsk = document.getElementById('askIn'); const askVal = oldAsk ? oldAsk.value : ''; const askFocus = (oldAsk && document.activeElement === oldAsk) || ui._askFocus; ui._askFocus=false;
   const oldCu = document.getElementById('talkIn'); const cuVal = oldCu ? oldCu.value : ''; const cuFocus = (oldCu && document.activeElement === oldCu) || ui._cuFocus; ui._cuFocus=false;
   const cmpFocus = document.activeElement && document.activeElement.id==='cmpIn' || ui._cmpFocus; ui._cmpFocus=false;
+  const oldNote = document.getElementById('noteIn'); const noteSel = oldNote && document.activeElement===oldNote ? [oldNote.selectionStart, oldNote.selectionEnd, oldNote.scrollTop] : null; const noteFocus = ui._noteFocus; ui._noteFocus=false;
   const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
   m.innerHTML = `<section class="win ${winAnim?'anim':''}" role="dialog" aria-label="lalo board">
@@ -1166,7 +1219,7 @@ function renderWin(){
       ${ui.view==='home' || ui.view==='today' ? todayHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : ui.view==='insights' ? insightsHTML() : ui.view==='signals' ? signalsHTML() : ui.view==='done' ? donePage() : ui.view==='catchup' ? boardHTML(c) : profileHTML()}
       ${ui.sel && ui.view==='board' ? drawerHTML(cards.find(k=>k.id===ui.sel), drAnim) : ''}
     </div>
-    ${ui.phone && !ui.ask && ui.view!=='catchup' && ui.view!=='home' && ui.view!=='today' ? `<div class="askbar">
+    ${ui.phone && !ui.ask && ui.view!=='catchup' ? `<div class="askbar">
       <div class="askpill"><button class="askopen" data-ask="1"><span>Ask or tell lalo anything</span></button><button class="pillmic" data-voice="1" aria-label="Say Hey lalo">${I.mic}</button></div>
       <button class="askcu" data-reviewnext="1" aria-label="Review the next item, ${c.need} need you">${c.need ? c.need : I.check}</button></div>` : ''}
     ${ui.ask ? askHTML() : ''}
@@ -1180,8 +1233,9 @@ function renderWin(){
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
   const cp = document.getElementById('capIn'); if(cp){ cp.value = capVal; if(capFocus) cp.focus(); }
   { const pi=document.getElementById('pIn'); if(pi){ pi.value=pVal; if(pFocus) pi.focus(); } const pt=document.getElementById('pThread'); if(pt){ if(pNearBottom) pt.scrollTop=pt.scrollHeight; else if(pScrollTop!==null) pt.scrollTop=pScrollTop; } }
-  const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
+  const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; syncAct('askAct', askVal); if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
   { const hi=document.getElementById('homeIn'); if(hi) fitTalk(hi); }
+  { const ni=document.getElementById('noteIn'); if(ni){ fitNote(ni); if(noteSel){ ni.focus(); ni.setSelectionRange(noteSel[0], noteSel[1]); ni.scrollTop=noteSel[2]; } else if(noteFocus){ ni.focus(); ni.setSelectionRange(ni.value.length, ni.value.length); } } }
   { const ce=document.getElementById('cmpIn'); if(ce && cmpFocus){ ce.focus(); ce.setSelectionRange(ce.value.length, ce.value.length); } }
   { const cu=document.getElementById('talkIn'); if(cu){ fitTalk(cu); if(cuFocus){ cu.focus(); cu.setSelectionRange(cu.value.length, cu.value.length); } } const b=document.getElementById('cuBody'); if(b && cuFocus) b.scrollTop=b.scrollHeight; }
   { const nb=document.getElementById('cuBody'); if(nb && bodyNearBottom && bodyCard===ui.sel) nb.scrollTop=nb.scrollHeight; }
@@ -1194,6 +1248,7 @@ function phoneBar(){
   return `<div class="phonebar">
     ${ui.view==='home' || ui.view==='today' ? `<div class="brand" style="padding:0">${I.spark} lalo</div>` :  ui.view==='board' ? `<button class="backbtn" data-go="home">${I.back} Home</button>` : ui.view==='done' ? `<button class="backbtn" data-go="board">${I.back} Tasks</button>` : (ui.view==='meetings' && ui.meetOpen) ? `<button class="backbtn" data-meetback="1">${I.back} Meetings</button>` : `<button class="backbtn" data-go="home">${I.back} Home</button>`}
     <span class="grow"></span>
+    ${(()=>{ const c=counts(), n=c.need+c.work; return ic('board','board',`Board, ${n} tasks`, n?`<i class="pb-n">${n}</i>`:''); })()}
     ${ic('meetings','cal','Meetings', ui.rec?'<i class="pb-rec"></i>':'')}
     ${ic('signals','radar','Signals', (signals.market.some(x=>x.fresh&&!x.state)||signals.users.some(x=>x.hot&&!x.state))?'<i class="pb-rec" style="background:var(--accent)"></i>':'')}
     ${ic('insights','bulb','Insights')}
@@ -1308,7 +1363,6 @@ function todayHTML(){
   const top=list.slice(0,3);
   const brief = !list.length ? "You're all caught up." : `${['One thing matters','Two things matter','Three things matter'][top.length-1]} today`;
   const topList = top.length ? `<ol class="td-top">${top.map((x,i)=>`<li><button ${x.open}><span class="td-n">${i+1}</span><span class="grow">${esc(x.brief.charAt(0).toUpperCase()+x.brief.slice(1))}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button></li>`).join('')}</ol>` : `<p class="td-sub">I'll let you know when something needs you.</p>`;
-  const v=ui.homeDraft||''; const isSug=!!v && v===ui.homeSug;
   const qa=ui.todayQA;
   const answer = qa ? `<div class="td-qa"><div class="msg me">${esc(qa.q)}</div>${qa.thinking ? TYPING : `<div class="msg lalo">${esc(qa.a)}${qa.links&&qa.links.length?`<div class="asklinks">${qa.links.map(l=>`<button class="chip" ${l[1]}>${esc(l[0])}</button>`).join('')}</div>`:''}</div>`}<button class="more" data-tdclear="1" style="width:auto;align-self:flex-start">Clear</button></div>` : '';
   const shown = ui.more && ui.more.today ? list : list.slice(0,4);
@@ -1322,11 +1376,6 @@ function todayHTML(){
   const newSig = signals.users.filter(x=>x.hot&&!x.state).length + signals.market.filter(x=>x.fresh&&!x.state).length;
   return `<div class="today" data-keep="today"><div class="td-wrap">
     <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1>${topList}</div>
-    ${ui.phone ? `<form class="talkpill wl-pill ${isSug?'suggest':''}" id="homeForm" autocomplete="off">
-      <label class="sr" for="homeIn">Ask or tell lalo anything</label>
-      <textarea id="homeIn" rows="1" placeholder="Ask or tell lalo anything">${esc(v)}</textarea>
-      <button type="button" class="talkact ${v?'send':''}" id="homeAct" aria-label="${v?'Send to lalo':'Say it'}">${v?I.up:I.mic}</button>
-    </form>` : ''}
     ${answer}
     ${list.length ? `<div class="wl-label">For you</div><div class="td-cards">${cardsH}</div>` : ''}
     ${c.work ? `<button class="td-working" data-go="board"><span class="mark work"></span><span class="grow">I'm working on ${c.work} ${c.work>1?'tasks':'task'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}
@@ -1650,14 +1699,20 @@ function addAction(m, a){
   cards.unshift(k); a.added=k.id;
 }
 
+function saveNotes(){
+  const m=meetings.find(x=>x.id===ui.noteEdit); if(!m) return;
+  const v=ui.noteDraft.replace(/\s+$/,''); if(v!==noteMd(m)){ m.notes=v; m.edited=true; }
+  ui.noteEdit=null; renderWin(); toast('Notes saved.');
+}
 function meetingsHTML(){
+  if(ui.noteEdit && (ui.noteEdit!==ui.meet || ui.view!=='meetings')) ui.noteEdit=null;
   if(!ui.meet || !(meetings.find(m=>m.id===ui.meet) || upcoming.find(u=>u.id===ui.meet))) ui.meet = meetings[0] && meetings[0].id;
   const m = meetings.find(x=>x.id===ui.meet);
   const up = upcoming.find(x=>x.id===ui.meet);
   const list = `<nav class="mlist" aria-label="Meetings">
     <div class="mgroup">Up next today</div>
-    ${capped('m-up', upcoming, x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
-      <b>${esc(x.title)}</b><small><span class="time" style="min-width:0">${esc(x.time)}</span> · ${x.rec?'<span style="color:var(--ok)">Will record</span>':'Won\'t record'}</small></button>`, '<div class="empty">No more meetings today</div>')}
+    ${capped('m-up', upcoming, x=>`<div class="mup ${x.id===ui.meet?'cur':''}"><button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
+      <b>${esc(x.title)}</b><small><span class="time" style="min-width:0">${esc(x.time)}</span> · ${x.rec?'<span style="color:var(--ok)">Will record</span>':'Won\'t record'}</small></button>${recTog(x)}</div>`, '<div class="empty">No more meetings today</div>')}
     <div class="mgroup">Recorded</div>
     ${capped('m-rec', meetings, x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
       <b>${esc(x.title)}</b><small>${x.status==='live'?'<span class="recdot"></span> Recording':x.status==='processing'?'Writing notes…':esc(x.when)+' · '+esc(x.dur)}</small></button>`)}</nav>`;
@@ -1679,22 +1734,26 @@ function meetingsHTML(){
       d += `<div class="recbig"><span class="ring doing" style="width:22px;height:22px"></span>Writing notes and pulling out action items…</div>`;
     } else {
       const mine = m.actions.filter(a=>a.o==='You' && !a.added).length;
-      d += `<div class="dsec"><h3>Summary</h3>${m.summary.map(x=>`<div class="li"><span>${esc(x)}</span></div>`).join('')}</div>
-        <div class="dsec"><h3>Decisions</h3>${m.decisions.map(x=>`<div class="li"><span>${esc(x)}</span></div>`).join('')}</div>
-        <div class="dsec"><h3 style="display:flex;justify-content:space-between;align-items:center">Action items ${mine?`<button class="btn" data-addall="${m.id}" style="height:26px;font-size:12px;text-transform:none;letter-spacing:0">${I.board} Add all yours (${mine})</button>`:''}</h3>
+      const editing = ui.noteEdit===m.id;
+      d += editing ? `<div class="dsec notes editing"><div class="notes-head"><h3>Notes</h3><span class="notes-hint">Markdown · <code>## Heading</code> <code>- list</code> <code>**bold**</code> <code>- [ ] to-do</code></span></div>
+          <textarea id="noteIn" class="note-in" spellcheck="true" aria-label="Edit meeting notes in markdown">${esc(ui.noteDraft)}</textarea>
+          <div class="notes-acts"><button class="btn pri" data-notesave="${m.id}">Save</button><button class="btn ghost" data-notecancel="1">Cancel</button><span class="grow"></span><span class="notes-hint"><kbd>⌘ Enter</kbd> save · <kbd>Esc</kbd> cancel</span></div></div>`
+        : `<div class="dsec notes"><div class="notes-head"><h3>Notes</h3>${m.edited?'<span class="notes-hint">Edited by you</span>':''}<span class="grow"></span><button class="btn ghost notes-edit" data-noteedit="${m.id}">Edit</button></div>
+          <div class="md" data-noteedit="${m.id}" title="Click to edit">${md(noteMd(m))}</div></div>`;
+      d += `<div class="dsec"><h3 style="display:flex;justify-content:space-between;align-items:center">Action items ${mine?`<button class="btn" data-addall="${m.id}" style="height:26px;font-size:12px;text-transform:none;letter-spacing:0">${I.board} Add all yours (${mine})</button>`:''}</h3>
           ${m.actions.map((a,i)=>`<div class="action"><span class="type" title="${TYPES[a.type][0]}">${I[TYPES[a.type][1]]}</span><span class="tx">${esc(a.t)}<small>${a.o==='You'?'You':esc(a.o)} · ${TYPES[a.type][0]}</small></span>
             ${a.added ? (a.added==='sent' ? '<span class="tag ok">Done</span>' : `<button class="btn" data-open="${a.added}">${I.check} On board</button>`)
                       : `<button class="btn" data-add="${m.id}|${i}">${I.board} ${a.o==='You'?'Add to board':'Track follow-up'}</button>`}</div>`).join('')}</div>
         <div class="dsec"><details class="trx"><summary>Transcript · ${m.transcript.length} lines</summary><div class="tr">${m.transcript.map(l=>`<p><b>${esc(l[0])}</b>${esc(l[1])}</p>`).join('')}</div></details></div>`;
     }
   }
-  if(!ui.rec) d += `<div class="dsec"><button class="btn" data-act-rec="1">${I.mic} Record a new meeting</button></div>`;
+  const recBtn = ui.rec ? '' : `<button class="btn mh-rec" data-act-rec="1">${I.mic} Record a new meeting</button>`;
   if(ui.phone){
-    if(!ui.meetOpen) return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio')
-      + `<div class="meet-phone" data-keep="mlistp">${list}${ui.rec?'':`<div style="padding:4px 16px 16px"><button class="btn" data-act-rec="1">${I.mic} Record a new meeting</button></div>`}</div>`;
-    return `<div class="mdetail meet-phone" data-keep="mdetail">${d.replace(/<div class="dsec"><button class="btn" data-act-rec="1">[\s\S]*?<\/div>$/, '')}</div>`;
+    if(!ui.meetOpen) return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio', recBtn)
+      + `<div class="meet-phone" data-keep="mlistp">${list}</div>`;
+    return `<div class="mdetail meet-phone" data-keep="mdetail">${d}</div>`;
   }
-  return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you') + `<div class="meet">${list}<div class="mdetail" data-keep="mdetail">${d}</div></div>`;
+  return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you', recBtn) + `<div class="meet">${list}<div class="mdetail" data-keep="mdetail">${d}</div></div>`;
 }
 
 /* ---------- Ask lalo (global chat, phone) ---------- */
@@ -1747,8 +1806,9 @@ function askHTML(){
       ${ui.askChat.map(m=>`<div class="msg ${m.f}">${esc(m.t)}${m.links&&m.links.length?`<div class="asklinks">${m.links.map(l=>`<button class="chip" ${l[1]}>${esc(l[0])}</button>`).join('')}</div>`:''}</div>`).join('')}${ui.askThinking?TYPING:''}
     </div>
     ${ui.askChat.length ? '' : `<div class="ph-ex" style="padding:0 16px 8px">${sugg.map(e=>`<button class="chip" data-askfill="${esc(e)}">${esc(e)}</button>`).join('')}</div>`}
-    <form class="askform" id="askForm" autocomplete="off"><label class="sr" for="askIn">Ask or tell lalo anything</label>
-      <input id="askIn" placeholder="Ask or tell lalo anything"><button type="button" class="askmic sm" data-voice="1" aria-label="Say Hey lalo">${I.mic}</button><button class="iconbtn go" aria-label="Send">${I.up}</button></form>
+    <div class="askform"><form class="talkpill" id="askForm" autocomplete="off"><label class="sr" for="askIn">Ask or tell lalo anything</label>
+      <input id="askIn" placeholder="Ask or tell lalo anything"><button type="button" class="talkact" id="askAct" aria-label="Say Hey lalo">${I.mic}</button></form>
+      ${(()=>{ const n=counts().need; return `<button class="askcu" data-reviewnext="1" aria-label="Review the next item, ${n} need you">${n ? n : I.check}</button>`; })()}</div>
   </div>`;
 }
 
@@ -2399,6 +2459,8 @@ function tone(k, key, userText){
 
 document.addEventListener('click', e=>{
   const t = e.target.closest('button');
+  if(!t){ const nb=e.target.closest('.md[data-noteedit]'); if(nb && !e.target.closest('a')){ const m=meetings.find(x=>x.id===nb.dataset.noteedit); ui.noteEdit=m.id; ui.noteDraft=noteMd(m); ui._noteFocus=true; renderWin(); return; }
+    if(e.target.classList && e.target.classList.contains('cmp-scrim')){ ui.compose=false; renderWin(); return; } }
   if(!t && ui.menuFor){ ui.menuFor=null; renderWin(); return; }
   if(!t){ if(e.target.classList && e.target.classList.contains('fs-scrim')){ ui.filterSheet=false; renderWin(); return; } if(ui.pop && !e.target.closest('.pop')){ ui.pop=false; render(); } return; }
   if(t.dataset.themeToggle){ setTheme(isDark() ? 'light' : 'dark'); return; }
@@ -2408,6 +2470,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.kmenu){ ui.menuFor = ui.menuFor===t.dataset.kmenu ? null : t.dataset.kmenu; renderWin(); return; }
   if(t.dataset.discard){ const k=cards.find(x=>x.id===t.dataset.discard); if(k){ if(ui.view==='catchup' && !ui.sel){ ui.cq=ui.cq.filter(id=>id!==k.id); } discardTask(k); } return; }
   if(ui.menuFor){ ui.menuFor=null; renderWin(); }
+  if(t.id==='askAct'){ const a=document.getElementById('askIn'); if(a && a.value.trim()) document.getElementById('askForm').requestSubmit(); else { ui.hinted=true; render(); startVoice(); } return; }
   if(t.dataset.voice){ ui.hinted=true; render(); startVoice(); return; }
   if(t.dataset.dock){ if(t.dataset.dock==='lalo'){ ui.hinted=true; ui.pop=false; ui.win=true; if(!ui.view || ui.view==='board' && !ui._dockOpened) ui.view='today'; ui._dockOpened=true; ui.sel=null; render(); } else toast('Just for show. Click the lalo icon to open lalo.'); return; }
   if(t.dataset.opentoday){ ui.hinted=true; ui.pop=false; ui.win=true; ui.view='today'; ui.sel=null; render(); return; }
@@ -2443,7 +2506,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.askclose){ ui.ask=false; renderWin(); return; }
   if(t.dataset.askfill && ui.ask){ askSend(t.dataset.askfill); return; }
   if(t.dataset.askfill){ ui.ask=true; renderWin(); askSend(t.dataset.askfill); return; }
-  if(t.dataset.reviewnext){ const first=cards.filter(x=>x.col==='need').sort(byPri)[0]; if(first){ openCard(first.id); } else toast("You're all caught up."); return; }
+  if(t.dataset.reviewnext){ ui.ask=false; const first=cards.filter(x=>x.col==='need').sort(byPri)[0]; if(first){ openCard(first.id); } else toast("You're all caught up."); return; }
   if(t.dataset.catchup){ ui.ask=false; const first=cards.filter(x=>x.col==='need').sort(byPri)[0]; if(first) openCard(first.id); else toast("You're all caught up."); return; }
   if(t.dataset.cusay){ const k=cards.find(x=>x.id===t.dataset.card); if(k){ ui._cuFocus=true; cuAsk(k, t.dataset.cusay); } return; }
   if(t.dataset.decide){
@@ -2501,6 +2564,9 @@ document.addEventListener('click', e=>{
   if(t.dataset.meetback){ ui.meetOpen=false; renderWin(); return; }
   if(t.dataset.meet){ ui.meet=t.dataset.meet; ui.meetOpen=true; renderWin(); const md=document.querySelector('.mdetail'); if(md) md.scrollTop=0; return; }
   if(t.dataset.add){ const [mid,i]=t.dataset.add.split('|'); const m=meetings.find(x=>x.id===mid); addAction(m, m.actions[+i]); render(); toast('Added to the board. lalo is starting on it.'); return; }
+  if(t.dataset.noteedit && !e.target.closest('a')){ const m=meetings.find(x=>x.id===t.dataset.noteedit); ui.noteEdit=m.id; ui.noteDraft=noteMd(m); ui._noteFocus=true; renderWin(); return; }
+  if(t.dataset.notesave){ saveNotes(); return; }
+  if(t.dataset.notecancel){ ui.noteEdit=null; renderWin(); return; }
   if(t.dataset.addall){ const m=meetings.find(x=>x.id===t.dataset.addall); let n=0; m.actions.forEach(a=>{ if(a.o==='You' && !a.added){ addAction(m,a); n++; } }); render(); toast('Added '+n+' action items to the board.'); return; }
   if(t.dataset.type){ ui.type=t.dataset.type; ui.sel=null; ui.filterSheet=false; renderWin(); return; }
   if(t.dataset.del){ const [h,i]=t.dataset.del.split('|'); profile[h].splice(+i,1); renderWin(); toast('Removed. lalo will stop using it.'); return; }
@@ -2624,6 +2690,8 @@ document.addEventListener('input', e=>{
     ui.capDraft=e.target.value; const b=document.getElementById('capAct'); const has=!!e.target.value.trim();
     if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Send':'Say it'); }
   }
+  if(e.target.id==='noteIn'){ ui.noteDraft=e.target.value; fitNote(e.target); }
+  if(e.target.id==='askIn') syncAct('askAct', e.target.value);
   if(e.target.id==='cmpIn'){
     ui.cmpDraft=e.target.value; const has=!!e.target.value.trim(); const b=document.getElementById('cmpAct');
     if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Add task':'Say it'); }
@@ -2641,11 +2709,17 @@ document.addEventListener('input', e=>{
     const b=document.getElementById('talkAct'); const has=!!e.target.value.trim();
     if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Send to lalo':'Say it'); }
   } if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">Type here, or just say <b>"Hey lalo…"</b> anytime. Tasks, reminders, or "every Friday, summarize #design".</div>'; } });
+function syncAct(id, v){
+  const b=document.getElementById(id); const has=!!(v||'').trim(); if(!b || b.classList.contains('send')===has) return;
+  b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Send':'Say Hey lalo');
+}
+function fitNote(t){ t.style.height='auto'; t.style.height=Math.max(160, t.scrollHeight+2)+'px'; }
 function fitTalk(t){ t.style.height='auto'; t.style.height=Math.min(t.scrollHeight, 120)+'px'; t.closest('.talkpill').classList.toggle('multi', t.scrollHeight>30); }
 document.addEventListener('keydown', e=>{
   if((e.key==='n'||e.key==='N') && !e.metaKey && !e.ctrlKey && !e.altKey && !(e.target.closest && e.target.closest('input,textarea')) && ui.win && !ui.phone && !ui.planning){
     e.preventDefault(); openCompose(); return;
   }
+  if(e.target.id==='noteIn'){ if(e.key==='Enter' && (e.metaKey||e.ctrlKey)){ e.preventDefault(); saveNotes(); return; } if(e.key==='Escape'){ e.preventDefault(); ui.noteEdit=null; renderWin(); return; } return; }
   if(e.target.id==='homeIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('homeForm').requestSubmit(); return; }
   if(e.target.id==='talkIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('talkForm').requestSubmit(); return; }
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
