@@ -66,11 +66,11 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .bar .right{margin-left:auto;display:flex;align-items:center;gap:14px;white-space:nowrap}
 .bar svg{width:16px;height:16px;display:block}
 .dot{width:12px;height:12px;border-radius:50%;background:var(--bar-fg);opacity:.85}
-.spark{position:relative;display:flex;align-items:center;gap:5px;height:22px;padding:0 7px;border-radius:6px;border:0;background:transparent}
-.spark:hover,.spark[aria-expanded="true"]{background:var(--panel-3)}
+.spark{position:relative;display:flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:6px;border:0;background:var(--accent);color:#fff}
+.spark:hover,.spark[aria-expanded="true"]{filter:brightness(1.12)}
 .spark .n{font-family:var(--mono);font-size:12px;font-weight:500;min-width:8px}
-.spark .pip{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--bar)}
-.spark .glyph{color:var(--accent)}
+.spark .pip{width:6px;height:6px;border-radius:50%;background:#fff}
+.spark .glyph{color:#fff}
 .clock{font-variant-numeric:tabular-nums}
 
 /* first-load hint */
@@ -734,14 +734,20 @@ body.phone input,body.phone textarea,body.phone select{font-size:16px!important}
 .sig-quotes{display:flex;flex-direction:column;gap:4px;border-left:3px solid var(--line-strong);padding-left:10px;font-size:13px;color:var(--fg-2);font-style:italic}
 .sig .ins-foot .btn{height:32px}
 @media (max-width:600px){.sig-watch{flex-wrap:wrap}.sig-time{width:100%;padding-left:24px}}
-.newtask{display:flex;align-items:center;gap:8px;margin:12px 18px 0;padding:6px 6px 6px 14px;border:1.5px solid var(--line-strong);border-radius:14px;background:var(--panel)}
-.newtask:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.newbtn{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:0 8px 0 10px;height:34px;border-radius:9px;border:0;background:var(--accent);color:#fff;font-size:13px;font-weight:600;text-align:left}
+.newbtn svg{width:16px;height:16px}
+.newbtn kbd{font-family:var(--mono);font-size:11px;font-weight:500;background:rgba(255,255,255,.2);border-radius:5px;padding:1px 6px}
+.newbtn:hover{filter:brightness(1.08)}
+.cmp-scrim{position:absolute;inset:0;z-index:20;background:rgba(10,8,25,.28)}
+.cmp{position:absolute;z-index:21;top:14%;left:50%;transform:translateX(-50%);width:min(560px,calc(100% - 48px));background:var(--panel);border:1px solid var(--line-strong);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.25);padding:12px;display:flex;flex-direction:column;gap:10px;animation:drop .16s ease-out}
+.cmp-pill{margin:0;width:auto;height:52px;min-height:52px;padding:0 6px 0 14px;align-items:center;gap:10px;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.cmp-pill input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:15px;outline:none;height:100%}
+.cmp-pill .talkact{width:40px;height:40px}
 .nt-plus svg{width:18px;height:18px;color:var(--accent);display:block}
-.newtask input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:14px;height:34px;outline:none}
-.newtask input::placeholder{color:var(--fg-3)}
-.nt-key{font-family:var(--mono);font-size:11px;color:var(--fg-3);border:1px solid var(--line-strong);border-radius:5px;padding:1px 6px}
-.newtask:focus-within .nt-key{display:none}
-.newtask .btn.cta{height:34px;border-radius:10px}
+.cmp-ex{display:flex;flex-wrap:wrap;gap:6px}
+.cmp-ex .chip{height:28px;font-size:12px;color:var(--fg-2)}
+.cmp-foot{display:flex;gap:12px;align-items:center;font-size:12px;color:var(--fg-3);padding:0 2px}
+.cmp-foot kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line-strong);border-radius:5px;padding:1px 5px;margin-right:4px}
 .today{flex:1;overflow:auto}
 .td-wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:12px;padding:18px max(16px,env(safe-area-inset-left,0px)) calc(32px + env(safe-area-inset-bottom,0px))}
 .td-hero{padding:14px 2px 4px}
@@ -777,6 +783,7 @@ body.phone input,body.phone textarea,body.phone select{font-size:16px!important}
 .dk-app{position:relative;width:52px;height:52px;border:0;background:transparent;padding:0;transition:transform .15s}
 .dk-app svg{width:52px;height:52px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
 .dk-app:hover{transform:translateY(-6px) scale(1.08)}
+.dk-app:not(.lalo) svg{filter:grayscale(1) drop-shadow(0 2px 4px rgba(0,0,0,.15));opacity:.75}
 .dk-tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:rgba(20,20,24,.85);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s}
 .dk-app:hover .dk-tip,.dk-app.bounce .dk-tip{opacity:1}
 .dk-app.bounce{animation:dkbounce 1.2s ease-in-out infinite}
@@ -795,6 +802,36 @@ body.phone .dock{display:none}
 .pr-tip{margin:4px 0 0;font-size:14px;line-height:1.4;color:var(--fg)}
 .pr-cta{align-self:flex-start;margin-top:6px;height:32px;font-size:13px}
 .pr-cap{border-top:1px solid var(--line);border-bottom:0;margin-top:6px}
+.td-hero h1{font-weight:500;font-size:22px;line-height:1.25}
+.td-top{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+.td-top li+li{border-top:1px solid var(--line)}
+.td-top button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;text-align:left;padding:12px 14px;font-size:15px;line-height:1.35;color:var(--fg)}
+.td-top button:hover{background:var(--panel-2)}
+.td-top button>svg{width:16px;height:16px;color:var(--fg-3);flex:none}
+.td-n{width:24px;height:24px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--accent-bg);color:var(--accent-ink);font-size:12px;font-weight:700;font-family:var(--mono)}
+.td-sub{margin:6px 0 0;color:var(--fg-2)}
+.dhead .hnext{margin-right:6px}
+.hnext svg{width:20px;height:20px}
+.callout{position:absolute;z-index:5;top:34px;right:120px;display:flex;flex-direction:column;align-items:flex-end;pointer-events:none}
+.co-arrow{width:96px;height:96px;color:var(--accent);margin-right:-6px}
+.co-box{pointer-events:auto;margin-top:-4px;margin-right:40px;max-width:340px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.co-box h2{margin:0;font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.02em;line-height:1.25}
+.co-box p{margin:0;color:var(--fg-2);font-size:14px;line-height:1.45}
+.co-box b{color:var(--fg);font-weight:600}
+.co-box .btn{margin-top:4px}
+body.phone .callout{display:none}
+.pr-item{display:flex;flex-direction:column;gap:6px;margin-top:6px;padding-top:8px;border-top:1px solid rgba(90,59,234,.18)}
+.pr-count{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--accent-ink);font-family:var(--mono)}
+.pr-kind{display:inline-flex;align-items:center;gap:4px;font-family:var(--body);color:var(--fg-2);font-weight:500}
+.pr-kind svg{width:12px;height:12px}
+.pr-acts{display:flex;align-items:center;gap:6px}
+.pr-acts .pr-cta{margin-top:0}
+.pr-go{height:32px;font-size:13px}
+.pr-next{width:32px;height:32px;border-radius:50%;background:var(--panel)}
+.pr-next svg{width:16px;height:16px}
+.pr-pill{margin:12px 12px 0;width:auto;min-height:44px;height:44px;padding:0 4px 0 14px;align-items:center}
+.pr-pill input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:14px;outline:none;height:100%}
+.pr-pill .talkact{width:36px;height:36px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -842,9 +879,16 @@ body.phone .dock{display:none}
     </div>
   </header>
 
-  <div class="hint" id="hint">See what matters today. Click the spark, or say <b>"Hey lalo"</b> anytime.
-    <button class="trybtn" data-opentoday="1"><span aria-hidden="true" id="i-mic-hint"></span> Open Today</button></div>
-  <div class="wordmark" aria-hidden="true">lalo<small>Say "Hey lalo" and tell it anything. It starts on the parts it can do.</small></div>
+  <div class="hint" id="hint" style="display:none">See what matters today. Click the spark, or say <b>"Hey lalo"</b> anytime.
+    <button class="trybtn" data-opentoday="1"><span aria-hidden="true" id="i-mic-hint"></span> Open lalo</button></div>
+  <div class="callout" id="callout">
+    <svg class="co-arrow" viewBox="0 0 120 120" aria-hidden="true"><path d="M20 110 C 30 50, 70 30, 104 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/><path d="M88 8 L106 13 L98 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="co-box">
+      <h2>lalo lives up here, in your menu bar</h2>
+      <p>Click it for a quick recap and to add a task. Or say <b>"Hey lalo"</b> anytime.</p>
+      <button class="btn cta" data-opentoday="1" id="coOpen">Open lalo</button>
+    </div>
+  </div>
   <div id="voiceMount" aria-live="polite"></div>
 
   <div id="popMount"></div>
@@ -883,6 +927,7 @@ const I = {
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
   radar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>',
   plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></svg>',
   repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/></svg>',
   menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 };
@@ -1008,8 +1053,14 @@ function render(){
   document.getElementById('pip').hidden = c.need === 0;
   document.getElementById('spark').setAttribute('aria-expanded', ui.pop);
   document.getElementById('hint').hidden = ui.hinted;
-  renderPop(); renderWin(); renderDock();
+  renderPop(); renderWin(); renderDock(); placeCallout();
 }
+function placeCallout(){
+  const co=document.getElementById('callout'), sp=document.getElementById('spark'); if(!co || !sp) return;
+  const r=sp.getBoundingClientRect(), d=document.getElementById('desk').getBoundingClientRect();
+  co.style.right = Math.max(12, Math.round(d.right - (r.left + r.width/2) - 14)) + 'px';
+}
+window.addEventListener('resize', placeCallout);
 function renderDock(){
   const d=document.getElementById('dock'); if(!d) return;
   const app=(cls, label, svg)=>`<button class="dk-app ${cls}" data-dock="${cls}" aria-label="${label}"><span class="dk-tip">${label}</span>${svg}</button>`;
@@ -1017,7 +1068,7 @@ function renderDock(){
   d.innerHTML =
     app('files','Files', tile('#3b82f6','<path d="M14 22h14l4 4h18v22H14z" fill="#fff" opacity=".95"/>')) +
     app('mail','Mail', tile('#0ea5e9','<rect x="13" y="20" width="38" height="26" rx="4" fill="#fff"/><path d="M14 22l18 13 18-13" fill="none" stroke="#0ea5e9" stroke-width="3"/>')) +
-    app('cal','Calendar', tile('#f8fafc','<rect x="0" y="0" width="64" height="18" rx="0" fill="#ef4444"/><text x="32" y="50" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="26" fill="#111">${new Date().getDate()}</text>')) +
+    app('cal','Calendar', tile('#f8fafc','<rect x="0" y="0" width="64" height="18" rx="0" fill="#ef4444"/><text x="32" y="50" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="26" fill="#111">'+new Date().getDate()+'</text>')) +
     app('notes','Notes', tile('#facc15','<path d="M16 24h32M16 32h32M16 40h22" stroke="#7a5a00" stroke-width="3" stroke-linecap="round"/>')) +
     app('web','Browser', tile('#22c55e','<circle cx="32" cy="32" r="16" fill="none" stroke="#fff" stroke-width="3"/><path d="M16 32h32M32 16c6 6 6 26 0 32M32 16c-6 6-6 26 0 32" fill="none" stroke="#fff" stroke-width="2.5"/>')) +
     '<span class="dk-sep"></span>' +
@@ -1042,24 +1093,30 @@ function popRecap(){
 }
 function homeBody(){
   const r=popRecap();
-  const row = k => `<button class="row" data-open="${k.id}"><span class="mark ${k.col}"></span><span class="type" style="flex:none">${I[TYPES[typeOf(k)][1]]}</span><span class="t">${esc(k.title)}</span><span class="s">${esc(status(k))}</span></button>`;
+  const n=r.need.length; const idx = n ? ((ui.popIdx||0) % n + n) % n : 0; const k = n ? r.need[idx] : null;
+  const item = k ? `<div class="pr-item">
+      <div class="pr-count"><span>${idx+1} of ${n}</span><span class="pr-kind">${I[TYPES[typeOf(k)][1]]} ${esc(TYPES[typeOf(k)][0])}</span></div>
+      <p class="pr-tip">${esc(proactive(k).say)}</p>
+      <div class="pr-acts"><button class="td-cta pr-cta" data-open="${k.id}">Open</button><span class="grow"></span>
+        ${n>1 ? `<button class="iconbtn pr-next" data-popnext="1" aria-label="Next item" title="Next">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}</div>
+    </div>` : `<p class="pr-tip">${esc(r.tip)}</p>`;
+  const now=new Date();
+  const meets = upcoming.map(u=>({u, t:meetTime(u.time)})).filter(x=>!x.t || x.t>now).slice(0,4);
+  const v = ui.capDraft||'';
   return `
+    <form class="talkpill pr-pill" id="capForm" autocomplete="off">
+      <label class="sr" for="capIn">Add a task, or ask lalo</label>
+      <input id="capIn" placeholder="Add a task, or ask lalo" value="${esc(v)}">
+      <button type="button" class="talkact ${v?'send':''}" id="capAct" aria-label="${v?'Send':'Say it'}">${v?I.up:I.mic}</button>
+    </form>
     <div class="pr-recap">
       <div class="pr-open">${I.spark}<b>${esc(r.open)}</b></div>
       <div class="pr-line">${esc(r.line)}</div>
-      <p class="pr-tip">${esc(r.tip)}</p>
-      ${r.need[0] && quickActions(r.need[0])[0] ? `<button class="td-cta pr-cta" data-todaydo="${r.need[0].id}">${esc(quickActions(r.need[0])[0])}</button>` : ''}
+      ${item}
     </div>
-    ${r.need.length ? `<div class="sec"><h3><span>Needs you</span><span>${r.need.length}</span></h3>${r.need.slice(0,3).map(row).join('')}${r.need.length>3?`<button class="more" data-go="board">See all ${r.need.length}</button>`:''}</div>` : ''}
-    ${r.nextM ? `<div class="sec"><h3><span>Next meeting</span><span>${esc(r.when)}</span></h3><div class="uprow"><button class="row" data-meet-open="${r.nextM.u.id}"><span class="time">${esc(r.nextM.u.time)}</span><span class="t">${esc(r.nextM.u.title)}</span></button>${recTog(r.nextM.u)}</div></div>` : ''}
-    <form class="cap pr-cap" id="capForm" autocomplete="off">
-      <label class="sr" for="capIn">Add a task</label>
-      <input id="capIn" placeholder="Add a task, or ask lalo">
-      <button type="button" class="iconbtn" id="micBtn" aria-label="Say it" title="Say it">${I.mic}</button>
-      <button type="submit" class="iconbtn go" aria-label="Add task">${I.up}</button>
-    </form>
+    ${meets.length ? `<div class="sec"><h3><span>Today's meetings</span><span>${meets.length}</span></h3>${meets.map(x=>`<div class="uprow"><button class="row" data-meet-open="${x.u.id}"><span class="time">${esc(x.u.time)}</span><span class="t">${esc(x.u.title)}</span></button>${recTog(x.u)}</div>`).join('')}</div>` : `<div class="sec"><h3><span>Today's meetings</span></h3><div class="empty">No more meetings today</div></div>`}
     ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : ''}
-    <div class="popfoot"><button class="btn pri" data-go="today">${I.spark} Open Today</button></div>`;
+    <div class="popfoot"><button class="btn pri" data-go="today">${I.spark} Open lalo</button></div>`;
 }
 
 function renderPop(){
@@ -1083,19 +1140,20 @@ function renderWin(){
   const oldChange = document.getElementById('changeIn'); const changeVal = oldChange ? oldChange.value : ''; const changeFocus = oldChange && document.activeElement === oldChange;
   const oldChat = document.getElementById('chatIn'); const chatVal = oldChat ? oldChat.value : '';
   const chatFocus = (oldChat && document.activeElement === oldChat) || ui._chatFocus; ui._chatFocus = false;
-  const oldNt = document.getElementById('ntIn'); const ntVal = oldNt ? oldNt.value : ''; const ntFocus = oldNt && document.activeElement===oldNt;
   const oldP = document.getElementById('pIn'); const pVal = oldP ? oldP.value : ''; const pFocus = oldP && document.activeElement===oldP;
   const oldPT = document.getElementById('pThread'); const pScrollTop = oldPT ? oldPT.scrollTop : null;
   const pNearBottom = oldPT ? (oldPT.scrollHeight - oldPT.scrollTop - oldPT.clientHeight < 80) : true;
   const oldAsk = document.getElementById('askIn'); const askVal = oldAsk ? oldAsk.value : ''; const askFocus = (oldAsk && document.activeElement === oldAsk) || ui._askFocus; ui._askFocus=false;
   const oldCu = document.getElementById('talkIn'); const cuVal = oldCu ? oldCu.value : ''; const cuFocus = (oldCu && document.activeElement === oldCu) || ui._cuFocus; ui._cuFocus=false;
+  const cmpFocus = document.activeElement && document.activeElement.id==='cmpIn' || ui._cmpFocus; ui._cmpFocus=false;
   const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
   m.innerHTML = `<section class="win ${winAnim?'anim':''}" role="dialog" aria-label="lalo board">
     <aside class="side ${ui.side?'open':''}">
       <div class="lights"><button class="c" data-close aria-label="Close window"></button><button class="m" data-close aria-label="Minimize"></button><button class="z" aria-label="Zoom" tabindex="-1"></button></div>
       <div class="brand">${I.spark} lalo</div>
-      <button class="nav" data-go="today" ${ui.view==='today'?'aria-current="page"':''}>${I.spark} Today</button>
+      <button class="newbtn" data-compose="1">${I.plus}<span class="grow">New task</span><kbd>N</kbd></button>
+      <button class="nav" data-go="today" ${ui.view==='today'?'aria-current="page"':''}>${I.home} Today</button>
       <button class="nav" data-go="board" ${ui.view==='board'?'aria-current="page"':''}>${I.board} Board <span class="c">${c.need+c.work}</span></button>
       <button class="nav" data-go="meetings" ${ui.view==='meetings'?'aria-current="page"':''}>${I.mic} Meetings ${ui.rec?'<span class="c"><span class="recdot" style="display:inline-block"></span></span>':`<span class="c">${meetings.length}</span>`}</button>
       <button class="nav" data-go="signals" ${ui.view==='signals'?'aria-current="page"':''}>${I.radar} Signals <span class="c">${signals.users.filter(x=>x.hot&&!x.state).length+signals.market.filter(x=>x.fresh&&!x.state).length}</span></button>
@@ -1114,16 +1172,17 @@ function renderWin(){
     ${ui.ask ? askHTML() : ''}
     ${ui.planning ? planningHTML() : ''}
     ${ui.splash ? splashHTML() : ''}
+    ${ui.compose && !ui.phone ? composeHTML() : ''}
   </section>`;
   m.querySelectorAll('[data-keep]').forEach(e=>{ if(scrollers[e.dataset.keep]) e.scrollTop = scrollers[e.dataset.keep]; });
   const ci = document.getElementById('chatIn'); if(ci){ ci.value = chatVal; if(chatFocus){ ci.focus(); } }
   const tl = document.getElementById('trLive'); if(tl) tl.scrollTop = tl.scrollHeight;
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
   const cp = document.getElementById('capIn'); if(cp){ cp.value = capVal; if(capFocus) cp.focus(); }
-  { const nt=document.getElementById('ntIn'); if(nt){ nt.value=ntVal; if(ntFocus) nt.focus(); } }
   { const pi=document.getElementById('pIn'); if(pi){ pi.value=pVal; if(pFocus) pi.focus(); } const pt=document.getElementById('pThread'); if(pt){ if(pNearBottom) pt.scrollTop=pt.scrollHeight; else if(pScrollTop!==null) pt.scrollTop=pScrollTop; } }
   const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
   { const hi=document.getElementById('homeIn'); if(hi) fitTalk(hi); }
+  { const ce=document.getElementById('cmpIn'); if(ce && cmpFocus){ ce.focus(); ce.setSelectionRange(ce.value.length, ce.value.length); } }
   { const cu=document.getElementById('talkIn'); if(cu){ fitTalk(cu); if(cuFocus){ cu.focus(); cu.setSelectionRange(cu.value.length, cu.value.length); } } const b=document.getElementById('cuBody'); if(b && cuFocus) b.scrollTop=b.scrollHeight; }
   { const nb=document.getElementById('cuBody'); if(nb && bodyNearBottom && bodyCard===ui.sel) nb.scrollTop=nb.scrollHeight; }
   if(ui.view==='catchup') bindSwipe();
@@ -1172,13 +1231,21 @@ function filterSheet(){
   return `<div class="fs-scrim" data-filtersheet="0"></div><div class="fsheet" role="dialog" aria-label="Filter by type"><div class="fs-grab"></div><b>Show</b>
     ${row('all','All tasks',I.board,cards.length)}${Object.keys(TYPES).filter(t=>tc[t]).map(t=>row(t,TYPES[t][0],I[TYPES[t][1]],tc[t])).join('')}</div>`;
 }
-function newTaskBar(){
-  return `<form class="newtask" id="ntForm" autocomplete="off"><span class="nt-plus">${I.plus}</span>
-    <label class="sr" for="ntIn">Add a task</label>
-    <input id="ntIn" placeholder="Add a task, like &quot;Prep for Thursday's launch review&quot;">
-    <kbd class="nt-key" title="Press N to add a task">N</kbd>
-    <button class="btn cta" type="submit">Add task</button></form>`;
+function composeHTML(){
+  const v=ui.cmpDraft||'';
+  const ex=["Prep for Thursday's launch review","Every Friday, summarize #product-feedback","What needs me today?"];
+  return `<div class="cmp-scrim" data-compose="0"></div><div class="cmp" role="dialog" aria-label="New task">
+    <form class="talkpill cmp-pill" id="cmpForm" autocomplete="off">
+      <span class="nt-plus">${I.plus}</span>
+      <label class="sr" for="cmpIn">New task, or ask lalo</label>
+      <input id="cmpIn" placeholder="What should lalo take on? Or ask a question" value="${esc(v)}">
+      <button type="button" class="talkact ${v?'send':''}" id="cmpAct" aria-label="${v?'Add task':'Say it'}">${v?I.up:I.mic}</button>
+    </form>
+    <div class="cmp-ex">${ex.map(e=>`<button class="chip" data-cmpfill="${esc(e)}">${esc(e)}</button>`).join('')}</div>
+    <div class="cmp-foot"><span><kbd>Enter</kbd> add</span><span><kbd>Esc</kbd> close</span><span class="grow"></span><span>We'll plan it together before I start.</span></div>
+  </div>`;
 }
+function openCompose(){ ui.compose=true; ui._cmpFocus=true; renderWin(); }
 function boardSummary(){
   const sec=(key,label,mark,empty)=>{
     const list=cards.filter(k=>k.col===key).sort(byPri);
@@ -1221,26 +1288,26 @@ function todayCards(){
   const prep=cards.find(k=>k.id==='c4');
   if(prep && prep.col!=='done'){
     const ready=prep.col==='need';
-    out.push({ key:'prep', icon:I.cal, kind:'Meeting', brief:'prep for your 1:1 with Sara on Tuesday',
+    out.push({ key:'prep', open:'data-open="c4"', icon:I.cal, kind:'Meeting', brief:'prep for your 1:1 with Sara on Tuesday',
       say: prep.preread && (cards.find(x=>x.id===prep.preread)||{}).col!=='need' ? "Pre-read sent to Sara. Your talking points are ready for Tuesday." : prep.preread ? "I drafted a pre-read for Sara. It's waiting for your approval." : ready ? "Your 1:1 with Sara is Tuesday at 2pm. I prepped talking points. Want me to send her a pre-read?" : "Your 1:1 with Sara is Tuesday at 2pm. I'm prepping talking points now.",
       cta: prep.preread ? 'Review the pre-read' : 'Send her a pre-read', ctaAttr: prep.preread ? `data-open="${prep.preread}"` : 'data-preread="1"', alt:['Open prep', `data-open="c4"`] });
   }
   cards.filter(k=>k.col==='need' && k.id!=='c4' && !(prep && prep.preread===k.id)).sort(byPri).forEach(k=>{
     const p=proactive(k);
-    out.push({ key:k.id, icon:I[TYPES[typeOf(k)][1]], kind:TYPES[typeOf(k)][0], brief:p.brief, say:p.say, cta:p.cta,
+    out.push({ key:k.id, open:`data-open="${k.id}"`, icon:I[TYPES[typeOf(k)][1]], kind:TYPES[typeOf(k)][0], brief:p.brief, say:p.say, cta:p.cta,
       ctaAttr: p.act==='do' ? `data-todaydo="${k.id}"` : `data-open="${k.id}"`, alt: p.act==='do' ? ['Open', `data-open="${k.id}"`] : null });
   });
   const sig=signals.users.find(x=>x.hot && !x.state);
-  if(sig) out.push({ key:'sig', icon:I.radar, kind:'Signal', brief:`${sig.theme.toLowerCase()} complaints doubled this week`,
+  if(sig) out.push({ key:'sig', open:'data-go="signals"', icon:I.radar, kind:'Signal', brief:`${sig.theme.toLowerCase()} complaints doubled this week`,
     say:`${sig.theme}: ${sig.n} mentions in #website-support, ${sig.trend}. Want me to look into it?`, cta:'Plan a fix', ctaAttr:`data-sigtask="${sig.id}"`, alt:['See signals','data-go="signals"'] });
   return out;
 }
 function todayHTML(){
   const c=counts(); const list=todayCards();
   const h=new Date().getHours(); const hello = h<12?'Good morning':h<18?'Good afternoon':'Good evening';
-  const top=list.slice(0,3).map(x=>x.brief);
-  const brief = !list.length ? "You're all caught up. I'll let you know when something needs you."
-    : `${list.length===1?'One thing':['Two','Three'][Math.min(list.length,3)-2]+' things'} matter today: ${top.length>1 ? top.slice(0,-1).join(', ')+', and '+top[top.length-1] : top[0]}.`;
+  const top=list.slice(0,3);
+  const brief = !list.length ? "You're all caught up." : `${['One thing matters','Two things matter','Three things matter'][top.length-1]} today`;
+  const topList = top.length ? `<ol class="td-top">${top.map((x,i)=>`<li><button ${x.open}><span class="td-n">${i+1}</span><span class="grow">${esc(x.brief.charAt(0).toUpperCase()+x.brief.slice(1))}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button></li>`).join('')}</ol>` : `<p class="td-sub">I'll let you know when something needs you.</p>`;
   const v=ui.homeDraft||''; const isSug=!!v && v===ui.homeSug;
   const qa=ui.todayQA;
   const answer = qa ? `<div class="td-qa"><div class="msg me">${esc(qa.q)}</div>${qa.thinking ? TYPING : `<div class="msg lalo">${esc(qa.a)}${qa.links&&qa.links.length?`<div class="asklinks">${qa.links.map(l=>`<button class="chip" ${l[1]}>${esc(l[0])}</button>`).join('')}</div>`:''}</div>`}<button class="more" data-tdclear="1" style="width:auto;align-self:flex-start">Clear</button></div>` : '';
@@ -1254,12 +1321,12 @@ function todayHTML(){
   const meet = upcoming.slice(0,3).map(u=>`<div class="td-meet"><button class="row" data-meet-open="${u.id}"><span class="time">${esc(u.time)}</span><span class="t">${esc(u.title)}</span></button>${recTog(u)}</div>`).join('');
   const newSig = signals.users.filter(x=>x.hot&&!x.state).length + signals.market.filter(x=>x.fresh&&!x.state).length;
   return `<div class="today" data-keep="today"><div class="td-wrap">
-    <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1></div>
-    <form class="talkpill wl-pill ${isSug?'suggest':''}" id="homeForm" autocomplete="off">
+    <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1>${topList}</div>
+    ${ui.phone ? `<form class="talkpill wl-pill ${isSug?'suggest':''}" id="homeForm" autocomplete="off">
       <label class="sr" for="homeIn">Ask or tell lalo anything</label>
       <textarea id="homeIn" rows="1" placeholder="Ask or tell lalo anything">${esc(v)}</textarea>
       <button type="button" class="talkact ${v?'send':''}" id="homeAct" aria-label="${v?'Send to lalo':'Say it'}">${v?I.up:I.mic}</button>
-    </form>
+    </form>` : ''}
     ${answer}
     ${list.length ? `<div class="wl-label">For you</div><div class="td-cards">${cardsH}</div>` : ''}
     ${c.work ? `<button class="td-working" data-go="board"><span class="mark work"></span><span class="grow">I'm working on ${c.work} ${c.work>1?'tasks':'task'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}
@@ -1294,7 +1361,7 @@ function boardHTML(c){
     Object.keys(TYPES).filter(t=>tc[t]).map(t=>`<button class="chip" data-type="${t}" aria-pressed="${ui.type===t}">${I[TYPES[t][1]]} ${TYPES[t][0]} <span class="n">${tc[t]}</span></button>`).join('')}</div>`;
   if(ui.phone) return taskList();
   if(ui.phone) return filters + `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
-  return head('Board', `${c.work} working · ${c.need} need you`, c.need && !ui.phone ? `<button class="btn" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + newTaskBar() + filters +
+  return head('Board', `${c.work} working · ${c.need} need you`, c.need && !ui.phone ? `<button class="btn" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + filters +
     `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
 }
 
@@ -1465,15 +1532,13 @@ function quickActions(k){
   return ({ ship:['Approve and send to engineering'], draft:['Approve reply'], tickets:['Create 4 tickets'], prep:["I'm ready"] })[k.kind] || [];
 }
 function decisionBar(k){
-  const next = k.col==='need' ? `<button class="nextbtn" data-decide="later" data-card="${k.id}" aria-label="Next" title="Next">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : '';
-  const qa = quickActions(k);
-  return `<div class="talkrow">${talkPanel(k)}${next}</div>`;
+  return `<div class="talkrow">${talkPanel(k)}</div>`;
 }
 
 function drawerHTML(k, anim){
   if(!k) return '';
   return `<aside class="drawer ${anim?'anim':''}" aria-label="Task detail"><div class="dhead"><div class="grow"><h2 style="margin-top:0">${esc(k.title)}</h2><div class="meta" style="font-size:12px;margin-top:4px"><span class="type">${I[TYPES[typeOf(k)][1]]} ${TYPES[typeOf(k)][0]}</span><span>· ${esc(k.src)}</span></div></div>
-    ${planRing(k)}${kebab(k.id)}<button class="iconbtn" data-unsel aria-label="Close detail">${I.x}</button></div>
+    ${planRing(k)}${kebab(k.id)}${k.col==='need' && cards.some(x=>x.col==='need' && x.id!==k.id) ? `<button class="iconbtn hnext" data-decide="later" data-card="${k.id}" aria-label="Next task" title="Next task">${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}<button class="iconbtn" data-unsel aria-label="Close detail">${I.x}</button></div>
     <div class="dbody" data-keep="drawer" id="cuBody">${detailBody(k)}</div>
     <div class="dfoot">${decisionBar(k)}</div></aside>`;
 }
@@ -2395,6 +2460,9 @@ document.addEventListener('click', e=>{
   if(t.dataset.steps){ ui.stepsOpen=ui.stepsOpen||{}; ui.stepsOpen[t.dataset.steps]=!ui.stepsOpen[t.dataset.steps]; renderWin(); return; }
   if(t.id==='talkAct'){ const inp=document.getElementById('talkIn'); if(inp && inp.value.trim()) document.getElementById('talkForm').requestSubmit(); else { ui.pop=false; startVoice(); } return; }
   if(t.dataset.homesug){ ui.homeDraft=t.dataset.homesug; ui.homeSug=t.dataset.homesug; renderWin(); const h=document.getElementById('homeIn'); if(h){ h.focus(); h.setSelectionRange(h.value.length,h.value.length); } return; }
+  if(t.dataset.compose){ if(t.dataset.compose==='1') openCompose(); else { ui.compose=false; renderWin(); } return; }
+  if(t.dataset.cmpfill){ ui.cmpDraft=t.dataset.cmpfill; ui._cmpFocus=true; renderWin(); return; }
+  if(t.id==='cmpAct'){ if((ui.cmpDraft||'').trim()) document.getElementById('cmpForm').requestSubmit(); else { ui.compose=false; renderWin(); startVoice(); } return; }
   if(t.id==='homeAct'){ const h=document.getElementById('homeIn'); if(h && h.value.trim()) document.getElementById('homeForm').requestSubmit(); else startVoice(); return; }
   if(t.dataset.homesec==='done'){ ui.view='done'; ui.sel=null; renderWin(); return; }
   if(t.dataset.homesec){ ui.view='board'; ui.boardSec=null; ui.sel=null; ui.jump=t.dataset.homesec; if(ui.jump==='done') ui.doneOpen=true; renderWin(); return; }
@@ -2423,6 +2491,8 @@ document.addEventListener('click', e=>{
     if(ans==='yes'){ l.state='saved'; (profile[l.sec]=profile[l.sec]||[]).unshift(l.line); toast('Saved to your profile.'); }
     else { l.state='no'; toast("Got it. I won't do that."); }
     renderWin(); return; }
+  if(t.dataset.popnext){ ui.popIdx=(ui.popIdx||0)+1; renderPop(); return; }
+  if(t.id==='capAct'){ const ci=document.getElementById('capIn'); if(ci && ci.value.trim()) document.getElementById('capForm').requestSubmit(); else { ui.pop=false; render(); startVoice(); } return; }
   if(t.dataset.ptab){ ui.ptab=t.dataset.ptab; renderPop(); return; }
   if(t.dataset.more){ ui.more = ui.more || {}; ui.more[t.dataset.more] = !ui.more[t.dataset.more]; render(); return; }
   if(t.dataset.uprec){ const u=upcoming.find(x=>x.id===t.dataset.uprec); u.rec=!u.rec; if(!u.rec) u.why='You turned recording off for this one.'; render(); toast(u.rec ? 'lalo will record '+u.title+'.' : 'lalo won\'t record '+u.title+'.'); return; }
@@ -2492,15 +2562,18 @@ function selectDraft(){ const el=document.getElementById('draftText'); if(!el) r
 document.addEventListener('submit', e=>{
   e.preventDefault();
   if(e.target.id==='capForm'){ const v=document.getElementById('capIn').value; if(!v.trim()){ ui.err='Type something first'; renderPop(); return; }
-    if(SMALLTALK.test(v.trim())){ document.getElementById('capIn').value=''; toast("Hi! Tell me something to do, or ask a question."); return; }
+    ui.capDraft='';
+    if(SMALLTALK.test(v.trim())){ document.getElementById('capIn').value=''; renderPop(); toast("Hi! Tell me something to do, or ask a question."); return; }
     if(QWORDS.test(v.trim()) || /\?\s*$/.test(v)){ document.getElementById('capIn').value=''; ui.pop=false; ui.win=true; ui.view='today'; ui.sel=null; ui.todayQA={q:v, thinking:true}; render();
       setTimeout(()=>{ const r=lalAnswer(v); ui.todayQA={q:v, a:r.t, links:r.links||[]}; renderWin(); }, 750); return; } document.getElementById('capIn').value=''; startPlanning(v); }
   if(e.target.id==='pForm'){ const inp=document.getElementById('pIn'); const v=inp.value.trim(); if(!v){ inp.focus(); return; } inp.value=''; pSend(v); const n=document.getElementById('pIn'); if(n) n.focus(); return; }
-  if(e.target.id==='ntForm'){
-    const inp=document.getElementById('ntIn'); const v=inp.value.trim();
-    if(!v){ inp.focus(); inp.placeholder='Type a task first'; return; }
-    inp.value='';
-    if(SMALLTALK.test(v)){ toast("Hi! Tell me something to do and we'll plan it."); return; }
+  if(e.target.id==='cmpForm'){
+    const v=(ui.cmpDraft||'').trim();
+    if(!v){ const i=document.getElementById('cmpIn'); i.placeholder='Type a task first'; i.focus(); return; }
+    ui.cmpDraft=''; ui.compose=false;
+    if(SMALLTALK.test(v)){ renderWin(); toast("Hi! Tell me something to do and we'll plan it."); return; }
+    if(QWORDS.test(v) || /\?\s*$/.test(v)){ ui.view='today'; ui.sel=null; ui.todayQA={q:v, thinking:true}; render();
+      setTimeout(()=>{ const r=lalAnswer(v); ui.todayQA={q:v, a:r.t, links:r.links||[]}; renderWin(); }, 750); return; }
     startPlanning(v); return;
   }
   if(e.target.id==='homeForm'){
@@ -2547,6 +2620,14 @@ document.addEventListener('submit', e=>{
   }
 });
 document.addEventListener('input', e=>{
+  if(e.target.id==='capIn'){
+    ui.capDraft=e.target.value; const b=document.getElementById('capAct'); const has=!!e.target.value.trim();
+    if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Send':'Say it'); }
+  }
+  if(e.target.id==='cmpIn'){
+    ui.cmpDraft=e.target.value; const has=!!e.target.value.trim(); const b=document.getElementById('cmpAct');
+    if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Add task':'Say it'); }
+  }
   if(e.target.id==='homeIn'){
     ui.homeDraft=e.target.value; fitTalk(e.target);
     e.target.form.classList.toggle('suggest', !!ui.homeSug && e.target.value===ui.homeSug);
@@ -2563,14 +2644,13 @@ document.addEventListener('input', e=>{
 function fitTalk(t){ t.style.height='auto'; t.style.height=Math.min(t.scrollHeight, 120)+'px'; t.closest('.talkpill').classList.toggle('multi', t.scrollHeight>30); }
 document.addEventListener('keydown', e=>{
   if((e.key==='n'||e.key==='N') && !e.metaKey && !e.ctrlKey && !e.altKey && !(e.target.closest && e.target.closest('input,textarea')) && ui.win && !ui.phone && !ui.planning){
-    if(ui.view!=='board'){ ui.view='board'; ui.sel=null; render(); }
-    const nt=document.getElementById('ntIn'); if(nt){ e.preventDefault(); nt.focus(); } return;
+    e.preventDefault(); openCompose(); return;
   }
   if(e.target.id==='homeIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('homeForm').requestSubmit(); return; }
   if(e.target.id==='talkIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('talkForm').requestSubmit(); return; }
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
   if(ui.win && ui.view==='catchup' && !e.target.closest('input,textarea')){ if(e.key==='ArrowRight'){ cuDecide(1); return; } if(e.key==='ArrowLeft'){ cuDecide(-1); return; } }
-  if(e.key==='Escape'){ if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
+  if(e.key==='Escape'){ if(ui.compose){ ui.compose=false; renderWin(); } else if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
 });
 
 function clock(){ const d=new Date(); document.getElementById('clock').textContent = d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}); }
