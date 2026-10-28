@@ -1040,10 +1040,8 @@ body.phone .ob-top{padding:14px 16px 0}
 .ob-tool small,.ob-pref small{display:block;font-size:var(--fs-xs);color:var(--fg-3)}
 .ob-on{flex:none;display:inline-flex;align-items:center;gap:4px;font-size:var(--fs-xs);font-weight:600;color:var(--ok)}
 .ob-on svg{width:13px;height:13px}
-.ob-wait{flex:none;display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--fg-2)}
 .ob-fine{display:flex;align-items:center;gap:6px;margin:0;font-size:var(--fs-xs);color:var(--fg-2)}
 .ob-fine svg{width:12px;height:12px;color:var(--accent)}
-.ob-need{margin:0;font-size:var(--fs-xs);color:var(--fg-3);text-align:right}
 .ob-read{display:flex;flex-direction:column;gap:10px;padding:6px 2px}
 .ob-line{display:flex;align-items:center;gap:10px;font-size:var(--fs-base)}
 .ob-line.in,.ob-found.in{animation:obIn .45s ease-out both}
@@ -2774,17 +2772,17 @@ function obHTML(){
       <ul class="ob-points"><li>${I.check} Nothing goes out without your OK</li><li>${I.check} You can see and edit everything I learn about you</li><li>${I.check} Setup takes about 2 minutes</li></ul></div>
       ${nav(1,'Connect your work',true,false)}`;
   } else if(step===1){
-    const on=k=>D.tools[k]==='on', ok=on('slack')&&on('cal');
-    body=`<h2>Connect your work</h2><p class="ob-sub">Slack and Calendar give lalo the most to work with. You can add the rest later.</p>
+    const n=OB_TOOLS.filter(t=>D.tools[t.k]==='on').length;
+    body=`<h2>Connect your work</h2><p class="ob-sub">Slack and Calendar give lalo the most to work with. Connect what you like, and add the rest later.</p>
       <div class="ob-tools">${OB_TOOLS.map(t=>{ const st=D.tools[t.k]; return `<div class="ob-tool"><span class="ob-tic" style="background:${t.c}">${esc(t.n.charAt(0))}</span>
         <span class="grow"><b>${esc(t.n)}${t.key?' <span class="tag muted">Recommended</span>':''}</b><small>Reads: ${esc(t.reads)}</small></span>
-        ${st==='on'?`<span class="ob-on">${I.check} Connected</span>`:st==='wait'?`<span class="ob-wait"><span class="ring doing"></span> Connecting</span>`:`<button class="btn" data-obtool="${t.k}">Connect</button>`}</div>`; }).join('')}</div>
+        ${st==='on'?`<span class="ob-on">${I.check} Connected</span>`:`<button class="btn" data-obtool="${t.k}">Connect</button>`}</div>`; }).join('')}</div>
       <p class="ob-fine">${I.spark} lalo only reads. Sending, posting, and paying always wait for you.</p>
-      ${ok?'':'<p class="ob-need">Connect Slack and Calendar to continue.</p>'}
-      ${nav(2, 'Continue', ok)}`;
+      ${nav(2, n ? 'Continue' : 'Skip for now')}`;
   } else if(step===2){
-    const L=obLines(), shown=Math.min(D.read, L.length), done=D.read>L.length;
-    body=`<h2>${done?'Here\'s what I found':'Getting to know your work'}</h2><p class="ob-sub">${done?'Your Today page is ready.':'This takes a few seconds.'}</p>
+    const L=obLines(), shown=Math.min(D.read, L.length), done=D.read>L.length || !L.length;
+    if(!L.length){ body=`<h2>Nothing connected yet</h2><p class="ob-sub">That's okay. Connect tools anytime from your profile, and Today fills in as lalo learns.</p>${nav(3,'Continue')}`; }
+    else body=`<h2>${done?'Here\'s what I found':'Getting to know your work'}</h2><p class="ob-sub">${done?'Your Today page is ready.':'This takes a few seconds.'}</p>
       <div class="ob-read">${L.slice(0,shown).map(l=>`<div class="ob-line">${I.check}<span>${esc(l)}</span></div>`).join('')}${!done?`<div class="ob-line wait"><span class="ring doing"></span><span>Reading…</span></div>`:''}</div>
       ${done?`<div class="ob-found">${I.spark}<span>I already drafted 2 replies and prepped today's meetings.</span></div>`:''}
       ${nav(3,'Continue',done)}`;
@@ -3228,7 +3226,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.persona){ setPersona(t.dataset.persona); return; }
   if(t.dataset.obnext){ ui.ob=+t.dataset.obnext; renderWin(); if(ui.ob===2) obReadStart(); const b=document.querySelector('.ob-body'); if(b) b.scrollTop=0; return; }
   if(t.dataset.obback){ ui.ob=Math.max(0,ui.ob-1); if(ui.ob===2) ui.ob=1; renderWin(); return; }
-  if(t.dataset.obtool){ const k=t.dataset.obtool; ui.obData.tools[k]='wait'; renderWin(); setTimeout(()=>{ ui.obData.tools[k]='on'; renderWin(); }, 800); return; }
+  if(t.dataset.obtool){ ui.obData.tools[t.dataset.obtool]='on'; renderWin(); return; }
   if(t.dataset.obfact){ const [i,st]=t.dataset.obfact.split('|'); ui.obData.facts[+i].st=st; renderWin(); if(st==='edit'){ const el=document.getElementById('obFact'+i); if(el){ el.focus(); el.select(); } } return; }
   if(t.dataset.obfactsave){ const i=+t.dataset.obfactsave, el=document.getElementById('obFact'+i); const f=ui.obData.facts[i]; if(el && el.value.trim()) f.t=el.value.trim(); f.st='yes'; renderWin(); return; }
   if(t.dataset.obhelp){ const h=t.dataset.obhelp; ui.obData.helps[h]=!ui.obData.helps[h]; renderWin(); return; }
