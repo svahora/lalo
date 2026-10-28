@@ -304,7 +304,7 @@ body.phone .mq-foot .mq-pill{height:54px;min-height:54px;border-radius:27px;padd
 .mev:hover,.mev.cur{background:var(--panel-3)}
 .mev-main{flex:1;min-width:0;display:flex;align-items:stretch;gap:12px;border:0;background:transparent;text-align:left;padding:8px 6px;color:var(--fg)}
 .mev-bar{flex:none;width:3px;border-radius:2px;background:var(--line-strong)}
-.mev.rec .mev-bar{background:var(--switch-on)}
+.mev.next .mev-bar{background:var(--accent)}
 .mev-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .mev-body>b{font-size:var(--fs-base);font-weight:500}
 .mev-body>small{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:var(--fs-sm);color:var(--fg-2);font-variant-numeric:tabular-nums}
@@ -924,6 +924,80 @@ body.phone .wl-row{flex-direction:column}
 .td-qa{display:flex;flex-direction:column;gap:8px}
 .td-qa .msg{max-width:90%}
 .td-cards{display:flex;flex-direction:column;gap:10px}
+.wl-sub{text-transform:none;letter-spacing:0;font-weight:500;color:var(--accent-ink);margin-left:6px}
+.tr-head{display:flex;align-items:center;gap:10px;font-size:var(--fs-sm)}
+.tr-head b{font-weight:600}
+.tr-head small{display:block;font-size:var(--fs-xs);color:var(--fg-3)}
+.tr-head .m-av{width:30px;height:30px;font-size:var(--fs-sm)}
+.tr-slack{flex:none;display:inline-flex;align-items:center;gap:2px;border:0;background:transparent;color:var(--fg-2);font-size:var(--fs-xs);font-weight:500;padding:4px 6px;border-radius:6px}
+.tr-slack:hover{background:var(--panel-2);color:var(--fg)}
+.tr-slack svg{width:12px;height:12px}
+.tr-ask{margin:0;font-size:var(--fs-base);line-height:1.45}
+.tr-draft{display:flex;flex-direction:column;gap:3px;background:var(--accent-bg);border-radius:10px;padding:8px 10px;font-size:var(--fs-sm);line-height:1.45}
+.tr-lbl{display:flex;align-items:center;gap:5px;font-size:var(--fs-2xs);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+.tr-lbl svg{width:11px;height:11px}
+.td-dues{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.td-due{padding:12px 12px 14px;font-size:var(--fs-base)}
+.td-due+.td-due{border-top:1px solid var(--line)}
+.due-head{display:flex;align-items:center;gap:10px}
+.due-head small{display:block;font-size:var(--fs-xs);color:var(--fg-3)}
+.td-due.done .due-head .grow{color:var(--fg-3);text-decoration:line-through}
+.td-due.done{padding-bottom:12px}
+.due-draft{margin:10px 0 0 30px;display:flex;flex-direction:column;gap:6px}
+.due-lbl{display:flex;align-items:center;gap:5px;font-size:var(--fs-2xs);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+.due-lbl svg{width:11px;height:11px}
+.due-why{display:flex;gap:6px;align-items:flex-start;font-size:var(--fs-xs);color:var(--fg-2)}
+.due-why svg{flex:none;width:11px;height:11px;margin-top:2px;color:var(--accent)}
+.due-text{margin:0;background:var(--accent-bg);border-radius:10px;padding:8px 10px;font-size:var(--fs-sm);line-height:1.5}
+.due-edit{width:100%;box-sizing:border-box;border:1.5px solid var(--accent);box-shadow:0 0 0 3px var(--accent-bg);border-radius:10px;padding:8px 10px;font:inherit;font-size:var(--fs-sm);line-height:1.5;background:var(--panel);color:var(--fg);resize:vertical;outline:none}
+.due-sum{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--accent-bg);border-radius:10px;padding:8px 10px;font-size:var(--fs-sm)}
+.due-sum b{font-family:var(--display);font-size:var(--fs-lg);font-weight:500;letter-spacing:-.02em}
+.due-sum .tr-slack{margin-left:auto}
+.due-warn{color:var(--hot);font-weight:500}
+.due-lines{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.due-line{display:flex;align-items:center;gap:10px;padding:8px 10px;font-size:var(--fs-sm);cursor:pointer}
+.due-line+.due-line{border-top:1px solid var(--line)}
+.due-line input{accent-color:var(--accent);width:16px;height:16px;margin:0}
+.due-line small{display:block;font-size:var(--fs-xs);color:var(--fg-3)}
+.due-line.off{color:var(--fg-3)}
+.due-line.off .dl-a{text-decoration:line-through}
+.dl-d{flex:none;width:56px;font-size:var(--fs-xs);color:var(--fg-3)}
+.dl-a{flex:none;font-family:var(--mono);font-size:var(--fs-sm);font-variant-numeric:tabular-nums}
+.due-sent{display:flex;align-items:center;gap:6px;margin:6px 0 0 30px;font-size:var(--fs-xs);color:var(--ok)}
+.due-sent svg{width:12px;height:12px}
+body.phone .due-draft,body.phone .due-sent{margin-left:0}
+.due-chk{flex:none;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line-strong);background:var(--panel);display:grid;place-items:center;padding:0;color:#fff}
+.td-due.done .due-chk{background:var(--accent);border-color:var(--accent)}
+.due-chk svg{width:13px;height:13px}
+.due-when{flex:none;font-size:var(--fs-xs);font-weight:600;color:var(--hot)}
+.td-due.done .due-when{color:var(--fg-3);font-weight:500}
+.tms{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tm{padding:8px 6px 10px 12px}
+.tm+.tm{border-top:1px solid var(--line)}
+.tm-row{display:flex;align-items:center;gap:6px}
+.tm-main{flex:1;min-width:0;display:flex;align-items:baseline;gap:12px;border:0;background:transparent;text-align:left;padding:2px 0;color:var(--fg)}
+.tm-time{flex:none;width:112px;font-size:var(--fs-sm);color:var(--fg-2);font-variant-numeric:tabular-nums}
+.tm-t{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tm-t b{font-weight:600}
+.tm-t .mw-cd.sm{margin-left:0}
+.tm-prep{margin:4px 0 0 124px;padding-left:16px;font-size:var(--fs-sm);color:var(--fg-2);display:flex;flex-direction:column;gap:2px}
+.tm-prep.gap{color:var(--fg-3);font-style:italic}
+.nudge{position:fixed;z-index:1000;top:36px;right:12px;width:min(340px,calc(100vw - 24px));display:flex;gap:10px;padding:12px;border-radius:16px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);animation:ngin .22s ease-out}
+@keyframes ngin{from{opacity:0;transform:translateY(-8px)}}
+.ng-ic{flex:none;width:30px;height:30px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center}
+.ng-ic svg{width:16px;height:16px}
+.ng-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.ng-top{display:flex;justify-content:space-between;font-size:var(--fs-xs);color:var(--fg-3)}
+.ng-top b{font-weight:600;color:var(--fg-2)}
+.ng-t{font-size:var(--fs-base);font-weight:600}
+.nudge p{margin:0;font-size:var(--fs-sm);color:var(--fg-2)}
+.ng-acts{display:flex;gap:6px;margin-top:8px}
+body.phone .nudge{top:calc(10px + env(safe-area-inset-top,0px));left:12px;right:12px;width:auto}
+.td-gap{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-xs);color:var(--fg-2);padding:0 4px}
+.td-gap svg{flex:none;width:12px;height:12px;margin-top:2px;color:var(--accent)}
+body.phone .tm-main{flex-direction:column;gap:2px}
+body.phone .tm-time{width:auto}
+body.phone .tm-prep{margin-left:0}
 .td-card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel);display:flex;flex-direction:column;gap:8px}
 .td-kind{display:flex;align-items:center;gap:6px;font-size:var(--fs-xs);font-weight:600;color:var(--fg-3)}
 .td-kind svg{width:14px;height:14px}
@@ -1063,6 +1137,7 @@ body.phone .callout{display:none}
   <div id="winMount"></div>
   <nav class="dock" id="dock" aria-label="Dock"></nav>
   <div id="toastMount" aria-live="polite"></div>
+  <div id="nudgeMount" aria-live="assertive"></div>
 </div>
 
 <script>
@@ -1129,14 +1204,14 @@ const S = (t, who, st, sub) => ({t, who, st: st || 'todo', sub: sub || ''});
 
 let uid = 10;
 const cards = [
-  { id:'c1', col:'need', kind:'draft', src:'Slack · #marketing', title:'Reply to Maya about the landing page',
+  { id:'c1', col:'need', kind:'draft', src:'Slack · #marketing', title:'Reply to Maya about the landing page', from:'Maya', chan:'#marketing', asked:3*60, ask:'"Can you take a look at the new landing page before Friday?"',
     draft:{ to:'Maya', ctx:'<b>Maya</b> asked for your feedback on the new landing page. <b>Theo</b> already suggested trimming the explainer sections and keeping two.',
       v:{ base:"Thanks Maya, took a look. Agree with Theo on trimming the explainers. I'd keep \"Why it matters\" and \"Features\" and drop the rest, the button already covers how to get in.",
           shorter:"Agree with Theo, keep \"Why it matters\" and \"Features\" and drop the rest 👍",
           warmer:"Thanks Maya, this is coming together nicely. Agree with Theo on trimming the explainers, I'd keep \"Why it matters\" and \"Features\" and drop the rest.",
           direct:"Two changes: keep only \"Why it matters\" and \"Features\", and cut the how-to list since the button covers it." },
       cur:'base', commit:'', chat:[] } },
-  { id:'c2', col:'need', kind:'draft', src:'Slack · #launch-plan', title:'Reply to Jordan about the Nov 3 date',
+  { id:'c2', col:'need', kind:'draft', src:'Slack · #launch-plan', title:'Reply to Jordan about the Nov 3 date', from:'Jordan', chan:'#launch-plan', asked:26*60, ask:'"Is Nov 3 still realistic for the launch?"',
     draft:{ to:'Jordan', ctx:'<b>Jordan</b> asked if Nov 3 is realistic. Your calendar shows the team offsite next week and the hackathon the week after.',
       v:{ base:"I don't think Nov 3 is realistic, we lose the next two weeks to the offsite and the hackathon. Could we aim for a smaller test on Nov 10 and agree on scope at the offsite?",
           shorter:"Nov 3 is tight with the offsite and hackathon. Could we do a smaller test on Nov 10?",
@@ -1275,7 +1350,7 @@ function popRecap(){
   if(nextM) parts.push(`${nextM.u.title} ${when}`);
   if(c.work) parts.push(`I'm working on ${c.work}`);
   const line = parts.length ? parts.join(' · ') : "Nothing needs you right now.";
-  const tip = need[0] ? proactive(need[0]).say : nextM ? `Next up is ${nextM.u.title}. I'll record it${nextM.u.rec?'':' if you turn recording on'}.` : "Enjoy the quiet. I'll ping you when something comes in.";
+  const tip = need[0] ? proactive(need[0]).say : nextM ? `Next up is ${nextM.u.title}. I'll ask if you want to record it when it starts.` : "Enjoy the quiet. I'll ping you when something comes in.";
   return { open, line, tip, need, nextM, when };
 }
 function homeBody(){
@@ -1301,7 +1376,7 @@ function homeBody(){
       <div class="pr-line">${esc(r.line)}</div>
       ${item}
     </div>
-    ${meets.length ? `<div class="sec"><h3><span>Today's meetings</span><span>${meets.length}</span></h3>${meets.map((x,i)=>`<div class="uprow"><button class="row" data-meet-open="${x.u.id}"><span class="time">${esc(x.u.time)}</span><span class="t">${esc(x.u.title)}</span>${i===0?`<span class="mw-cd sm">${cd(x.u,'pill')}</span>`:''}</button>${recTog(x.u)}</div>`).join('')}</div>` : `<div class="sec"><h3><span>Today's meetings</span></h3><div class="empty">No more meetings today</div></div>`}
+    ${meets.length ? `<div class="sec"><h3><span>Today's meetings</span><span>${meets.length}</span></h3>${meets.map((x,i)=>`<div class="uprow"><button class="row" data-meet-open="${x.u.id}"><span class="time">${esc(x.u.time)}</span><span class="t">${esc(x.u.title)}</span>${i===0?`<span class="mw-cd sm">${cd(x.u,'pill')}</span>`:''}</button></div>`).join('')}</div>` : `<div class="sec"><h3><span>Today's meetings</span></h3><div class="empty">No more meetings today</div></div>`}
     ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : ''}
     <div class="popfoot"><button class="btn pri" data-go="today">${I.spark} Open lalo</button></div>`;
 }
@@ -1336,7 +1411,7 @@ function renderWin(){
   const oldMq = document.getElementById('mqIn'); const mqVal = oldMq ? oldMq.value : ''; const mqFocus = (oldMq && document.activeElement===oldMq) || ui._mqFocus; ui._mqFocus=false;
   const oldNote = document.getElementById('noteIn'); const noteSel = oldNote && document.activeElement===oldNote ? [oldNote.selectionStart, oldNote.selectionEnd, oldNote.scrollTop] : null; const noteFocus = ui._noteFocus; ui._noteFocus=false;
   const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
-  const kv={}; m.querySelectorAll('input[data-keepval]').forEach(i=>{ kv[i.id]=[i.value, document.activeElement===i ? i.selectionStart : null]; });
+  const kv={}; m.querySelectorAll('input[data-keepval],textarea[data-keepval]').forEach(i=>{ kv[i.id]=[i.value, document.activeElement===i ? i.selectionStart : null]; });
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
   m.innerHTML = `<section class="win ${winAnim?'anim':''}" role="dialog" aria-label="lalo board">
     <aside class="side ${ui.side?'open':''}">
@@ -1490,7 +1565,7 @@ function todayCards(){
   }
   cards.filter(k=>k.col==='need' && k.id!=='c4' && !(prep && prep.preread===k.id)).sort(byPri).forEach(k=>{
     const p=proactive(k);
-    out.push({ key:k.id, open:`data-open="${k.id}"`, icon:I[TYPES[typeOf(k)][1]], kind:TYPES[typeOf(k)][0], brief:p.brief, say:p.say, cta:p.cta,
+    out.push({ key:k.id, reply: k.kind==='draft' && k.from ? k : null, open:`data-open="${k.id}"`, icon:I[TYPES[typeOf(k)][1]], kind:TYPES[typeOf(k)][0], brief:p.brief, say:p.say, cta:p.cta,
       ctaAttr: p.act==='do' ? `data-todaydo="${k.id}"` : `data-open="${k.id}"`, alt: p.act==='do' ? ['Open', `data-open="${k.id}"`] : null });
   });
   const sig=signals.users.find(x=>x.hot && !x.state);
@@ -1506,22 +1581,53 @@ function todayHTML(){
   const topList = top.length ? `<ol class="td-top">${top.map((x,i)=>`<li><button ${x.open}><span class="td-n">${i+1}</span><span class="grow">${esc(x.brief.charAt(0).toUpperCase()+x.brief.slice(1))}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button></li>`).join('')}</ol>` : `<p class="td-sub">I'll let you know when something needs you.</p>`;
   const qa=ui.todayQA;
   const answer = qa ? `<div class="td-qa"><div class="msg me">${esc(qa.q)}</div>${qa.thinking ? TYPING : `<div class="msg lalo">${esc(qa.a)}${qa.links&&qa.links.length?`<div class="asklinks">${qa.links.map(l=>`<button class="chip" ${l[1]}>${esc(l[0])}</button>`).join('')}</div>`:''}</div>`}<button class="more" data-tdclear="1" style="width:auto;align-self:flex-start">Clear</button></div>` : '';
-  const shown = ui.more && ui.more.today ? list : list.slice(0,4);
+  const replies = list.filter(x=>x.reply), rest = list.filter(x=>!x.reply);
+  const replyH = replies.map(x=>{ const k=x.reply, dr=k.draft.v[k.draft.cur]||'';
+    return `<article class="td-card td-reply"><div class="tr-head">${avatar(k.from)}<span class="grow"><b>${esc(k.from)}</b> in ${esc(k.chan)}<small>Waiting ${waitText(k.asked)}</small></span><button class="tr-slack" data-slack="${k.id}">Open in Slack ${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button></div>
+      <p class="tr-ask">${esc(k.ask)}</p>
+      <div class="tr-draft"><span class="tr-lbl">${I.spark} Your draft</span><span class="tr-txt">${esc(dr.length>150?dr.slice(0,150).replace(/\s\S*$/,'')+'…':dr)}</span></div>
+      <div class="td-acts"><button class="td-cta" ${x.ctaAttr}>${esc(x.cta)}</button><button class="btn ghost" ${x.open}>Edit draft</button></div></article>`; }).join('');
+  const due = dueToday.map(d=>{
+    const head=`<div class="due-head"><button class="due-chk" data-due="${d.id}" role="checkbox" aria-checked="${!!d.done}" aria-label="Mark done: ${esc(d.t)}">${d.done?I.check:''}</button><span class="grow">${esc(d.t)}<small>${esc(d.who)} · ${esc(d.where)}</small></span><span class="due-when">${d.done?'Done':esc(d.when)}</span></div>`;
+    if(d.done) return `<div class="td-due done">${head}${d.sent?`<div class="due-sent">${I.check} ${esc(d.done_msg)}</div>`:''}</div>`;
+    let body='';
+    if(d.kind==='comment'){
+      body = ui.dueEdit===d.id
+        ? `<textarea id="dueIn-${d.id}" class="due-edit" data-keepval rows="4" aria-label="Edit your comment">${esc(d.draft)}</textarea>`
+        : `<p class="due-text">${esc(d.draft)}</p>`;
+      body = `<div class="due-lbl">${I.spark} Suggested comment</div><div class="due-why">${esc(d.why)} Nothing is posted until you approve.</div>${body}
+        <div class="td-acts"><button class="td-cta" data-dueok="${d.id}">${esc(d.act)}</button>${ui.dueEdit===d.id?`<button class="btn ghost" data-duesave="${d.id}">Save edit</button>`:`<button class="btn ghost" data-dueedit="${d.id}">Edit</button>`}</div>`;
+    } else {
+      const on=d.lines.filter(l=>l.on), tot=on.reduce((a,l)=>a+l.a,0), miss=on.filter(l=>!l.r).length, open=ui.dueOpen===d.id;
+      body = `<div class="due-lbl">${I.spark} I drafted your report</div><div class="due-why">${esc(d.why)}</div>
+        <div class="due-sum"><b>${money(tot)}</b><span>${on.length} expense${on.length===1?'':'s'}${miss?` · <span class="due-warn">${miss} missing a receipt</span>`:''}</span><button class="tr-slack" data-dueopen="${d.id}">${open?'Hide':'Review'} items</button></div>
+        ${open?`<div class="due-lines">${d.lines.map((l,i)=>`<label class="due-line ${l.on?'':'off'}"><input type="checkbox" data-dueline="${d.id}|${i}" ${l.on?'checked':''}><span class="dl-d">${esc(l.d)}</span><span class="grow">${esc(l.t)}<small>${esc(l.c)}${l.r?'':' · <span class="due-warn">No receipt found</span>'}</small></span><span class="dl-a">${money(l.a)}</span></label>`).join('')}</div>`:''}
+        ${miss?`<div class="due-why">${I.spark} The ${esc(on.find(l=>!l.r).t.toLowerCase())} has no receipt. I'll attach the calendar invite as proof, or you can add a photo.</div>`:''}
+        <div class="td-acts"><button class="td-cta" data-dueok="${d.id}">${esc(d.act)}</button>${open?'':`<button class="btn ghost" data-dueopen="${d.id}">Review items</button>`}</div>`;
+    }
+    return `<div class="td-due">${head}<div class="due-draft">${body}</div></div>`; }).join('');
+  const shown = ui.more && ui.more.today ? rest : rest.slice(0,4);
   const cardsH = shown.map(x=>`<article class="td-card">
       <div class="td-kind">${x.icon}<span>${esc(x.kind)}</span></div>
       <p class="td-say">${esc(x.say)}</p>
       <div class="td-acts"><button class="td-cta" ${x.ctaAttr}>${esc(x.cta)}</button>${x.alt?`<button class="btn ghost" ${x.alt[1]}>${esc(x.alt[0])}</button>`:''}</div>
-    </article>`).join('') + (list.length>4 ? `<button class="more" data-more="today">${ui.more&&ui.more.today?'Show less':'Show all '+list.length}</button>` : '');
+    </article>`).join('') + (rest.length>4 ? `<button class="more" data-more="today">${ui.more&&ui.more.today?'Show less':'Show all '+rest.length}</button>` : '');
   const learn = learnings.filter(l=>!l.state || l.state==='saved').map(l=>`<div class="td-learn">${I.spark}<span class="grow">${esc(l.t)}</span>${l.state==='saved'?'<span class="tag ok">Saved to profile</span>':`<button class="iconbtn" data-learn="${l.id}|yes" aria-label="Yes, keep this">${I.check}</button><button class="iconbtn" data-learn="${l.id}|no" aria-label="No, that's wrong">${I.x}</button>`}</div>`).join('');
   const nxt = nextMeeting();
-  const meet = todayMeets().slice(0,3).map(u=>`<div class="td-meet"><button class="row" data-meet-open="${u.id}"><span class="time">${esc(u.time)}</span><span class="t">${esc(u.title)}</span>${u===nxt?`<span class="mw-cd sm">${cd(u,'pill')}</span>`:''}</button>${recTog(u)}</div>`).join('');
+  const tm = todayMeets(); const end=u=>+u.at+u.dur*60000;
+  const meetH = tm.map(u=>{ const clash=tm.find(v=>v!==u && +v.at<end(u) && +u.at<end(v));
+    return `<div class="tm"><div class="tm-row"><button class="tm-main" data-meet-open="${u.id}"><span class="tm-time">${rangeH(u.at,u.dur)}</span><span class="tm-t"><b>${esc(u.title)}</b>${u===nxt?`<span class="mw-cd sm">${cd(u,'pill')}</span>`:''}${clash?`<span class="tag hot">Clashes with ${esc(clash.title)}</span>`:''}</span></button></div>
+      ${u.prep?`<ul class="tm-prep ${u.gap?'gap':''}">${u.prep.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}</div>`; }).join('');
+  const gaps = tm.filter(u=>u.gap);
   const newSig = signals.users.filter(x=>x.hot&&!x.state).length + signals.market.filter(x=>x.fresh&&!x.state).length;
   return `<div class="today" data-keep="today"><div class="td-wrap">
     <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1>${topList}</div>
     ${answer}
-    ${list.length ? `<div class="wl-label">For you</div><div class="td-cards">${cardsH}</div>` : ''}
+    ${due ? `<div class="wl-label">Due today</div><div class="td-dues">${due}</div>` : ''}
+    ${replies.length ? `<div class="wl-label">Waiting on your reply <span class="wl-sub">Drafts are ready</span></div><div class="td-cards">${replyH}</div>` : ''}
+    ${meetH ? `<div class="wl-label">Today's meetings</div><div class="tms">${meetH}</div>${gaps.length?`<div class="td-gap">${I.spark}<span>I couldn't find past notes for ${gaps.map(u=>esc(u.title)).join(' or ')}, so its prep comes from the calendar invite only.</span></div>`:''}` : ''}
+    ${rest.length ? `<div class="wl-label">For you</div><div class="td-cards">${cardsH}</div>` : ''}
     ${c.work ? `<button class="td-working" data-go="board"><span class="mark work"></span><span class="grow">I'm working on ${c.work} ${c.work>1?'tasks':'task'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}
-    ${meet ? `<div class="wl-label">Today's meetings</div><div class="td-meets">${meet}</div>` : ''}
     ${learn ? `<div class="wl-label">Getting to know you</div><div class="td-learns">${learn}</div>` : ''}
     <div class="td-links">
       <button data-go="board">${I.board}<span>Tasks</span><b>${c.need+c.work}</b></button>
@@ -1761,14 +1867,14 @@ function capped(key, items, renderItem, emptyHTML){
 
 /* ---------- meetings ---------- */
 const upcoming = [
-  { id:'u1', title:'Checkout launch sync', time:'2:00pm', people:'Jordan, Ana, Ravi, you', rec:true, mind:'Jordan is still waiting on the Nov 3 date. Your draft proposes Nov 10.' },
-  { id:'u2', title:'Weekly product review', time:'3:30pm', people:'Product team, 9 people', rec:true, mind:'Saved payment methods is the top ask in #product-feedback this week (9 mentions).' },
-  { id:'u3', title:'Interview: senior designer', time:'4:30pm', people:'Candidate, Ana, you', rec:false, why:'Interviews are off by default', mind:'Ana wants your read on systems thinking. The portfolio link is in the invite.' },
-  { id:'u4', title:'Ads planning', time:'5:00pm', people:'Imani, Theo, you', rec:true, mind:'Ad spend is 18% over plan this month. Theo will likely ask about the Q4 budget.' },
-  { id:'u5', title:'Coffee chat with Priya', time:'5:30pm', people:'Priya, you', rec:false, why:'Coffee chats are off by default', mind:'Priya just moved to the payments team. Ask how her first month is going.' },
-  { id:'u6', title:'Launch go/no-go', day:1, h:9, mi:0, dur:30, people:'Jordan, Ravi, Ana, Theo, you', rec:true, mind:'QA sign-off is due Tuesday. Ravi needs a yes or no on the Wednesday release.' },
-  { id:'u7', title:'Payments roadmap', day:1, h:10, mi:30, dur:45, people:'Ravi, Priya, you', rec:true, mind:'Sara is blocked on the checkout API. Ask Ravi who owns it.' },
-  { id:'u8', title:'Hiring sync', day:1, h:14, mi:0, dur:30, people:'Ana, Imani, you', rec:true, mind:'Two finalists for senior designer. Ana leans toward the second one.' }
+  { id:'u1', prep:['Jordan is still waiting on the Nov 3 date. Your draft proposes Nov 10.','Ravi owes the QA sign-off date from last week.'], title:'Checkout launch sync', time:'2:00pm', people:'Jordan, Ana, Ravi, you', mind:'Jordan is still waiting on the Nov 3 date. Your draft proposes Nov 10.' },
+  { id:'u2', prep:['Saved payment methods is the top ask in #product-feedback this week.','Ana will demo the new empty state.'], title:'Weekly product review', time:'3:30pm', people:'Product team, 9 people', mind:'Saved payment methods is the top ask in #product-feedback this week (9 mentions).' },
+  { id:'u3', prep:['Ana wants your read on systems thinking.','The portfolio link is in the invite.'], title:'Interview: senior designer', time:'4:30pm', people:'Candidate, Ana, you', mind:'Ana wants your read on systems thinking. The portfolio link is in the invite.' },
+  { id:'u4', prep:['No past notes found. This prep comes from the calendar invite only.'], gap:true, title:'Ads planning', time:'5:00pm', people:'Imani, Theo, you', mind:'Ad spend is 18% over plan this month. Theo will likely ask about the Q4 budget.' },
+  { id:'u5', prep:['Priya just moved to the payments team. Ask how her first month is going.'], title:'Coffee chat with Priya', time:'5:30pm', people:'Priya, you', mind:'Priya just moved to the payments team. Ask how her first month is going.' },
+  { id:'u6', title:'Launch go/no-go', day:1, h:9, mi:0, dur:30, people:'Jordan, Ravi, Ana, Theo, you', mind:'QA sign-off is due Tuesday. Ravi needs a yes or no on the Wednesday release.' },
+  { id:'u7', title:'Payments roadmap', day:1, h:10, mi:30, dur:45, people:'Ravi, Priya, you', mind:'Sara is blocked on the checkout API. Ask Ravi who owns it.' },
+  { id:'u8', title:'Hiring sync', day:1, h:14, mi:0, dur:30, people:'Ana, Imani, you', mind:'Two finalists for senior designer. Ana leans toward the second one.' }
 ];
 /* Meeting times are set relative to when the prototype opens, so there is always a next meeting */
 const fmtTime = d => { let h=d.getHours()%12||12; return h+':'+String(d.getMinutes()).padStart(2,'0')+(d.getHours()<12?'am':'pm'); };
@@ -1802,7 +1908,21 @@ function cdText(at, dur, mode){
 const cd = (u, mode) => `<span data-cd="${+u.at}|${u.dur}|${mode}">${cdText(u.at,u.dur,mode)}</span>`;
 const nextMeeting = () => upcoming.filter(u=>+u.at+u.dur*60000>Date.now()).sort((a,b)=>a.at-b.at)[0];
 setInterval(()=>document.querySelectorAll('[data-cd]').forEach(el=>{ const [at,dur,mode]=el.dataset.cd.split('|'); el.textContent=cdText(+at,+dur,mode); }), 15000);
-function recTog(u){ return `<button class="rectog ${u.rec?'on':''}" data-uprec="${u.id}" role="switch" aria-checked="${u.rec}" aria-label="Record ${esc(u.title)}" title="${u.rec?'Recording on':'Recording off'}"></button>`; }
+const dueToday = [
+  { id:'d1', kind:'comment', t:'Comment on the Q4 roadmap doc', who:'Jordan', where:'Notion', when:'by 5pm',
+    why:'Jordan asked for comments by 5pm. I used this month\'s signals and your notes from the design review.',
+    draft:"Looks solid. Two thoughts: payout setup is our fastest-rising support theme this month, so I'd pull the payout clarity work into Q4. And recurring giving needs an owner before Tandem's push lands.",
+    act:'Approve', done_msg:'Approved. lalo posted your comment on the Q4 roadmap doc.' },
+  { id:'d2', kind:'expense', t:'Submit your October expense report', who:'Finance', where:'Expensify', when:'end of day',
+    why:'I found these in your email and calendar for October.',
+    lines:[ { d:'Oct 3', t:'Ride to the airport', c:'Travel', a:38.40, r:true, on:true },
+            { d:'Oct 3–5', t:'Hotel, product offsite', c:'Lodging', a:296.00, r:true, on:true },
+            { d:'Oct 14', t:'Extra design tool seat', c:'Software', a:45.00, r:true, on:true },
+            { d:'Oct 22', t:'Team lunch after the design review', c:'Meals', a:33.40, r:false, on:true } ],
+    act:'Submit report', done_msg:'Submitted your October expense report.' }
+];
+const money = n => '$'+n.toFixed(2);
+const waitText = min => min<60 ? `${min} min` : min<24*60 ? `${Math.round(min/60)} hr` : min<48*60 ? 'since yesterday' : `${Math.floor(min/1440)} days`;
 const meetings = [
   { id:'m1', title:'Design review', ago:3*60, dur:'32 min', people:'Ana, Theo, Ravi, you', status:'done',
     summary:['Agreed on the new empty state for mobile receipts','Saved cards will show at checkout for signed-in users','Design tokens should be reused in emails'],
@@ -1956,9 +2076,9 @@ function meetingsHTML(){
   const cur = ui.meetOpen ? ui.meet : null;
   const nx = nextMeeting();
   const days=[0,1].map(off=>{ const d=new Date(); d.setDate(d.getDate()+off); return d; });
-  const evRow = u => `<div class="mev ${u.rec?'rec':''} ${u.id===cur?'cur':''}"><button class="mev-main" data-meet="${u.id}" ${u.id===cur?'aria-current="true"':''}><span class="mev-bar"></span>
+  const evRow = u => `<div class="mev ${u===nx?'next':''} ${u.id===cur?'cur':''}"><button class="mev-main" data-meet="${u.id}" ${u.id===cur?'aria-current="true"':''}><span class="mev-bar"></span>
       <span class="mev-body"><b>${esc(u.title)}</b><small>${rangeH(u.at,u.dur)}${u===nx?` <span class="mw-cd">${cd(u,'pill')}</span>`:''}</small>
-        ${u===nx && u.mind?`<span class="m-mind">${I.spark}<span>${esc(u.mind)}</span></span>`:''}</span></button>${recTog(u)}</div>`;
+        ${u===nx && u.mind?`<span class="m-mind">${I.spark}<span>${esc(u.mind)}</span></span>`:''}</span></button></div>`;
   const dayBlock = (d, i) => { const evs=upcoming.filter(u=>sameDay(u.at,d) && +u.at+u.dur*60000>Date.now()).sort((a,b)=>a.at-b.at);
     return `<div class="mday"><div class="md-date"><b>${d.getDate()}</b><span><i>${d.toLocaleDateString('en-US',{month:'long'})}${i===0?'<em class="md-dot"></em>':''}</i><small>${d.toLocaleDateString('en-US',{weekday:'short'})}</small></span></div>
       <div class="md-evs">${evs.length ? evs.map(evRow).join('') : `<div class="md-empty"><span class="mev-bar"></span>No more meetings ${i===0?'today':'this day'}</div>`}</div></div>`; };
@@ -1974,9 +2094,9 @@ function meetingsHTML(){
   let d = '', hd = null;
   if(up){
     hd = [up.title, `${dayWord(up.at)} · ${fmtRange(up.at, up.dur)} · ${up.people}`];
-    d += `      <div class="dsec"><div class="m-when"><span class="mw-cd">${cd(up,'pill')}</span><span>${esc(fmtRange(up.at, up.dur))} · ${up.dur} min</span></div><div class="sched ${up.rec?'':'off'}"><div class="sched-top">${I.mic}<div class="grow"><b>${up.rec?'lalo will record this meeting':'lalo won\'t record this meeting'}</b>
-        <small>${up.rec?'Recording starts when the call starts at '+esc(up.time)+' and stops when it ends. Notes and action items show up here after.':esc(up.why||'You turned recording off for this one.')}</small></div>${recTog(up)}</div>
-        ${!ui.rec?`<div class="acts"><button class="btn pri" data-rec-up="${up.id}">${I.mic} Start recording now</button></div>`:''}</div></div>
+    d += `      <div class="dsec"><div class="m-when"><span class="mw-cd">${cd(up,'pill')}</span><span>${esc(fmtRange(up.at, up.dur))} · ${up.dur} min</span></div><div class="sched"><div class="sched-top">${I.mic}<div class="grow"><b>lalo will ask when it starts</b>
+        <small>When the call begins, you'll get a nudge to record. Say yes and lalo takes notes and pulls out action items.</small></div></div>
+        ${!ui.rec?`<div class="acts"><button class="btn pri" data-rec-up="${up.id}">${I.mic} Start recording now</button><button class="btn ghost" data-nudge="${up.id}">Preview the nudge</button></div>`:''}</div></div>
       ${up.mind?`<div class="dsec"><h3>Keep in mind</h3><div class="tip" style="margin-top:0">${esc(up.mind)}</div></div>`:''}`;
   }
   if(m){
@@ -2029,7 +2149,7 @@ function lalAnswer(q){
     links:[['Draft tickets','data-open="c5"'],['Upcoming meetings','data-go="meetings"']] };
   if(/sara|1:1/.test(s)) return { t:"Your 1:1 with Sara is Tuesday at 2pm. She's blocked on the checkout API, and Payments is changing the same API next sprint. Your brief suggests connecting them and offering her the November launch.",
     links:[['Prep for 1:1 with Sara','data-open="c4"']] };
-  if(/meeting|calendar|today|schedule/.test(s) && !/need|waiting/.test(s)) return { t:'Today: '+todayMeets().map(u=>`${u.time} ${u.title}${u.rec?'':' (not recording)'}`).join(', ')+'.',
+  if(/meeting|calendar|today|schedule/.test(s) && !/need|waiting/.test(s)) return { t:'Today: '+todayMeets().map(u=>`${u.time} ${u.title}`).join(', ')+'.',
     links:[['Open meetings','data-go="meetings"']] };
   if(/need|waiting|todo|to do|left|pending|me today/.test(s)) return { t: need.length ? `${need.length} things need you: `+need.map(k=>k.title).join('; ')+'.' : 'Nothing needs you right now.',
     links: need.length ? [['Catch up','data-catchup="1"']] : [] };
@@ -2601,6 +2721,13 @@ function startVoice(){
     }, 45);
   }, 900);
 }
+function renderNudge(){
+  const m=document.getElementById('nudgeMount'); const u=ui.nudge && upcoming.find(x=>x.id===ui.nudge);
+  if(!u || ui.rec){ m.innerHTML=''; return; }
+  m.innerHTML=`<div class="nudge" role="alertdialog" aria-label="${esc(u.title)} is starting"><span class="ng-ic">${I.spark}</span>
+    <div class="ng-body"><div class="ng-top"><b>lalo</b><small>now</small></div><b class="ng-t">${esc(u.title)} is starting</b><p>Want me to record it? I'll take notes and pull out action items.</p>
+    <div class="ng-acts"><button class="btn pri" data-nudgerec="${u.id}">${I.mic} Record</button><button class="btn ghost" data-nudgeno="${u.id}">Not this time</button></div></div></div>`;
+}
 function renderVoice(){
   const m=document.getElementById('voiceMount');
   if(!ui.voice){ m.innerHTML=''; return; }
@@ -2773,6 +2900,8 @@ function parseRepeat(t){
 
 function tick(){
   let changed=false;
+  const now=Date.now(), starting=upcoming.find(u=>!u.nudged && +u.at<=now && now<+u.at+5*60000);
+  if(starting && !ui.rec){ starting.nudged=true; ui.nudge=starting.id; renderNudge(); }
   cards.forEach(k=>{
     if(k.col!=='work' || !k.steps) return;
     const i = k.steps.findIndex(s=>s.st==='doing');
@@ -2888,6 +3017,16 @@ document.addEventListener('click', e=>{
   if(t.dataset.pcancel){ const P=ui.planning; ui.planning=null; if(P && P.started){ if(ui.phone){ ui.view='board'; ui.jump='work'; } render(); return; } render(); toast("Saved in Needs you. Pick up the plan any time."); return; }
   if(t.dataset.pstart){ if(pNextQ()!==undefined){ toast('Answer or skip the question first.'); return; } pStart(); return; }
   if(t.dataset.sigjump){ const el=document.getElementById('sig-'+t.dataset.sigjump); if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); el.classList.remove('flash'); void el.offsetWidth; if(!t.dataset.sigjump.startsWith('sec-')) el.classList.add('flash'); } return; }
+  if(t.dataset.nudge){ ui.nudge=t.dataset.nudge; renderNudge(); return; }
+  if(t.dataset.nudgerec){ const u=upcoming.find(x=>x.id===t.dataset.nudgerec); ui.nudge=null; renderNudge(); if(u) startRec(u); return; }
+  if(t.dataset.nudgeno){ ui.nudge=null; renderNudge(); toast("Okay, I won't record this one."); return; }
+  if(t.dataset.dueok){ const d=dueToday.find(x=>x.id===t.dataset.dueok); if(ui.dueEdit===d.id){ const i=document.getElementById('dueIn-'+d.id); if(i) d.draft=i.value; ui.dueEdit=null; }
+    d.done=true; d.sent=true; renderWin(); toast(d.done_msg, {label:'Undo', fn:()=>{ d.done=false; d.sent=false; renderWin(); }}); return; }
+  if(t.dataset.dueedit){ ui.dueEdit=t.dataset.dueedit; renderWin(); const i=document.getElementById('dueIn-'+ui.dueEdit); if(i){ i.focus(); i.setSelectionRange(i.value.length,i.value.length); } return; }
+  if(t.dataset.duesave){ const d=dueToday.find(x=>x.id===t.dataset.duesave); const i=document.getElementById('dueIn-'+d.id); if(i) d.draft=i.value.trim()||d.draft; ui.dueEdit=null; renderWin(); return; }
+  if(t.dataset.dueopen){ ui.dueOpen = ui.dueOpen===t.dataset.dueopen ? null : t.dataset.dueopen; renderWin(); return; }
+  if(t.dataset.due){ const d=dueToday.find(x=>x.id===t.dataset.due); d.done=!d.done; renderWin(); if(d.done) toast('Marked done.', {label:'Undo', fn:()=>{ d.done=false; renderWin(); }}); return; }
+  if(t.dataset.slack){ toast('In the real app, this opens the thread in Slack.'); return; }
   if(t.dataset.sigcfg){ ui.sigCfg = t.dataset.sigcfg==='1'; if(!ui.sigCfg) sigCfgHTML.shown=false; renderWin(); return; }
   if(t.dataset.chanrm){ const cf=signals.config, i=+t.dataset.chanrm, c=cf.channels[i]; cf.channels.splice(i,1); renderWin(); toast(`Stopped watching ${c}.`, {label:'Undo', fn:()=>{ cf.channels.splice(i,0,c); renderWin(); }}); return; }
   if(t.dataset.comprm){ const cf=signals.config, i=cf.competitors.findIndex(x=>x.id===t.dataset.comprm), c=cf.competitors[i]; cf.competitors.splice(i,1); renderWin(); toast(`Stopped watching ${c.name}.`, {label:'Undo', fn:()=>{ cf.competitors.splice(i,0,c); renderWin(); }}); return; }
@@ -2918,7 +3057,6 @@ document.addEventListener('click', e=>{
   if(t.id==='capAct'){ const ci=document.getElementById('capIn'); if(ci && ci.value.trim()) document.getElementById('capForm').requestSubmit(); else { ui.pop=false; render(); startVoice(); } return; }
   if(t.dataset.ptab){ ui.ptab=t.dataset.ptab; renderPop(); return; }
   if(t.dataset.more){ ui.more = ui.more || {}; ui.more[t.dataset.more] = !ui.more[t.dataset.more]; render(); return; }
-  if(t.dataset.uprec){ const u=upcoming.find(x=>x.id===t.dataset.uprec); u.rec=!u.rec; if(!u.rec) u.why='You turned recording off for this one.'; render(); toast(u.rec ? 'lalo will record '+u.title+'.' : 'lalo won\'t record '+u.title+'.'); return; }
   if(t.dataset.meetOpen){ ui.ask=false; ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=t.dataset.meetOpen; ui.pop=false; ui.sel=null; render(); return; }
   if(t.dataset.recUp){ startRec(upcoming.find(x=>x.id===t.dataset.recUp)); return; }
   if(t.dataset.meetback){ ui.meetOpen=false; renderWin(); return; }
@@ -2988,6 +3126,7 @@ function selectDraft(){ const el=document.getElementById('draftText'); if(!el) r
 
 const cleanUrl = v => v.trim().replace(/^https?:\/\//i,'').replace(/^www\./i,'').replace(/\/+$/,'');
 document.addEventListener('change', e=>{
+  if(e.target.dataset && e.target.dataset.dueline){ const [id,i]=e.target.dataset.dueline.split('|'); const d=dueToday.find(x=>x.id===id); d.lines[+i].on=e.target.checked; renderWin(); return; }
   if(e.target.id==='sigCad'){ signals.config.cadence=e.target.value; renderWin(); toast('Schedule saved.'); }
   if(e.target.id==='sigWin'){ signals.config.window=+e.target.value; renderWin(); toast('Look-back window saved.'); }
 });
