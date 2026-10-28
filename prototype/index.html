@@ -1005,7 +1005,7 @@ body.phone .due-draft,body.phone .due-sent{margin-left:0}
 .tm-t .mw-cd.sm{margin-left:0}
 .tm-prep{margin:4px 0 0 124px;padding-left:16px;font-size:var(--fs-sm);color:var(--fg-2);display:flex;flex-direction:column;gap:2px}
 .tm-prep.gap{color:var(--fg-3);font-style:italic}
-.persona{position:absolute;z-index:31;top:3px;left:50%;transform:translateX(-50%);height:24px;display:flex;align-items:center;gap:2px;padding:2px;border-radius:8px;background:rgba(127,127,127,.14);font-size:var(--fs-xs);white-space:nowrap}
+.persona{position:absolute;z-index:31;top:3.5px;left:50%;transform:translateX(-50%);height:24px;box-sizing:border-box;display:flex;align-items:center;gap:2px;padding:2px;border-radius:8px;background:rgba(127,127,127,.14);font-size:var(--fs-xs);white-space:nowrap}
 .persona span{padding:0 6px 0 8px;color:var(--bar-fg);opacity:.6;font-weight:500}
 .persona button{height:20px;padding:0 9px;border-radius:6px;border:0;background:transparent;color:var(--bar-fg);font-size:var(--fs-xs);font-weight:600}
 .ob-seg button{height:28px;padding:0 10px;border-radius:8px;border:0;background:transparent;color:var(--fg-2);font-size:var(--fs-xs);font-weight:600}
@@ -2760,7 +2760,7 @@ function setPersona(p){
 }
 function renderPersona(){
   const m=document.getElementById('personaMount'); if(!m) return;
-  m.innerHTML = ui.phone ? '' : `<div class="persona" role="group" aria-label="Prototype view"><span>Prototype view</span>${['new','existing'].map(p=>`<button data-persona="${p}" aria-pressed="${ui.persona===p}">${p==='new'?'New user':'Existing user'}</button>`).join('')}</div>`;
+  m.innerHTML = ui.phone ? '' : `<div class="persona" role="group" aria-label="Prototype view"><span>Prototype view:</span>${['new','existing'].map(p=>`<button data-persona="${p}" aria-pressed="${ui.persona===p}">${p==='new'?'New user':'Existing user'}</button>`).join('')}</div>`;
 }
 function obHTML(){
   const D=ui.obData, step=ui.ob, N=6;
