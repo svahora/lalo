@@ -742,6 +742,35 @@ body.phone input,body.phone textarea,body.phone select{font-size:16px!important}
 .nt-key{font-family:var(--mono);font-size:11px;color:var(--fg-3);border:1px solid var(--line-strong);border-radius:5px;padding:1px 6px}
 .newtask:focus-within .nt-key{display:none}
 .newtask .btn.cta{height:34px;border-radius:10px}
+.today{flex:1;overflow:auto}
+.td-wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:12px;padding:18px max(16px,env(safe-area-inset-left,0px)) calc(32px + env(safe-area-inset-bottom,0px))}
+.td-hero{padding:14px 2px 4px}
+.td-hello{display:flex;align-items:center;gap:6px;color:var(--fg-2);font-size:14px;font-weight:500}
+.td-hello svg{width:18px;height:18px;color:var(--accent)}
+.td-hero h1{margin:8px 0 0;font-family:var(--display);font-weight:500;font-size:24px;line-height:1.3;letter-spacing:-.02em;text-wrap:pretty}
+.td-qa{display:flex;flex-direction:column;gap:8px}
+.td-qa .msg{max-width:90%}
+.td-cards{display:flex;flex-direction:column;gap:10px}
+.td-card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel);display:flex;flex-direction:column;gap:8px}
+.td-kind{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--fg-3)}
+.td-kind svg{width:14px;height:14px}
+.td-say{margin:0;font-size:15px;line-height:1.45}
+.td-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.td-cta{height:36px;padding:0 14px;border-radius:18px;border:0;background:var(--accent);color:#fff;font-weight:600;font-size:14px}
+.td-working{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--panel-2);border-radius:12px;padding:10px 12px;text-align:left;font-size:14px}
+.td-working>svg{width:16px;height:16px;color:var(--fg-3)}
+.td-meets{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;padding:4px 6px}
+.td-meet{display:flex;align-items:center;gap:6px}
+.td-meet .row{flex:1;min-width:0}
+.td-learns{display:flex;flex-direction:column;gap:6px}
+.td-learn{display:flex;align-items:center;gap:10px;border:1px dashed var(--line-strong);border-radius:12px;padding:8px 8px 8px 12px;font-size:13px}
+.td-learn>svg{width:14px;height:14px;color:var(--accent);flex:none}
+.td-learn .iconbtn{width:32px;height:32px}
+.td-learn .iconbtn svg{width:15px;height:15px}
+.td-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
+.td-links button{display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--line);background:var(--panel-2);border-radius:12px;padding:10px 4px;font-size:12px;color:var(--fg-2)}
+.td-links svg{width:18px;height:18px;color:var(--fg)}
+.td-links b{font-family:var(--mono);font-size:12px;color:var(--fg)}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -1020,6 +1049,7 @@ function renderWin(){
     <aside class="side ${ui.side?'open':''}">
       <div class="lights"><button class="c" data-close aria-label="Close window"></button><button class="m" data-close aria-label="Minimize"></button><button class="z" aria-label="Zoom" tabindex="-1"></button></div>
       <div class="brand">${I.spark} lalo</div>
+      <button class="nav" data-go="today" ${ui.view==='today'?'aria-current="page"':''}>${I.spark} Today</button>
       <button class="nav" data-go="board" ${ui.view==='board'?'aria-current="page"':''}>${I.board} Board <span class="c">${c.need+c.work}</span></button>
       <button class="nav" data-go="meetings" ${ui.view==='meetings'?'aria-current="page"':''}>${I.mic} Meetings ${ui.rec?'<span class="c"><span class="recdot" style="display:inline-block"></span></span>':`<span class="c">${meetings.length}</span>`}</button>
       <button class="nav" data-go="signals" ${ui.view==='signals'?'aria-current="page"':''}>${I.radar} Signals <span class="c">${signals.users.filter(x=>x.hot&&!x.state).length+signals.market.filter(x=>x.fresh&&!x.state).length}</span></button>
@@ -1029,10 +1059,10 @@ function renderWin(){
     </aside>
     <div class="main">
       ${ui.phone ? phoneBar() : ''}
-      ${ui.view==='home' ? homeHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : ui.view==='insights' ? insightsHTML() : ui.view==='signals' ? signalsHTML() : ui.view==='done' ? donePage() : ui.view==='catchup' ? boardHTML(c) : profileHTML()}
+      ${ui.view==='home' || ui.view==='today' ? todayHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : ui.view==='insights' ? insightsHTML() : ui.view==='signals' ? signalsHTML() : ui.view==='done' ? donePage() : ui.view==='catchup' ? boardHTML(c) : profileHTML()}
       ${ui.sel && ui.view==='board' ? drawerHTML(cards.find(k=>k.id===ui.sel), drAnim) : ''}
     </div>
-    ${ui.phone && !ui.ask && ui.view!=='catchup' && ui.view!=='home' ? `<div class="askbar">
+    ${ui.phone && !ui.ask && ui.view!=='catchup' && ui.view!=='home' && ui.view!=='today' ? `<div class="askbar">
       <div class="askpill"><button class="askopen" data-ask="1"><span>Ask or tell lalo anything</span></button><button class="pillmic" data-voice="1" aria-label="Say Hey lalo">${I.mic}</button></div>
       <button class="askcu" data-reviewnext="1" aria-label="Review the next item, ${c.need} need you">${c.need ? c.need : I.check}</button></div>` : ''}
     ${ui.ask ? askHTML() : ''}
@@ -1057,7 +1087,7 @@ function renderWin(){
 function phoneBar(){
   const ic = (v, icon, label, extra) => `<button class="pb-ic" data-go="${v}" aria-label="${label}" ${ui.view===v?'aria-current="page"':''}>${I[icon]}${extra||''}</button>`;
   return `<div class="phonebar">
-    ${ui.view==='home' ? `<div class="brand" style="padding:0">${I.spark} lalo</div>` :  ui.view==='board' ? `<button class="backbtn" data-go="home">${I.back} Home</button>` : ui.view==='done' ? `<button class="backbtn" data-go="board">${I.back} Tasks</button>` : (ui.view==='meetings' && ui.meetOpen) ? `<button class="backbtn" data-meetback="1">${I.back} Meetings</button>` : `<button class="backbtn" data-go="home">${I.back} Home</button>`}
+    ${ui.view==='home' || ui.view==='today' ? `<div class="brand" style="padding:0">${I.spark} lalo</div>` :  ui.view==='board' ? `<button class="backbtn" data-go="home">${I.back} Home</button>` : ui.view==='done' ? `<button class="backbtn" data-go="board">${I.back} Tasks</button>` : (ui.view==='meetings' && ui.meetOpen) ? `<button class="backbtn" data-meetback="1">${I.back} Meetings</button>` : `<button class="backbtn" data-go="home">${I.back} Home</button>`}
     <span class="grow"></span>
     ${ic('meetings','cal','Meetings', ui.rec?'<i class="pb-rec"></i>':'')}
     ${ic('signals','radar','Signals', (signals.market.some(x=>x.fresh&&!x.state)||signals.users.some(x=>x.hot&&!x.state))?'<i class="pb-rec" style="background:var(--accent)"></i>':'')}
@@ -1123,25 +1153,81 @@ function homeSec(key){
   const ic={need:I.stack, work: n ? '<span class="mark work" style="border-color:#fff;border-right-color:transparent"></span>' : '<span class="mark" style="width:10px;height:10px;border-radius:50%;background:#fff;opacity:.8"></span>', done:I.check}[key];
   return `<button class="wl-cu wl-${key} ${n?'':'idle'}" data-homesec="${key}" ${n?'':'disabled'}><span class="cu-ic">${ic}</span><span class="grow"><b>${title}</b>${n?`<small>${esc(list.slice(0,3).map(k=>k.title).join(' · '))}</small>`:''}</span>${n?I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7'):''}</button>`;
 }
-function homeHTML(){
-  const c=counts();
-  const sug=['Prep me for my 1:1 with Sara','What needs me today?','Remind me to send Jordan the launch doc','Every Friday, summarize #design'];
+/* ---------- Today: the one home ---------- */
+const learnings = [
+  { id:'l1', t:"You edit my drafts to be shorter. I'll keep replies to about two sentences.", line:['Keep replies to about two sentences','Learned from your edits'], sec:'How you write' },
+  { id:'l2', t:"You usually prep for 1:1s the morning of. I'll have briefs ready by 9am.", line:['Have 1:1 briefs ready by 9am','Learned from your calendar'], sec:'What you care about now' }
+];
+function proactive(k){
+  if(k.planning) return { brief:`finish planning "${k.title}"`, say:`You added "${k.title}". Let's finish the plan so I can start.`, cta:'Continue planning', act:'open' };
+  const by = {
+    c2:{ brief:'Jordan is waiting on the Nov 3 date', say:'Jordan is waiting on the Nov 3 date. I drafted a reply proposing a smaller test on Nov 10.' },
+    c1:{ brief:'Maya wants feedback on the landing page', say:'Maya asked for feedback on the landing page. I drafted it in your voice.' },
+    c7:{ brief:'the save-card change is ready for your review', say:"Save card is on staging, tests pass, and the review comments are fixed." },
+    c5:{ brief:'4 tickets from the design review are drafted', say:'I drafted 4 tickets from the design review.' },
+    c3:{ brief:"mom's stove needs a few answers", say:"For mom's stove, I need a few quick answers before I start shopping." }
+  }[k.id] || { brief:k.title.charAt(0).toLowerCase()+k.title.slice(1), say:k.title };
+  const qa=quickActions(k)[0];
+  return Object.assign({ cta: qa || (k.kind==='stove' ? 'Answer questions' : 'Open'), act: qa ? 'do' : 'open' }, by);
+}
+function todayCards(){
+  const out=[];
+  const prep=cards.find(k=>k.id==='c4');
+  if(prep && prep.col!=='done'){
+    const ready=prep.col==='need';
+    out.push({ key:'prep', icon:I.cal, kind:'Meeting', brief:'prep for your 1:1 with Sara on Tuesday',
+      say: prep.preread && (cards.find(x=>x.id===prep.preread)||{}).col!=='need' ? "Pre-read sent to Sara. Your talking points are ready for Tuesday." : prep.preread ? "I drafted a pre-read for Sara. It's waiting for your approval." : ready ? "Your 1:1 with Sara is Tuesday at 2pm. I prepped talking points. Want me to send her a pre-read?" : "Your 1:1 with Sara is Tuesday at 2pm. I'm prepping talking points now.",
+      cta: prep.preread ? 'Review the pre-read' : 'Send her a pre-read', ctaAttr: prep.preread ? `data-open="${prep.preread}"` : 'data-preread="1"', alt:['Open prep', `data-open="c4"`] });
+  }
+  cards.filter(k=>k.col==='need' && k.id!=='c4' && !(prep && prep.preread===k.id)).sort(byPri).forEach(k=>{
+    const p=proactive(k);
+    out.push({ key:k.id, icon:I[TYPES[typeOf(k)][1]], kind:TYPES[typeOf(k)][0], brief:p.brief, say:p.say, cta:p.cta,
+      ctaAttr: p.act==='do' ? `data-todaydo="${k.id}"` : `data-open="${k.id}"`, alt: p.act==='do' ? ['Open', `data-open="${k.id}"`] : null });
+  });
+  const sig=signals.users.find(x=>x.hot && !x.state);
+  if(sig) out.push({ key:'sig', icon:I.radar, kind:'Signal', brief:`${sig.theme.toLowerCase()} complaints doubled this week`,
+    say:`${sig.theme}: ${sig.n} mentions in #website-support, ${sig.trend}. Want me to look into it?`, cta:'Plan a fix', ctaAttr:`data-sigtask="${sig.id}"`, alt:['See signals','data-go="signals"'] });
+  return out;
+}
+function todayHTML(){
+  const c=counts(); const list=todayCards();
   const h=new Date().getHours(); const hello = h<12?'Good morning':h<18?'Good afternoon':'Good evening';
+  const top=list.slice(0,3).map(x=>x.brief);
+  const brief = !list.length ? "You're all caught up. I'll let you know when something needs you."
+    : `${list.length===1?'One thing':['Two','Three'][Math.min(list.length,3)-2]+' things'} matter today: ${top.length>1 ? top.slice(0,-1).join(', ')+', and '+top[top.length-1] : top[0]}.`;
   const v=ui.homeDraft||''; const isSug=!!v && v===ui.homeSug;
-  const peek=cards.filter(k=>k.col==='need').sort(byPri).slice(0,2).map(k=>k.title);
-  return `<div class="welcome" data-keep="home">
-    <div class="wl-hero">${I.spark}<h1>${hello}</h1><p>What can lalo help you with?</p></div>
+  const qa=ui.todayQA;
+  const answer = qa ? `<div class="td-qa"><div class="msg me">${esc(qa.q)}</div>${qa.thinking ? TYPING : `<div class="msg lalo">${esc(qa.a)}${qa.links&&qa.links.length?`<div class="asklinks">${qa.links.map(l=>`<button class="chip" ${l[1]}>${esc(l[0])}</button>`).join('')}</div>`:''}</div>`}<button class="more" data-tdclear="1" style="width:auto;align-self:flex-start">Clear</button></div>` : '';
+  const shown = ui.more && ui.more.today ? list : list.slice(0,4);
+  const cardsH = shown.map(x=>`<article class="td-card">
+      <div class="td-kind">${x.icon}<span>${esc(x.kind)}</span></div>
+      <p class="td-say">${esc(x.say)}</p>
+      <div class="td-acts"><button class="td-cta" ${x.ctaAttr}>${esc(x.cta)}</button>${x.alt?`<button class="btn ghost" ${x.alt[1]}>${esc(x.alt[0])}</button>`:''}</div>
+    </article>`).join('') + (list.length>4 ? `<button class="more" data-more="today">${ui.more&&ui.more.today?'Show less':'Show all '+list.length}</button>` : '');
+  const learn = learnings.filter(l=>!l.state || l.state==='saved').map(l=>`<div class="td-learn">${I.spark}<span class="grow">${esc(l.t)}</span>${l.state==='saved'?'<span class="tag ok">Saved to profile</span>':`<button class="iconbtn" data-learn="${l.id}|yes" aria-label="Yes, keep this">${I.check}</button><button class="iconbtn" data-learn="${l.id}|no" aria-label="No, that's wrong">${I.x}</button>`}</div>`).join('');
+  const meet = upcoming.slice(0,3).map(u=>`<div class="td-meet"><button class="row" data-meet-open="${u.id}"><span class="time">${esc(u.time)}</span><span class="t">${esc(u.title)}</span></button>${recTog(u)}</div>`).join('');
+  const newSig = signals.users.filter(x=>x.hot&&!x.state).length + signals.market.filter(x=>x.fresh&&!x.state).length;
+  return `<div class="today" data-keep="today"><div class="td-wrap">
+    <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1></div>
     <form class="talkpill wl-pill ${isSug?'suggest':''}" id="homeForm" autocomplete="off">
       <label class="sr" for="homeIn">Ask or tell lalo anything</label>
       <textarea id="homeIn" rows="1" placeholder="Ask or tell lalo anything">${esc(v)}</textarea>
       <button type="button" class="talkact ${v?'send':''}" id="homeAct" aria-label="${v?'Send to lalo':'Say it'}">${v?I.up:I.mic}</button>
     </form>
-    <div class="wl-label">Suggestions</div>
-    <div class="wl-sugs">${sug.map(x=>`<button class="wl-sug" data-homesug="${esc(x)}">${I.spark}<span>${esc(x)}</span></button>`).join('')}</div>
-    <div class="wl-label">Right now</div>
-    ${homeSec('need')}${homeSec('work')}${homeSec('done')}
-  </div>`;
+    ${answer}
+    ${list.length ? `<div class="wl-label">For you</div><div class="td-cards">${cardsH}</div>` : ''}
+    ${c.work ? `<button class="td-working" data-go="board"><span class="mark work"></span><span class="grow">I'm working on ${c.work} ${c.work>1?'tasks':'task'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}
+    ${meet ? `<div class="wl-label">Today's meetings</div><div class="td-meets">${meet}</div>` : ''}
+    ${learn ? `<div class="wl-label">Getting to know you</div><div class="td-learns">${learn}</div>` : ''}
+    <div class="td-links">
+      <button data-go="board">${I.board}<span>Tasks</span><b>${c.need+c.work}</b></button>
+      <button data-go="meetings">${I.cal}<span>Meetings</span><b>${upcoming.length}</b></button>
+      <button data-go="signals">${I.radar}<span>Signals</span><b>${newSig}</b></button>
+      <button data-go="insights">${I.bulb}<span>Insights</span><b>${insights.personal.filter(x=>!x.state).length}</b></button>
+    </div>
+  </div></div>`;
 }
+function homeHTML(){ return todayHTML(); }
 
 function head(title, sub, action){
   return `<div class="mainhead"><button class="iconbtn menu-btn" data-side aria-label="Show menu">${I.menu}</button>
@@ -1920,14 +2006,15 @@ function actWithSplash(k, fn, opts){
   if(res===false) return;
   const next=nl.map(id=>cards.find(x=>x.id===id)).find(c=>c && c.col==='need');
   clearInterval(ui.splashTimer);
-  ui.splash={ id:k.id, title:k.title, msg: opts.msg || ui.capturedMsg || 'Done.', kind: opts.kind || 'done', snap, keep, idx, next: next ? next.id : null, nextTitle: next ? next.title : '', left:SPLASH_SECS };
+  ui.splash={ stay: !!opts.stay, id:k.id, title:k.title, msg: opts.msg || ui.capturedMsg || 'Done.', kind: opts.kind || 'done', snap, keep, idx, next: next ? next.id : null, nextTitle: next ? next.title : '', left:SPLASH_SECS };
   ui.sel=null; ui.menuFor=null; render();
   ui.splashTimer=setInterval(()=>{ if(!ui.splash){ clearInterval(ui.splashTimer); return; } ui.splash.left--; if(ui.splash.left<=0) splashContinue(); else { const c=document.getElementById('spCount'); if(c) c.textContent=ui.splash.left; const r=document.querySelector('.sp-ring'); if(r) r.style.setProperty('--p', Math.round(ui.splash.left/SPLASH_SECS*100)); } }, 1000);
 }
 function splashContinue(){
   const S0=ui.splash; clearInterval(ui.splashTimer); if(!S0) return; ui.splash=null;
+  if(S0.stay){ ui.sel=null; render(); return; }
   if(S0.next && cards.find(x=>x.id===S0.next && x.col==='need')){ ui.sel=S0.next; render(); const b=document.getElementById('cuBody'); if(b) b.scrollTop=0; }
-  else { ui.sel=null; if(ui.phone){ ui.view='board'; } render(); }
+  else { ui.sel=null; if(ui.returnTo){ ui.view=ui.returnTo; ui.returnTo=null; } else if(ui.phone){ ui.view='board'; } render(); }
 }
 function splashUndo(){
   const S0=ui.splash; clearInterval(ui.splashTimer); if(!S0) return; ui.splash=null;
@@ -1948,7 +2035,7 @@ function splashHTML(){
     </div>
     <div class="sp-acts">
       <button class="sp-undo" data-spundo="1"><span class="sp-ring" style="--p:${Math.round(S0.left/SPLASH_SECS*100)}"><span id="spCount">${S0.left}</span></span>Undo</button>
-      <button class="sp-next" data-spnext="1"><span class="grow"><b>${S0.next ? 'Next task' : "You're all caught up"}</b>${S0.next?`<small>${esc(S0.nextTitle)}</small>`:'<small>Back to your tasks</small>'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>
+      <button class="sp-next" data-spnext="1"><span class="grow"><b>${S0.stay ? 'Back to Today' : S0.next ? 'Next task' : "You're all caught up"}</b>${S0.stay ? '' : S0.next?`<small>${esc(S0.nextTitle)}</small>`:'<small>Back to your tasks</small>'}</span>${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>
     </div>
   </div>`;
 }
@@ -1968,7 +2055,7 @@ function kebab(id){
     ${ui.menuFor===id ? `<div class="kmenu" role="menu"><button role="menuitem" class="kitem danger" data-discard="${id}">${I.trash} Discard task</button></div>` : ''}</div>`;
 }
 function openCard(id){
-  const pk=cards.find(x=>x.id===id); if(pk && pk.planning){ ui.planning=pk.planning; ui.win=true; ui.pop=false; render(); return; } ui.win=true; ui.view='board'; ui.sel=id; ui.pop=false; ui.side=false; render(); }
+  const pk=cards.find(x=>x.id===id); if(pk && pk.planning){ ui.planning=pk.planning; ui.win=true; ui.pop=false; render(); return; } if(ui.view==='today'||ui.view==='home') ui.returnTo=ui.view; ui.win=true; ui.view='board'; ui.sel=id; ui.pop=false; ui.side=false; render(); }
 
 /* ---------- "Hey lalo" voice capture (simulated) ---------- */
 const PHRASES = [
@@ -2211,13 +2298,13 @@ document.addEventListener('click', e=>{
   if(t.dataset.discard){ const k=cards.find(x=>x.id===t.dataset.discard); if(k){ if(ui.view==='catchup' && !ui.sel){ ui.cq=ui.cq.filter(id=>id!==k.id); } discardTask(k); } return; }
   if(ui.menuFor){ ui.menuFor=null; renderWin(); }
   if(t.dataset.voice){ ui.hinted=true; render(); startVoice(); return; }
-  if(t.id==='spark'){ openPop(); return; }
+  if(t.id==='spark'){ ui.hinted=true; ui.pop=false; ui.win=true; ui.view='today'; ui.sel=null; render(); return; }
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
   if(t.dataset.open){ ui.ask=false; if(ui.planning && ui.planning.started) ui.planning=null; openCard(t.dataset.open); return; }
-  if(t.dataset.go){ ui.boardSec=null; ui.ask=false; ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
+  if(t.dataset.go){ ui.returnTo=null; ui.boardSec=null; ui.ask=false; ui.meetOpen=false; ui.win=true; ui.view=t.dataset.go; ui.sel=null; ui.pop=false; ui.side=false; render(); return; }
   if(t.hasAttribute('data-close')){ if(ui.phone){ ui.view='board'; ui.sel=null; } else { ui.win=false; ui.sel=null; } render(); return; }
   if(t.hasAttribute('data-side')){ ui.side=!ui.side; renderWin(); return; }
-  if(t.hasAttribute('data-unsel')){ ui.sel=null; renderWin(); return; }
+  if(t.hasAttribute('data-unsel')){ ui.sel=null; if(ui.returnTo){ ui.view=ui.returnTo; ui.returnTo=null; } renderWin(); return; }
   if(t.id==='recpill'){ ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=ui.rec&&ui.rec.id; ui.pop=false; render(); return; }
   if(t.dataset.actRec){ if(ui.rec){ ui.win=true; ui.view='meetings'; ui.meet=ui.rec.id; ui.pop=false; render(); } else startRec(); return; }
   if(t.dataset.actStop){ stopRec(); return; }
@@ -2273,6 +2360,21 @@ document.addEventListener('click', e=>{
   if(t.dataset.sigmode){ ui.sigMode=t.dataset.sigmode; renderWin(); return; }
   if(t.dataset.sigdismiss){ const x=[...signals.market,...signals.users].find(y=>y.id===t.dataset.sigdismiss); x.state='Dismissed'; renderWin(); toast("Dismissed. lalo will show fewer signals like this.", {label:'Undo', fn:()=>{ delete x.state; renderWin(); }}); return; }
   if(t.dataset.sigtask){ const x=[...signals.market,...signals.users].find(y=>y.id===t.dataset.sigtask); x.state='Task created'; startPlanning(x.task); return; }
+  if(t.dataset.tdclear){ ui.todayQA=null; renderWin(); return; }
+  if(t.dataset.todaydo){ const k=cards.find(x=>x.id===t.dataset.todaydo); if(k) actWithSplash(k, ()=>cuApprove(k), {stay:true}); return; }
+  if(t.dataset.preread){ const p=cards.find(x=>x.id==='c4');
+    const d={ id:'c'+(uid++), col:'need', kind:'draft', src:'Calendar · 1:1 with Sara', title:'Send Sara a pre-read for Tuesday', type:'reply', pri:1, why:'Your 1:1 is Tuesday',
+      draft:{ to:'Sara', ctx:'Your <b>1:1 with Sara</b> is Tuesday at 2pm. This pre-read sets up the three talking points from your prep.',
+        v:{ base:"Hi Sara, ahead of Tuesday: I'd love to talk about getting you unblocked on the checkout API (Payments is changing it next sprint), how your work ties to our Q4 checkout goal, and whether you'd like to own the November launch. Anything you want to add?",
+            shorter:"Hi Sara, for Tuesday: unblocking the checkout API, the Q4 checkout goal, and owning the November launch. Anything to add?",
+            warmer:"Hi Sara! Looking forward to Tuesday. A few things I'd love to cover: getting you unblocked on the checkout API, how much your work matters for Q4, and whether you'd like to lead the November launch. Add anything you want to talk about.",
+            direct:"Sara, agenda for Tuesday: 1. Checkout API blocker (Payments is changing it). 2. Q4 checkout goal. 3. Owning the November launch." },
+        cur:'base', commit:'', chat:[] } };
+    cards.unshift(d); if(p) p.preread=d.id; openCard(d.id); toast('Pre-read drafted. Approve it to send.'); return; }
+  if(t.dataset.learn){ const [id,ans]=t.dataset.learn.split('|'); const l=learnings.find(x=>x.id===id);
+    if(ans==='yes'){ l.state='saved'; (profile[l.sec]=profile[l.sec]||[]).unshift(l.line); toast('Saved to your profile.'); }
+    else { l.state='no'; toast("Got it. I won't do that."); }
+    renderWin(); return; }
   if(t.dataset.ptab){ ui.ptab=t.dataset.ptab; renderPop(); return; }
   if(t.dataset.more){ ui.more = ui.more || {}; ui.more[t.dataset.more] = !ui.more[t.dataset.more]; render(); return; }
   if(t.dataset.uprec){ const u=upcoming.find(x=>x.id===t.dataset.uprec); u.rec=!u.rec; if(!u.rec) u.why='You turned recording off for this one.'; render(); toast(u.rec ? 'lalo will record '+u.title+'.' : 'lalo won\'t record '+u.title+'.'); return; }
@@ -2353,7 +2455,16 @@ document.addEventListener('submit', e=>{
   }
   if(e.target.id==='homeForm'){
     const v=(ui.homeDraft||'').trim(); if(!v){ document.getElementById('homeIn').focus(); return; }
-    ui.homeDraft=''; ui.homeSug=''; ui.ask=true; askSend(v); return;
+    ui.homeDraft=''; ui.homeSug='';
+    if(SMALLTALK.test(v) || QWORDS.test(v) || /\?\s*$/.test(v)){
+      ui.todayQA={q:v, thinking:true}; renderWin();
+      setTimeout(()=>{ let a, links=[];
+        if(SMALLTALK.test(v)) a = /thank|thx/i.test(v) ? 'Anytime.' : "Hi! Ask me anything about your work, or tell me something to do.";
+        else { const r=lalAnswer(v); a=r.t; links=r.links||[]; }
+        ui.todayQA={q:v, a, links}; renderWin(); }, 750);
+      return;
+    }
+    startPlanning(v); return;
   }
   if(e.target.id==='askForm'){
     const inp=document.getElementById('askIn'); const v=inp.value.trim();
@@ -2436,8 +2547,8 @@ const PHONE = window.matchMedia('(max-width: 600px)');
 function applyPhone(){
   ui.phone = PHONE.matches;
   document.body.classList.toggle('phone', ui.phone);
-  if(ui.phone){ ui.pop=false; ui.hinted=true; ui.win=true; if(!ui._phoneInit) ui.view='home'; ui._phoneInit=true; }
-  else if(ui.view==='home'){ ui.view='board'; }
+  if(ui.phone){ ui.pop=false; ui.hinted=true; ui.win=true; if(!ui._phoneInit || ui.view==='today') ui.view='home'; ui._phoneInit=true; }
+  else if(ui.view==='home') { ui.view='today'; }
 }
 applyPhone();
 try{ PHONE.addEventListener('change', ()=>{ applyPhone(); render(); }); }catch(_){}
