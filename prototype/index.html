@@ -818,8 +818,8 @@ body.phone input,body.phone textarea,body.phone select{font-size:16px!important}
     </div>
   </header>
 
-  <div class="hint" id="hint">Just say <b>"Hey lalo…"</b> from anywhere, or click the spark.
-    <button class="trybtn" data-voice="1"><span aria-hidden="true" id="i-mic-hint"></span> Try "Hey lalo"</button></div>
+  <div class="hint" id="hint">See what matters today. Click the spark, or say <b>"Hey lalo"</b> anytime.
+    <button class="trybtn" data-opentoday="1"><span aria-hidden="true" id="i-mic-hint"></span> Open Today</button></div>
   <div class="wordmark" aria-hidden="true">lalo<small>Say "Hey lalo" and tell it anything. It starts on the parts it can do.</small></div>
   <div id="voiceMount" aria-live="polite"></div>
 
@@ -864,7 +864,7 @@ const I = {
 document.getElementById('i-spark').innerHTML = I.spark;
 document.getElementById('i-wifi').innerHTML = I.wifi;
 document.getElementById('i-batt').innerHTML = I.batt;
-document.getElementById('i-mic-hint').innerHTML = I.mic;
+document.getElementById('i-mic-hint').innerHTML = I.spark;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const S = (t, who, st, sub) => ({t, who, st: st || 'todo', sub: sub || ''});
@@ -2298,6 +2298,7 @@ document.addEventListener('click', e=>{
   if(t.dataset.discard){ const k=cards.find(x=>x.id===t.dataset.discard); if(k){ if(ui.view==='catchup' && !ui.sel){ ui.cq=ui.cq.filter(id=>id!==k.id); } discardTask(k); } return; }
   if(ui.menuFor){ ui.menuFor=null; renderWin(); }
   if(t.dataset.voice){ ui.hinted=true; render(); startVoice(); return; }
+  if(t.dataset.opentoday){ ui.hinted=true; ui.pop=false; ui.win=true; ui.view='today'; ui.sel=null; render(); return; }
   if(t.id==='spark'){ ui.hinted=true; ui.pop=false; ui.win=true; ui.view='today'; ui.sel=null; render(); return; }
   if(t.id==='micBtn'){ ui.pop=false; render(); startVoice(); return; }
   if(t.dataset.open){ ui.ask=false; if(ui.planning && ui.planning.started) ui.planning=null; openCard(t.dataset.open); return; }
