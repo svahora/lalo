@@ -734,6 +734,14 @@ body.phone input,body.phone textarea,body.phone select{font-size:16px!important}
 .sig-quotes{display:flex;flex-direction:column;gap:4px;border-left:3px solid var(--line-strong);padding-left:10px;font-size:13px;color:var(--fg-2);font-style:italic}
 .sig .ins-foot .btn{height:32px}
 @media (max-width:600px){.sig-watch{flex-wrap:wrap}.sig-time{width:100%;padding-left:24px}}
+.newtask{display:flex;align-items:center;gap:8px;margin:12px 18px 0;padding:6px 6px 6px 14px;border:1.5px solid var(--line-strong);border-radius:14px;background:var(--panel)}
+.newtask:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.nt-plus svg{width:18px;height:18px;color:var(--accent);display:block}
+.newtask input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:14px;height:34px;outline:none}
+.newtask input::placeholder{color:var(--fg-3)}
+.nt-key{font-family:var(--mono);font-size:11px;color:var(--fg-3);border:1px solid var(--line-strong);border-radius:5px;padding:1px 6px}
+.newtask:focus-within .nt-key{display:none}
+.newtask .btn.cta{height:34px;border-radius:10px}
 .opt{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px}
 .opt .p{font-family:var(--mono);font-size:13px}
 .opt small{display:block;color:var(--fg-2);font-size:12px}
@@ -820,6 +828,7 @@ const I = {
   dots:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>',
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
   radar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
   repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 014-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 01-4 4H4"/></svg>',
   menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 };
@@ -999,6 +1008,7 @@ function renderWin(){
   const oldChange = document.getElementById('changeIn'); const changeVal = oldChange ? oldChange.value : ''; const changeFocus = oldChange && document.activeElement === oldChange;
   const oldChat = document.getElementById('chatIn'); const chatVal = oldChat ? oldChat.value : '';
   const chatFocus = (oldChat && document.activeElement === oldChat) || ui._chatFocus; ui._chatFocus = false;
+  const oldNt = document.getElementById('ntIn'); const ntVal = oldNt ? oldNt.value : ''; const ntFocus = oldNt && document.activeElement===oldNt;
   const oldP = document.getElementById('pIn'); const pVal = oldP ? oldP.value : ''; const pFocus = oldP && document.activeElement===oldP;
   const oldPT = document.getElementById('pThread'); const pScrollTop = oldPT ? oldPT.scrollTop : null;
   const pNearBottom = oldPT ? (oldPT.scrollHeight - oldPT.scrollTop - oldPT.clientHeight < 80) : true;
@@ -1034,6 +1044,7 @@ function renderWin(){
   const tl = document.getElementById('trLive'); if(tl) tl.scrollTop = tl.scrollHeight;
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
   const cp = document.getElementById('capIn'); if(cp){ cp.value = capVal; if(capFocus) cp.focus(); }
+  { const nt=document.getElementById('ntIn'); if(nt){ nt.value=ntVal; if(ntFocus) nt.focus(); } }
   { const pi=document.getElementById('pIn'); if(pi){ pi.value=pVal; if(pFocus) pi.focus(); } const pt=document.getElementById('pThread'); if(pt){ if(pNearBottom) pt.scrollTop=pt.scrollHeight; else if(pScrollTop!==null) pt.scrollTop=pScrollTop; } }
   const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
   { const hi=document.getElementById('homeIn'); if(hi) fitTalk(hi); }
@@ -1084,6 +1095,13 @@ function filterSheet(){
   const row=(t,label,icon,n)=>`<button class="fs-row" data-type="${t}" aria-pressed="${ui.type===t}">${icon}<span class="grow">${label}</span><span class="lh-n">${n}</span>${ui.type===t?I.check:''}</button>`;
   return `<div class="fs-scrim" data-filtersheet="0"></div><div class="fsheet" role="dialog" aria-label="Filter by type"><div class="fs-grab"></div><b>Show</b>
     ${row('all','All tasks',I.board,cards.length)}${Object.keys(TYPES).filter(t=>tc[t]).map(t=>row(t,TYPES[t][0],I[TYPES[t][1]],tc[t])).join('')}</div>`;
+}
+function newTaskBar(){
+  return `<form class="newtask" id="ntForm" autocomplete="off"><span class="nt-plus">${I.plus}</span>
+    <label class="sr" for="ntIn">Add a task</label>
+    <input id="ntIn" placeholder="Add a task, like &quot;Prep for Thursday's launch review&quot;">
+    <kbd class="nt-key" title="Press N to add a task">N</kbd>
+    <button class="btn cta" type="submit">Add task</button></form>`;
 }
 function boardSummary(){
   const sec=(key,label,mark,empty)=>{
@@ -1144,7 +1162,7 @@ function boardHTML(c){
     Object.keys(TYPES).filter(t=>tc[t]).map(t=>`<button class="chip" data-type="${t}" aria-pressed="${ui.type===t}">${I[TYPES[t][1]]} ${TYPES[t][0]} <span class="n">${tc[t]}</span></button>`).join('')}</div>`;
   if(ui.phone) return taskList();
   if(ui.phone) return filters + `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
-  return head('Board', `${c.work} working · ${c.need} need you`, c.need && !ui.phone ? `<button class="btn cta" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + filters +
+  return head('Board', `${c.work} working · ${c.need} need you`, c.need && !ui.phone ? `<button class="btn" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + newTaskBar() + filters +
     `<div class="board" data-keep="board">${col('work','Agent working','work')}${col('need','Needs you','need')}${col('done','Done','done')}</div>`;
 }
 
@@ -2326,6 +2344,13 @@ document.addEventListener('submit', e=>{
   if(e.target.id==='capForm'){ const v=document.getElementById('capIn').value; if(!v.trim()){ ui.err='Type something first'; renderPop(); return; }
     if(SMALLTALK.test(v.trim())){ document.getElementById('capIn').value=''; toast("Hi! Tell me something to do, or ask a question."); return; } document.getElementById('capIn').value=''; startPlanning(v); }
   if(e.target.id==='pForm'){ const inp=document.getElementById('pIn'); const v=inp.value.trim(); if(!v){ inp.focus(); return; } inp.value=''; pSend(v); const n=document.getElementById('pIn'); if(n) n.focus(); return; }
+  if(e.target.id==='ntForm'){
+    const inp=document.getElementById('ntIn'); const v=inp.value.trim();
+    if(!v){ inp.focus(); inp.placeholder='Type a task first'; return; }
+    inp.value='';
+    if(SMALLTALK.test(v)){ toast("Hi! Tell me something to do and we'll plan it."); return; }
+    startPlanning(v); return;
+  }
   if(e.target.id==='homeForm'){
     const v=(ui.homeDraft||'').trim(); if(!v){ document.getElementById('homeIn').focus(); return; }
     ui.homeDraft=''; ui.homeSug=''; ui.ask=true; askSend(v); return;
@@ -2376,6 +2401,10 @@ document.addEventListener('input', e=>{
   } if(e.target.id==='capIn' && ui.err){ ui.err=''; const er=document.querySelector('.err'); if(er) er.outerHTML='<div class="caphelp">Type here, or just say <b>"Hey lalo…"</b> anytime. Tasks, reminders, or "every Friday, summarize #design".</div>'; } });
 function fitTalk(t){ t.style.height='auto'; t.style.height=Math.min(t.scrollHeight, 120)+'px'; t.closest('.talkpill').classList.toggle('multi', t.scrollHeight>30); }
 document.addEventListener('keydown', e=>{
+  if((e.key==='n'||e.key==='N') && !e.metaKey && !e.ctrlKey && !e.altKey && !(e.target.closest && e.target.closest('input,textarea')) && ui.win && !ui.phone && !ui.planning){
+    if(ui.view!=='board'){ ui.view='board'; ui.sel=null; render(); }
+    const nt=document.getElementById('ntIn'); if(nt){ e.preventDefault(); nt.focus(); } return;
+  }
   if(e.target.id==='homeIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('homeForm').requestSubmit(); return; }
   if(e.target.id==='talkIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('talkForm').requestSubmit(); return; }
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
