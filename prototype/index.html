@@ -221,6 +221,18 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .md a{color:var(--accent-ink)}
 .note-in{display:block;width:100%;box-sizing:border-box;min-height:160px;resize:vertical;border:1.5px solid var(--accent);box-shadow:0 0 0 3px var(--accent-bg);border-radius:10px;padding:10px 12px;background:var(--panel);color:var(--fg);font-family:var(--mono);font-size:var(--fs-sm);line-height:1.6;outline:none}
 .notes-acts{display:flex;align-items:center;gap:8px;margin-top:8px}
+.mq-intro{margin:0 0 8px;font-size:var(--fs-sm);color:var(--fg-2)}
+.mq-thread{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.mq-a{white-space:pre-line}
+.mq-q{margin:8px 0 0;padding:6px 10px;border-left:2px solid var(--accent);background:var(--panel);border-radius:0 8px 8px 0;font-size:var(--fs-sm);line-height:1.45;color:var(--fg)}
+.mq-q b{font-weight:600;margin-right:6px}
+.mq-q small{display:block;margin-top:2px;font-size:var(--fs-2xs);color:var(--fg-3)}
+.mq-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.mq-chips .chip{height:28px;font-size:var(--fs-xs)}
+.mq-foot{flex:none;padding:10px 18px 14px;border-top:1px solid var(--line);background:var(--panel)}
+.mq-foot .mq-pill{width:100%;height:52px;min-height:52px;align-items:center;padding-top:0;padding-bottom:0;box-shadow:none}
+body.phone .mq-foot{position:absolute;z-index:6;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));bottom:calc(24px + env(safe-area-inset-bottom,0px));padding:0;border:0;background:transparent}
+body.phone .mq-foot .mq-pill{height:54px;min-height:54px;border-radius:27px;padding:0 6px 0 18px;box-shadow:0 8px 24px rgba(0,0,0,.14)}
 .li:first-of-type{border-top:0}
 .li .from{font-size:var(--fs-2xs);color:var(--fg-3);white-space:nowrap;font-family:var(--mono)}
 .tip{background:var(--accent-bg);color:var(--accent-ink);border-radius:10px;padding:10px 12px;font-size:var(--fs-sm);margin-top:12px}
@@ -273,6 +285,46 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .mitem[aria-current="true"]{background:var(--panel-3)}
 .mitem b{font-weight:500}
 .mitem small{color:var(--fg-3);font-size:var(--fs-xs);display:flex;gap:6px;align-items:center}
+.meet-page{flex:1;min-height:0;overflow:auto}
+.meet-page .mlist{border:0;overflow:visible;max-width:600px;margin:0 auto;padding:12px 18px 24px}
+.meet-page.open{padding-right:460px}
+.m-h{margin:14px 6px 8px;font-family:var(--display);font-size:var(--fs-lg);font-weight:500;letter-spacing:-.02em}
+.mlist>.m-h:first-child{margin-top:4px}
+.mcal{border:1px solid var(--line);border-radius:16px;background:var(--panel-2);overflow:hidden;margin-bottom:8px}
+.mday{display:grid;grid-template-columns:124px minmax(0,1fr);gap:8px;padding:12px 10px 12px 16px}
+.mday+.mday{border-top:1px dashed var(--line-strong)}
+.md-date{display:flex;align-items:flex-start;gap:8px;padding-top:6px}
+.md-date b{font-family:var(--display);font-size:var(--fs-2xl);font-weight:500;line-height:1;letter-spacing:-.03em}
+.md-date span{display:flex;flex-direction:column;font-size:var(--fs-xs);line-height:1.3}
+.md-date i{font-style:normal;color:var(--fg);display:flex;align-items:center;gap:5px}
+.md-date small{color:var(--fg-3);font-size:var(--fs-xs)}
+.md-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+.md-evs{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mev{display:flex;align-items:center;gap:6px;border-radius:10px}
+.mev:hover,.mev.cur{background:var(--panel-3)}
+.mev-main{flex:1;min-width:0;display:flex;align-items:stretch;gap:12px;border:0;background:transparent;text-align:left;padding:8px 6px;color:var(--fg)}
+.mev-bar{flex:none;width:3px;border-radius:2px;background:var(--line-strong)}
+.mev.rec .mev-bar{background:var(--switch-on)}
+.mev-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.mev-body>b{font-size:var(--fs-base);font-weight:500}
+.mev-body>small{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:var(--fs-sm);color:var(--fg-2);font-variant-numeric:tabular-nums}
+.ap{font-size:var(--fs-2xs);letter-spacing:.02em}
+.md-empty{display:flex;align-items:stretch;gap:12px;padding:10px 6px;color:var(--fg-3);font-size:var(--fs-base);min-height:22px}
+.mpast{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:10px;color:var(--fg)}
+.mpast:hover,.mpast[aria-current="true"]{background:var(--panel-2)}
+.m-av{flex:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:#fff;font-weight:600;font-size:var(--fs-base)}
+.mp-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mp-body b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mp-body small{font-size:var(--fs-xs);color:var(--fg-3)}
+.mp-time{flex:none;font-size:var(--fs-sm);color:var(--fg-2);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:6px}
+body.phone .mday,.meet-page.open .mday{grid-template-columns:1fr;gap:4px;padding:12px 10px}
+body.phone .md-date,.meet-page.open .md-date{padding:0 6px}
+.m-when{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:var(--fs-sm);color:var(--fg-2)}
+.mw-cd{flex:none;display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:12px;background:var(--accent);color:#fff;font-size:var(--fs-xs);font-weight:600;white-space:nowrap}
+.mw-cd.sm{height:20px;padding:0 8px;font-size:var(--fs-2xs);margin-left:auto;background:var(--accent-bg);color:var(--accent-ink)}
+.m-mind{display:flex;gap:6px;align-items:flex-start;margin-top:4px;font-size:var(--fs-xs);color:var(--fg-2);line-height:1.4}
+.m-mind svg{flex:none;width:12px;height:12px;margin-top:2px;color:var(--accent)}
+.meet-page .mitem{padding:11px 12px}
 .mup{display:flex;align-items:center;border-radius:9px}
 .mup .mitem{flex:1;min-width:0}
 .mup:hover,.mup.cur{background:var(--panel-2)}
@@ -768,11 +820,59 @@ body.phone input,body.phone textarea,body.phone select{font-size:var(--fs-md)!im
 .sig-who{font-weight:600;font-size:var(--fs-sm)}
 .sig-quotes{display:flex;flex-direction:column;gap:4px;border-left:3px solid var(--line-strong);padding-left:10px;font-size:var(--fs-sm);color:var(--fg-2);font-style:italic}
 .sig .ins-foot .btn{height:32px}
+.sg{gap:10px}
+.sg>*{flex-shrink:0}
+.sg-h{margin:14px 0 0;font-family:var(--display);font-size:var(--fs-lg);font-weight:500;letter-spacing:-.02em;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;scroll-margin-top:12px}
+.sg-h small{font-family:var(--body);font-size:var(--fs-xs);color:var(--fg-3);letter-spacing:0}
+.sg-jump{display:flex;gap:6px;flex-wrap:wrap}
+.sg-jump .chip{height:28px;font-size:var(--fs-xs);display:inline-flex;align-items:center;gap:5px}
+.sg-jump .n{font-family:var(--mono);color:var(--fg-3)}
+.pulse{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pt{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.pt-k{font-size:var(--fs-xs);color:var(--fg-2);font-weight:500}
+.pt-row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.pt-v{font-family:var(--display);font-size:var(--fs-xl);font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.pt-v small{font-family:var(--body);font-size:var(--fs-xs);color:var(--fg-3);margin-left:2px}
+.pt-spark{width:100%;max-width:132px;height:36px;flex:1 1 auto;min-width:60px}
+.pt-d{font-size:var(--fs-xs);color:var(--fg-2)}
+.pt-d.up{color:var(--ok)} .pt-d.down{color:var(--hot)}
+.pt-n{font-size:var(--fs-xs);color:var(--fg-3);display:flex;align-items:center;gap:6px}
+.tag.muted{background:var(--panel-3);color:var(--fg-2)}
+.tag.hot{background:var(--hot-bg);color:var(--hot)}
+.th-count{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-xs);color:var(--fg-2)}
+.th-count b{font-family:var(--mono);color:var(--fg);font-weight:600}
+.th-bars{width:56px;height:24px;display:block}
+.sig-quotes small{font-style:normal;color:var(--fg-3);font-size:var(--fs-xs);margin-left:4px}
+.th-more summary{cursor:pointer;font-size:var(--fs-xs);color:var(--fg-2);font-weight:500;margin-bottom:6px}
+.th-comp{display:flex;align-items:flex-start;gap:8px;border:0;background:var(--accent-bg);color:var(--fg);border-radius:8px;padding:8px 10px;text-align:left;font-size:var(--fs-sm)}
+.th-comp svg{flex:none;width:15px;height:15px;color:var(--accent);margin-top:2px}
+.th-comp b{font-weight:600;margin-right:4px;color:var(--accent-ink)}
+.th-link{align-self:flex-start;border:0;background:transparent;padding:0;color:var(--accent-ink);font-size:var(--fs-xs);font-weight:500;text-decoration:underline;text-underline-offset:2px}
+.sig.flash{animation:flash 1.4s ease-out}
+.wl{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.wl-row{display:flex;gap:12px;align-items:flex-start;padding:12px 14px}
+.wl-row+.wl-row{border-top:1px solid var(--line)}
+.wl-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.wl-body b{font-weight:500}
+.wl-body small{font-size:var(--fs-xs);color:var(--fg-3)}
+.wl-q{font-size:var(--fs-sm);color:var(--fg-2);margin-top:2px}
+.wl-hint{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:var(--fs-xs);color:var(--accent-ink)}
+.wl-hint svg{width:12px;height:12px;color:var(--accent)}
+.wl-acts{display:flex;gap:6px;flex:none}
+.wl-acts .btn{height:30px;font-size:var(--fs-xs)}
+@media (max-width:760px){.pulse{grid-template-columns:minmax(0,1fr)}.wl-row{flex-direction:column}}
+body.phone .pulse{grid-template-columns:minmax(0,1fr)}
+body.phone .wl-row{flex-direction:column}
 @media (max-width:600px){.sig-watch{flex-wrap:wrap}.sig-time{width:100%;padding-left:24px}}
-.newbtn{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:0 8px 0 10px;height:34px;border-radius:9px;border:0;background:var(--accent);color:#fff;font-size:var(--fs-sm);font-weight:600;text-align:left}
+.newbtn{display:flex;align-items:center;gap:8px;margin:0 0 6px;padding:0 8px 0 10px;height:34px;border-radius:9px;border:0;background:var(--accent);color:#fff;font-size:var(--fs-sm);font-weight:600;text-align:left}
 .newbtn svg{width:16px;height:16px}
 .newbtn kbd{font-family:var(--mono);font-size:var(--fs-2xs);font-weight:500;background:rgba(255,255,255,.2);border-radius:5px;padding:1px 6px}
 .newbtn:hover{filter:brightness(1.08)}
+.cubtn{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:0 8px 0 10px;height:34px;border-radius:9px;border:1px solid var(--accent);background:var(--accent-bg);color:var(--accent-ink);font-size:var(--fs-sm);font-weight:600;text-align:left}
+.cubtn svg{width:16px;height:16px}
+.cubtn .cu-n{font-family:var(--mono);font-size:var(--fs-2xs);font-weight:600;min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center}
+.cubtn.clear{border-color:var(--line);background:transparent;color:var(--fg-3)}
+.cubtn:hover{filter:brightness(.97)}
 .cmp-scrim{position:absolute;inset:0;z-index:20;background:rgba(10,8,25,.28)}
 .cmp{position:absolute;z-index:21;top:14%;left:50%;transform:translateX(-50%);width:min(560px,calc(100% - 48px));background:var(--panel);border:1px solid var(--line-strong);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.25);padding:12px;display:flex;flex-direction:column;gap:10px;animation:drop .16s ease-out}
 .cmp-pill{margin:0;width:auto;height:52px;min-height:52px;padding:0 6px 0 14px;align-items:center;gap:10px;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
@@ -1131,11 +1231,10 @@ function renderDock(){
     `<button class="dk-app lalo ${ui.win?'running':''} ${ui.hinted?'':'bounce'}" data-dock="lalo" aria-label="Open lalo"><span class="dk-tip">lalo</span>${tile('#5A3BEA','<path d="M29 12l4.6 13.4L47 30l-13.4 4.6L29 48l-4.6-13.4L11 30l13.4-4.6z" fill="#fff"/><path d="M46 40l2 5.5 5.5 2-5.5 2-2 5.5-2-5.5-5.5-2 5.5-2z" fill="#fff"/>')}${counts().need?`<i class="dk-badge">${counts().need}</i>`:''}<span class="dk-dot"></span></button>`;
 }
 
-function meetTime(str){ const m=/(\d+):(\d+)(am|pm)/.exec(str); if(!m) return null; let h=+m[1]%12; if(m[3]==='pm') h+=12; const d=new Date(); d.setHours(h, +m[2], 0, 0); return d; }
 function popRecap(){
   const now=new Date(), h=now.getHours(); const c=counts();
   const need=cards.filter(k=>k.col==='need').sort(byPri);
-  const nextM=upcoming.map(u=>({u, t:meetTime(u.time)})).filter(x=>x.t && x.t>now).sort((a,b)=>a.t-b.t)[0];
+  const nextM=upcoming.map(u=>({u, t:u.at})).filter(x=>x.t>now).sort((a,b)=>a.t-b.t)[0];
   const mins = nextM ? Math.round((nextM.t-now)/60000) : null;
   const when = mins==null ? '' : mins<60 ? `in ${mins} min` : `at ${nextM.u.time}`;
   const open = h<12 ? "Here's your morning." : h<17 ? "Here's where things stand." : "Before you wrap up:";
@@ -1157,7 +1256,7 @@ function homeBody(){
         ${n>1 ? `<button class="pr-next" data-popnext="1" aria-label="Next item">Next ${I.back.replace('M15 5l-7 7 7 7','M9 5l7 7-7 7')}</button>` : ''}</div>
     </div>` : `<p class="pr-tip">${esc(r.tip)}</p>`;
   const now=new Date();
-  const meets = upcoming.map(u=>({u, t:meetTime(u.time)})).filter(x=>!x.t || x.t>now).slice(0,4);
+  const meets = todayMeets().filter(u=>u.at>now).map(u=>({u, t:u.at})).slice(0,4);
   const v = ui.capDraft||'';
   return `
     <form class="talkpill pr-pill" id="capForm" autocomplete="off">
@@ -1170,7 +1269,7 @@ function homeBody(){
       <div class="pr-line">${esc(r.line)}</div>
       ${item}
     </div>
-    ${meets.length ? `<div class="sec"><h3><span>Today's meetings</span><span>${meets.length}</span></h3>${meets.map(x=>`<div class="uprow"><button class="row" data-meet-open="${x.u.id}"><span class="time">${esc(x.u.time)}</span><span class="t">${esc(x.u.title)}</span></button>${recTog(x.u)}</div>`).join('')}</div>` : `<div class="sec"><h3><span>Today's meetings</span></h3><div class="empty">No more meetings today</div></div>`}
+    ${meets.length ? `<div class="sec"><h3><span>Today's meetings</span><span>${meets.length}</span></h3>${meets.map((x,i)=>`<div class="uprow"><button class="row" data-meet-open="${x.u.id}"><span class="time">${esc(x.u.time)}</span><span class="t">${esc(x.u.title)}</span>${i===0?`<span class="mw-cd sm">${cd(x.u,'pill')}</span>`:''}</button>${recTog(x.u)}</div>`).join('')}</div>` : `<div class="sec"><h3><span>Today's meetings</span></h3><div class="empty">No more meetings today</div></div>`}
     ${ui.err ? `<div class="err">${esc(ui.err)}</div>` : ''}
     <div class="popfoot"><button class="btn pri" data-go="today">${I.spark} Open lalo</button></div>`;
 }
@@ -1202,6 +1301,7 @@ function renderWin(){
   const oldAsk = document.getElementById('askIn'); const askVal = oldAsk ? oldAsk.value : ''; const askFocus = (oldAsk && document.activeElement === oldAsk) || ui._askFocus; ui._askFocus=false;
   const oldCu = document.getElementById('talkIn'); const cuVal = oldCu ? oldCu.value : ''; const cuFocus = (oldCu && document.activeElement === oldCu) || ui._cuFocus; ui._cuFocus=false;
   const cmpFocus = document.activeElement && document.activeElement.id==='cmpIn' || ui._cmpFocus; ui._cmpFocus=false;
+  const oldMq = document.getElementById('mqIn'); const mqVal = oldMq ? oldMq.value : ''; const mqFocus = (oldMq && document.activeElement===oldMq) || ui._mqFocus; ui._mqFocus=false;
   const oldNote = document.getElementById('noteIn'); const noteSel = oldNote && document.activeElement===oldNote ? [oldNote.selectionStart, oldNote.selectionEnd, oldNote.scrollTop] : null; const noteFocus = ui._noteFocus; ui._noteFocus=false;
   const oldCap = document.getElementById('capIn'); const capVal = oldCap ? oldCap.value : ''; const capFocus = oldCap && document.activeElement === oldCap;
   const winAnim = !m.firstElementChild; const drAnim = ui.sel !== renderWin.lastSel; renderWin.lastSel = ui.sel;
@@ -1210,6 +1310,7 @@ function renderWin(){
       <div class="lights"><button class="c" data-close aria-label="Close window"></button><button class="m" data-close aria-label="Minimize"></button><button class="z" aria-label="Zoom" tabindex="-1"></button></div>
       <div class="brand">${I.spark} lalo</div>
       <button class="newbtn" data-compose="1">${I.plus}<span class="grow">New task</span><kbd>N</kbd></button>
+      <button class="cubtn ${c.need?'':'clear'}" data-catchup="1" aria-label="Catch up, ${c.need} need you">${c.need?I.stack:I.check}<span class="grow">${c.need?'Catch up':'All caught up'}</span>${c.need?`<span class="cu-n">${c.need}</span>`:''}</button>
       <button class="nav" data-go="today" ${ui.view==='today'?'aria-current="page"':''}>${I.home} Today</button>
       <button class="nav" data-go="board" ${ui.view==='board'?'aria-current="page"':''}>${I.board} Board <span class="c">${c.need+c.work}</span></button>
       <button class="nav" data-go="meetings" ${ui.view==='meetings'?'aria-current="page"':''}>${I.mic} Meetings ${ui.rec?'<span class="c"><span class="recdot" style="display:inline-block"></span></span>':`<span class="c">${meetings.length}</span>`}</button>
@@ -1223,7 +1324,7 @@ function renderWin(){
       ${ui.view==='home' || ui.view==='today' ? todayHTML() : ui.view==='board' ? boardHTML(c) : ui.view==='meetings' ? meetingsHTML() : ui.view==='insights' ? insightsHTML() : ui.view==='signals' ? signalsHTML() : ui.view==='done' ? donePage() : ui.view==='catchup' ? boardHTML(c) : profileHTML()}
       ${ui.sel && ui.view==='board' ? drawerHTML(cards.find(k=>k.id===ui.sel), drAnim) : ''}
     </div>
-    ${ui.phone && !ui.ask && ui.view!=='catchup' ? `<div class="askbar">
+    ${ui.phone && !ui.ask && ui.view!=='catchup' && !(ui.view==='meetings' && ui.meetOpen && meetings.some(m=>m.id===ui.meet && m.status==='done')) ? `<div class="askbar">
       <div class="askpill"><button class="askopen" data-ask="1"><span>Ask or tell lalo anything</span></button><button class="pillmic" data-voice="1" aria-label="Say Hey lalo">${I.mic}</button></div>
       <button class="askcu" data-reviewnext="1" aria-label="Review the next item, ${c.need} need you">${c.need ? c.need : I.check}</button></div>` : ''}
     ${ui.ask ? askHTML() : ''}
@@ -1239,6 +1340,8 @@ function renderWin(){
   { const pi=document.getElementById('pIn'); if(pi){ pi.value=pVal; if(pFocus) pi.focus(); } const pt=document.getElementById('pThread'); if(pt){ if(pNearBottom) pt.scrollTop=pt.scrollHeight; else if(pScrollTop!==null) pt.scrollTop=pScrollTop; } }
   const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; syncAct('askAct', askVal); if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
   { const hi=document.getElementById('homeIn'); if(hi) fitTalk(hi); }
+  { const mi=document.getElementById('mqIn'); if(mi){ mi.value=mqVal; document.getElementById('mqAct').classList.toggle('send', !!mqVal.trim()); if(mqFocus) mi.focus(); }
+    if(ui._mqScroll){ ui._mqScroll=false; const sc=document.querySelector('.mdrawer .dbody, .mdetail.meet-phone'); if(sc) sc.scrollTop=sc.scrollHeight; } }
   { const ni=document.getElementById('noteIn'); if(ni){ fitNote(ni); if(noteSel){ ni.focus(); ni.setSelectionRange(noteSel[0], noteSel[1]); ni.scrollTop=noteSel[2]; } else if(noteFocus){ ni.focus(); ni.setSelectionRange(ni.value.length, ni.value.length); } } }
   { const ce=document.getElementById('cmpIn'); if(ce && cmpFocus){ ce.focus(); ce.setSelectionRange(ce.value.length, ce.value.length); } }
   { const cu=document.getElementById('talkIn'); if(cu){ fitTalk(cu); if(cuFocus){ cu.focus(); cu.setSelectionRange(cu.value.length, cu.value.length); } } const b=document.getElementById('cuBody'); if(b && cuFocus) b.scrollTop=b.scrollHeight; }
@@ -1357,8 +1460,8 @@ function todayCards(){
       ctaAttr: p.act==='do' ? `data-todaydo="${k.id}"` : `data-open="${k.id}"`, alt: p.act==='do' ? ['Open', `data-open="${k.id}"`] : null });
   });
   const sig=signals.users.find(x=>x.hot && !x.state);
-  if(sig) out.push({ key:'sig', open:'data-go="signals"', icon:I.radar, kind:'Signal', brief:`${sig.theme.toLowerCase()} complaints doubled this week`,
-    say:`${sig.theme}: ${sig.n} mentions in #website-support, ${sig.trend}. Want me to look into it?`, cta:'Plan a fix', ctaAttr:`data-sigtask="${sig.id}"`, alt:['See signals','data-go="signals"'] });
+  if(sig) out.push({ key:'sig', open:'data-go="signals"', icon:I.radar, kind:'Signal', brief:`${sig.short||sig.theme.toLowerCase()} are rising this week`,
+    say:`${sig.theme}: ${sig.weeks[3]} mentions this week, up from ${sig.weeks[2]}. Want me to look into it?`, cta:'Plan a fix', ctaAttr:`data-sigtask="${sig.id}"`, alt:['See signals','data-go="signals"'] });
   return out;
 }
 function todayHTML(){
@@ -1376,7 +1479,8 @@ function todayHTML(){
       <div class="td-acts"><button class="td-cta" ${x.ctaAttr}>${esc(x.cta)}</button>${x.alt?`<button class="btn ghost" ${x.alt[1]}>${esc(x.alt[0])}</button>`:''}</div>
     </article>`).join('') + (list.length>4 ? `<button class="more" data-more="today">${ui.more&&ui.more.today?'Show less':'Show all '+list.length}</button>` : '');
   const learn = learnings.filter(l=>!l.state || l.state==='saved').map(l=>`<div class="td-learn">${I.spark}<span class="grow">${esc(l.t)}</span>${l.state==='saved'?'<span class="tag ok">Saved to profile</span>':`<button class="iconbtn" data-learn="${l.id}|yes" aria-label="Yes, keep this">${I.check}</button><button class="iconbtn" data-learn="${l.id}|no" aria-label="No, that's wrong">${I.x}</button>`}</div>`).join('');
-  const meet = upcoming.slice(0,3).map(u=>`<div class="td-meet"><button class="row" data-meet-open="${u.id}"><span class="time">${esc(u.time)}</span><span class="t">${esc(u.title)}</span></button>${recTog(u)}</div>`).join('');
+  const nxt = nextMeeting();
+  const meet = todayMeets().slice(0,3).map(u=>`<div class="td-meet"><button class="row" data-meet-open="${u.id}"><span class="time">${esc(u.time)}</span><span class="t">${esc(u.title)}</span>${u===nxt?`<span class="mw-cd sm">${cd(u,'pill')}</span>`:''}</button>${recTog(u)}</div>`).join('');
   const newSig = signals.users.filter(x=>x.hot&&!x.state).length + signals.market.filter(x=>x.fresh&&!x.state).length;
   return `<div class="today" data-keep="today"><div class="td-wrap">
     <div class="td-hero"><div class="td-hello">${I.spark}<span>${hello}, Soheb</span></div><h1>${esc(brief)}</h1>${topList}</div>
@@ -1387,7 +1491,7 @@ function todayHTML(){
     ${learn ? `<div class="wl-label">Getting to know you</div><div class="td-learns">${learn}</div>` : ''}
     <div class="td-links">
       <button data-go="board">${I.board}<span>Tasks</span><b>${c.need+c.work}</b></button>
-      <button data-go="meetings">${I.cal}<span>Meetings</span><b>${upcoming.length}</b></button>
+      <button data-go="meetings">${I.cal}<span>Meetings</span><b>${todayMeets().length}</b></button>
       <button data-go="signals">${I.radar}<span>Signals</span><b>${newSig}</b></button>
       <button data-go="insights">${I.bulb}<span>Insights</span><b>${insights.personal.filter(x=>!x.state).length}</b></button>
     </div>
@@ -1414,7 +1518,7 @@ function boardHTML(c){
     Object.keys(TYPES).filter(t=>tc[t]).map(t=>`<button class="chip" data-type="${t}" aria-pressed="${ui.type===t}">${I[TYPES[t][1]]} ${TYPES[t][0]} <span class="n">${tc[t]}</span></button>`).join('')}</div>`;
   if(ui.phone) return taskList();
   if(ui.phone) return filters + `<div class="board" data-keep="board">${col('need','Needs you','need')}${col('work','Agent working','work')}${col('done','Done','done')}</div>`;
-  return head('Board', `${c.work} working · ${c.need} need you`, c.need && !ui.phone ? `<button class="btn" data-catchup="1">${I.stack} Catch up (${c.need})</button>` : '') + filters +
+  return head('Board', `${c.work} working · ${c.need} need you`) + filters +
     `<div class="board" data-keep="board">${col('need','Needs you','need')}<div class="colstack">${col('work','Agent working','work')}${col('done','Done','done')}</div></div>`;
 }
 
@@ -1623,28 +1727,83 @@ function capped(key, items, renderItem, emptyHTML){
 
 /* ---------- meetings ---------- */
 const upcoming = [
-  { id:'u1', title:'Checkout launch sync', time:'2:00pm', people:'Jordan, Ana, Ravi, you', rec:true },
-  { id:'u2', title:'Weekly product review', time:'3:30pm', people:'Product team, 9 people', rec:true },
-  { id:'u3', title:'Interview: senior designer', time:'4:30pm', people:'Candidate, Ana, you', rec:false, why:'Interviews are off by default' },
-  { id:'u4', title:'Ads planning', time:'5:00pm', people:'Imani, Theo, you', rec:true },
-  { id:'u5', title:'Coffee chat with Priya', time:'5:30pm', people:'Priya, you', rec:false, why:'Coffee chats are off by default' }
+  { id:'u1', title:'Checkout launch sync', time:'2:00pm', people:'Jordan, Ana, Ravi, you', rec:true, mind:'Jordan is still waiting on the Nov 3 date. Your draft proposes Nov 10.' },
+  { id:'u2', title:'Weekly product review', time:'3:30pm', people:'Product team, 9 people', rec:true, mind:'Saved payment methods is the top ask in #product-feedback this week (9 mentions).' },
+  { id:'u3', title:'Interview: senior designer', time:'4:30pm', people:'Candidate, Ana, you', rec:false, why:'Interviews are off by default', mind:'Ana wants your read on systems thinking. The portfolio link is in the invite.' },
+  { id:'u4', title:'Ads planning', time:'5:00pm', people:'Imani, Theo, you', rec:true, mind:'Ad spend is 18% over plan this month. Theo will likely ask about the Q4 budget.' },
+  { id:'u5', title:'Coffee chat with Priya', time:'5:30pm', people:'Priya, you', rec:false, why:'Coffee chats are off by default', mind:'Priya just moved to the payments team. Ask how her first month is going.' },
+  { id:'u6', title:'Launch go/no-go', day:1, h:9, mi:0, dur:30, people:'Jordan, Ravi, Ana, Theo, you', rec:true, mind:'QA sign-off is due Tuesday. Ravi needs a yes or no on the Wednesday release.' },
+  { id:'u7', title:'Payments roadmap', day:1, h:10, mi:30, dur:45, people:'Ravi, Priya, you', rec:true, mind:'Sara is blocked on the checkout API. Ask Ravi who owns it.' },
+  { id:'u8', title:'Hiring sync', day:1, h:14, mi:0, dur:30, people:'Ana, Imani, you', rec:true, mind:'Two finalists for senior designer. Ana leans toward the second one.' }
 ];
+/* Meeting times are set relative to when the prototype opens, so there is always a next meeting */
+const fmtTime = d => { let h=d.getHours()%12||12; return h+':'+String(d.getMinutes()).padStart(2,'0')+(d.getHours()<12?'am':'pm'); };
+const fmtRange = (d, dur) => { const e=new Date(+d+dur*60000), a=fmtTime(d), b=fmtTime(e); return a.slice(-2)===b.slice(-2) ? a.slice(0,-2)+'–'+b : a+'–'+b; };
+(()=>{ const start=new Date(Math.ceil((Date.now()+20*60000)/(15*60000))*15*60000);
+  [[0,30],[90,45],[150,45],[180,30],[210,30]].forEach(([off,dur],i)=>{ const u=upcoming[i]; u.at=new Date(+start+off*60000); u.dur=dur; u.time=fmtTime(u.at); });
+  upcoming.filter(u=>u.day).forEach(u=>{ const d=new Date(); d.setDate(d.getDate()+u.day); d.setHours(u.h,u.mi,0,0); u.at=d; u.time=fmtTime(d); }); })();
+const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+const todayMeets = () => upcoming.filter(u=>sameDay(u.at,new Date()) && +u.at+u.dur*60000>Date.now()).sort((a,b)=>a.at-b.at);
+const ap = t => t.replace(/(am|pm)$/, m=>` <span class="ap">${m.toUpperCase()}</span>`);
+const rangeH = (d, dur) => { const e=new Date(+d+dur*60000), a=fmtTime(d), b=fmtTime(e); return a.slice(-2)===b.slice(-2) ? esc(a.slice(0,-2))+' – '+ap(b) : ap(a)+' – '+ap(b); };
+function peopleShort(str){
+  if(/\d+ people/.test(str)) return str;
+  const p=str.split(/,\s*/).filter(x=>x.toLowerCase()!=='you');
+  if(!p.length) return 'Just you';
+  return p.length<=2 ? p.join(' & ') : `${p[0]}, ${p[1]} & ${p.length-2} other${p.length>3?'s':''}`;
+}
+const AV_COLORS = ['#5a3bea','#2458c4','#2f9e55','#c2412d','#b7791f','#6f45c9','#0e7490'];
+function avatar(str){
+  const n=(str.split(/,\s*/).find(x=>x.toLowerCase()!=='you')||'You').trim(); const c=AV_COLORS[[...n].reduce((a,ch)=>a+ch.charCodeAt(0),0)%AV_COLORS.length];
+  return `<span class="m-av" style="background:${c}" aria-hidden="true">${esc(n.charAt(0).toUpperCase())}</span>`;
+}
+function cdText(at, dur, mode){
+  const min=Math.ceil((at-Date.now())/60000);
+  if(min<=0) return min>-dur ? (mode==='small'?'live':mode==='big'?'Now':'Now') : (mode==='small'?'':'Ended');
+  const h=Math.floor(min/60), m=min%60;
+  if(mode==='big') return h ? h+'h'+(m?' '+m+'m':'') : String(min);
+  if(mode==='small') return h ? 'to go' : (min===1?'min':'mins');
+  return 'in '+(h ? h+' hr'+(m?' '+m+' min':'') : min+' min');
+}
+const cd = (u, mode) => `<span data-cd="${+u.at}|${u.dur}|${mode}">${cdText(u.at,u.dur,mode)}</span>`;
+const nextMeeting = () => upcoming.filter(u=>+u.at+u.dur*60000>Date.now()).sort((a,b)=>a.at-b.at)[0];
+setInterval(()=>document.querySelectorAll('[data-cd]').forEach(el=>{ const [at,dur,mode]=el.dataset.cd.split('|'); el.textContent=cdText(+at,+dur,mode); }), 15000);
 function recTog(u){ return `<button class="rectog ${u.rec?'on':''}" data-uprec="${u.id}" role="switch" aria-checked="${u.rec}" aria-label="Record ${esc(u.title)}" title="${u.rec?'Recording on':'Recording off'}"></button>`; }
 const meetings = [
-  { id:'m1', title:'Design review', when:'Today · 11:00am', dur:'32 min', people:'Ana, Theo, Ravi, you', status:'done',
+  { id:'m1', title:'Design review', ago:3*60, dur:'32 min', people:'Ana, Theo, Ravi, you', status:'done',
     summary:['Agreed on the new empty state for mobile receipts','Saved cards will show at checkout for signed-in users','Design tokens should be reused in emails'],
     decisions:['Ship saved cards before the email work'],
     actions:[ {t:"Turn today's decisions into tickets", o:'You', type:'plan', added:'c5'},
               {t:'Share the new empty state with support', o:'You', type:'reply'},
               {t:'Fix empty state on mobile receipts', o:'Theo', type:'build'} ],
-    transcript:[['Ana','Let\'s start with the receipts screen on mobile.'],['Theo','The empty state is just a blank card right now.'],['You','Can we reuse the illustration from the web version?'],['Ravi','Yes, the tokens already match.']] },
-  { id:'m2', title:'1:1 with Sara', when:'Last Tue · 2:00pm', dur:'28 min', people:'Sara, you', status:'done',
+    asks:['What did we decide?',"Who's doing what?",'Why are emails waiting?'],
+    qa:[[/email/, 'Emails wait because the team can\'t do both before the launch. Ravi suggested saved cards first, and Ana noted emails can reuse the same tokens later.', [9,10]],
+        [/guest/, 'Saved cards are for signed-in users only for now. Guests need a different consent flow.', [6,7]]],
+    transcript:[['Ana','Let\'s start with the receipts screen on mobile.'],['Theo','The empty state is just a blank card right now. People think the page is broken.'],['You','Can we reuse the illustration from the web version?'],['Ravi','Yes, the tokens already match, so it\'s mostly a copy change.'],
+      ['Ana','Then saved cards. Signed-in users should see them at checkout.'],['Theo','Guests too?'],['Ana','No, signed-in only for now. Guests need a different consent flow.'],
+      ['You','What about the email redesign? Marketing asked for it this month.'],['Ravi','We can\'t do both before the launch. I\'d ship saved cards first.'],['Ana','Agreed. Emails can reuse the same design tokens later, so nothing is wasted.'],
+      ['You','Okay, saved cards first, emails after. I\'ll turn this into tickets.'],['Theo','I\'ll take the empty state fix on mobile receipts. Should be about two days.'],
+      ['Ana','Can someone tell support about the new empty state? They get tickets about it.'],['You','I\'ll share it with support once Theo\'s fix is on staging.']] },
+  { id:'m2', title:'1:1 with Sara', ago:8*24*60, dur:'28 min', people:'Sara, you', status:'done',
     summary:['Sara is blocked on the checkout API','She wants to own a launch end to end'],
     decisions:['Revisit ownership of the November launch next week'],
     actions:[ {t:'Introduce Sara to the Payments team', o:'You', type:'reply'},
               {t:'Send Sara the Q4 goals doc', o:'You', type:'reply', added:'sent'} ],
-    transcript:[['Sara','I\'ve been waiting on the API for about a week.'],['You','Who on Payments have you talked to?'],['Sara','Nobody yet, I wasn\'t sure who owns it.']] }
+    asks:['Why is Sara blocked?','What does Sara want next?','What did I promise her?'],
+    qa:[[/block|wait|api|stuck/, 'Sara has waited about a week on the checkout API. She hadn\'t talked to Payments because she wasn\'t sure who owns it.', [1,3]],
+        [/want|next|goal|grow|career|launch/, 'Sara wants to own a launch end to end, not just the design side. You suggested the November launch and said you\'d revisit ownership next week.', [7,8]]],
+    transcript:[['Sara','I\'ve been waiting on the checkout API for about a week.'],['You','Who on Payments have you talked to?'],['Sara','Nobody yet, I wasn\'t sure who owns it.'],['You','That\'s Ravi\'s team. I\'ll introduce you today.'],
+      ['Sara','Thanks. Honestly the waiting has slowed the whole checkout work down.'],['You','Understood. What else is on your mind?'],['Sara','I\'d like to own a launch end to end, not just the design side.'],
+      ['You','The November launch could be a good fit. Let\'s revisit ownership next week.'],['Sara','Sounds good. Could you send me the Q4 goals doc too?'],['You','Yes, I\'ll send it right after this.']] },
+  { id:'m3', title:'Pricing page review', ago:26*60, dur:'24 min', people:'Imani, Jordan, you', status:'done',
+    summary:['The new pricing table tests better on mobile','Jordan wants the 0% fee message above the fold'],
+    decisions:['Move the fee message above the plans'],
+    actions:[ {t:'Update the pricing page copy', o:'Imani', type:'build'}, {t:'Send Jordan the test results', o:'You', type:'reply'} ],
+    asks:['What did we decide?',"Who's doing what?",'What did Jordan want?'],
+    transcript:[['Imani','The new table is clearer on mobile. Fewer people bounce.'],['Jordan','Competitors are pushing 0% fees. Ours should be above the fold.'],['You','So move the fee message above the plans?'],['Jordan','Yes, let\'s do that.'],['Imani','I\'ll update the copy this week.'],['You','I\'ll send Jordan the test results.']] }
 ];
+meetings.forEach(m=>{ if(m.ago!=null){ m.at=new Date(Date.now()-m.ago*60000); m.at.setMinutes(Math.floor(m.at.getMinutes()/15)*15,0,0); m.when=dayWord(m.at)+' · '+fmtTime(m.at); } });
+function dayWord(d){ const t=new Date(), y=new Date(), n=new Date(); y.setDate(t.getDate()-1); n.setDate(t.getDate()+1); return sameDay(d,t)?'Today':sameDay(d,y)?'Yesterday':sameDay(d,n)?'Tomorrow':d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
 const SCRIPT = [
   ['Jordan','Quick one. Where are we on the save-card toggle?'],
   ['You','The PR is up and lalo fixed the review comments this morning. It\'s on staging behind a flag.'],
@@ -1659,7 +1818,7 @@ function startRec(u){
   if(ui.rec) return;
   u = u || upcoming[0];
   if(u) upcoming.splice(upcoming.indexOf(u),1);
-  const m = { id:'m'+(uid++), title:u ? u.title : 'Untitled meeting', when:'Now', dur:'', people:u ? u.people : 'You', status:'live', transcript:[], summary:[], decisions:[], actions:[] };
+  const m = { id:'m'+(uid++), title:u ? u.title : 'Untitled meeting', when:'Now', at:new Date(), dur:'', people:u ? u.people : 'You', status:'live', transcript:[], summary:[], decisions:[], actions:[] };
   meetings.unshift(m);
   ui.rec = { id:m.id, t0:Date.now(), i:0 };
   ui.win=true; ui.view='meetings'; ui.meet=m.id; ui.meetOpen=true; ui.pop=false; ui.sel=null;
@@ -1707,6 +1866,49 @@ function addAction(m, a){
   cards.unshift(k); a.added=k.id;
 }
 
+const MQ_STOP = new Set('the and for with that this what who why how did does was were about from they them their there have has had you your our are can could would should said say says tell meeting any anything into just also when where which will been being its it\'s'.split(' '));
+function meetAnswer(m, q){
+  const lc=q.toLowerCase(), T=m.transcript;
+  const find = words => T.map((l,i)=>({l,i,sc:words.reduce((a,w)=>a+(l[1].toLowerCase().includes(w)?1:0),0)})).filter(x=>x.sc).sort((a,b)=>b.sc-a.sc||a.i-b.i);
+  const quote = x => [x.l[0], x.l[1], x.i+1];
+  const hit=(m.qa||[]).find(x=>x[0].test(lc) && !/promis|owe/.test(lc));
+  if(hit) return { t:hit[1], quotes:hit[2].map(n=>[T[n-1][0], T[n-1][1], n]) };
+  if(/summar|recap|tl;?dr|overview|key points|what happened/.test(lc)) return { t:'Here\'s the short version:\n'+m.summary.map(x=>'• '+x).join('\n') };
+  if(/decid|decision|agree|settle/.test(lc)){
+    const qs=find(['first','agreed','okay','decid','revisit']).slice(0,2).map(quote);
+    return { t: m.decisions.length ? (m.decisions.length>1?'You decided:\n'+m.decisions.map(x=>'• '+x).join('\n'):'You decided to '+m.decisions[0].charAt(0).toLowerCase()+m.decisions[0].slice(1)+'.') : 'No clear decision was made.', quotes:qs };
+  }
+  if(/action|follow|to-?do|next step|who.*(do|own|tak)|doing what|promis|owe/.test(lc)){
+    const mine=/promis|owe|\bi\b|\bme\b/.test(lc) && !/who/.test(lc);
+    const list=m.actions.filter(a=>!mine||a.o==='You');
+    return { t:(mine?'You said you would:\n':'Here\'s who owns what:\n')+list.map(a=>'• '+(mine?'':a.o+': ')+a.t).join('\n'),
+      quotes: T.map((l,i)=>({l,i})).filter(x=>/\bI\'ll\b/.test(x.l[1]) && (!mine||x.l[0]==='You')).slice(0,2).map(quote) };
+  }
+  const people=[...new Set(T.map(l=>l[0]))].filter(n=>n!=='You');
+  const who=people.find(n=>lc.includes(n.toLowerCase()));
+  const words=(lc.match(/[a-z0-9']+/g)||[]).filter(w=>w.length>2 && !MQ_STOP.has(w) && (!who || w!==who.toLowerCase())).map(w=>w.replace(/(ing|ed|es|s)$/,''));
+  let hits = words.length ? find(words) : [];
+  if(who) hits = (hits.length ? hits.filter(x=>x.l[0]===who) : []).concat(T.map((l,i)=>({l,i})).filter(x=>x.l[0]===who && !hits.some(h=>h.i===x.i))).slice(0,2);
+  else hits = hits.slice(0,2);
+  if(!hits.length) return { t:"I couldn't find that in the transcript. Try one of the questions above, or ask about something someone said." };
+  return { t: who ? `Here's what ${who} said:` : "Here's what was said:", quotes:hits.map(quote) };
+}
+function mqSend(m, v){
+  (m.chat||(m.chat=[])).push({f:'me', t:v}); m.thinking=true; ui._mqScroll=true; renderWin();
+  setTimeout(()=>{ const r=meetAnswer(m, v); m.chat.push({f:'lalo', t:r.t, quotes:r.quotes||[]}); m.thinking=false; ui._mqScroll=true; renderWin(); }, 700);
+}
+function mqHTML(m){
+  const chat=m.chat||[]; const asks=m.asks||['What did we decide?',"Who's doing what?",'Summarize it'];
+  return `<div class="dsec mq"><h3>Ask this meeting</h3>
+    ${chat.length ? `<div class="mq-thread">${chat.map(c=> c.f==='me' ? `<div class="fe fe-me"><div class="msg me">${esc(c.t)}</div></div>`
+      : `<div class="fe fe-lalo"><span class="fe-av">${I.spark}</span><div class="msg lalo"><span class="mq-a">${esc(c.t)}</span>${(c.quotes||[]).map(x=>`<blockquote class="mq-q"><b>${esc(x[0])}</b>${esc(x[1])}<small>Line ${x[2]}</small></blockquote>`).join('')}</div></div>`).join('')}${m.thinking?TYPING:''}</div>`
+      : `<p class="mq-intro">Ask anything about what was said. Answers quote the transcript.</p>`}
+    <div class="mq-chips">${asks.map(a=>`<button class="chip" data-mqask="${m.id}|${esc(a)}">${esc(a)}</button>`).join('')}</div></div>`;
+}
+function mqFoot(m){
+  return `<div class="mq-foot"><form class="talkpill mq-pill" id="mqForm" data-mid="${m.id}" autocomplete="off"><label class="sr" for="mqIn">Ask about this meeting</label>
+    <input id="mqIn" placeholder="Ask about ${esc(m.title)}"><button type="submit" class="talkact" id="mqAct" aria-label="Send">${I.up}</button></form></div>`;
+}
 function saveNotes(){
   const m=meetings.find(x=>x.id===ui.noteEdit); if(!m) return;
   const v=ui.noteDraft.replace(/\s+$/,''); if(v!==noteMd(m)){ m.notes=v; m.edited=true; }
@@ -1717,22 +1919,34 @@ function meetingsHTML(){
   if(!ui.meet || !(meetings.find(m=>m.id===ui.meet) || upcoming.find(u=>u.id===ui.meet))) ui.meet = meetings[0] && meetings[0].id;
   const m = meetings.find(x=>x.id===ui.meet);
   const up = upcoming.find(x=>x.id===ui.meet);
+  const cur = ui.meetOpen ? ui.meet : null;
+  const nx = nextMeeting();
+  const days=[0,1].map(off=>{ const d=new Date(); d.setDate(d.getDate()+off); return d; });
+  const evRow = u => `<div class="mev ${u.rec?'rec':''} ${u.id===cur?'cur':''}"><button class="mev-main" data-meet="${u.id}" ${u.id===cur?'aria-current="true"':''}><span class="mev-bar"></span>
+      <span class="mev-body"><b>${esc(u.title)}</b><small>${rangeH(u.at,u.dur)}${u===nx?` <span class="mw-cd">${cd(u,'pill')}</span>`:''}</small>
+        ${u===nx && u.mind?`<span class="m-mind">${I.spark}<span>${esc(u.mind)}</span></span>`:''}</span></button>${recTog(u)}</div>`;
+  const dayBlock = (d, i) => { const evs=upcoming.filter(u=>sameDay(u.at,d) && +u.at+u.dur*60000>Date.now()).sort((a,b)=>a.at-b.at);
+    return `<div class="mday"><div class="md-date"><b>${d.getDate()}</b><span><i>${d.toLocaleDateString('en-US',{month:'long'})}${i===0?'<em class="md-dot"></em>':''}</i><small>${d.toLocaleDateString('en-US',{weekday:'short'})}</small></span></div>
+      <div class="md-evs">${evs.length ? evs.map(evRow).join('') : `<div class="md-empty"><span class="mev-bar"></span>No more meetings ${i===0?'today':'this day'}</div>`}</div></div>`; };
+  const past = meetings.slice().sort((a,b)=>(b.at||0)-(a.at||0));
+  const groups = []; past.forEach(x=>{ const g = x.at ? (dayWord(x.at).match(/^(Today|Yesterday)$/) ? dayWord(x.at) : 'Earlier') : 'Today'; let G=groups.find(y=>y[0]===g); if(!G) groups.push(G=[g,[]]); G[1].push(x); });
+  const pastRow = x => `<button class="mpast" data-meet="${x.id}" ${x.id===cur?'aria-current="true"':''}>${avatar(x.people)}<span class="mp-body"><b>${esc(x.title)}</b><small>${esc(peopleShort(x.people))}</small></span>
+      <span class="mp-time">${x.status==='live'?'<span class="recdot"></span> Recording':x.status==='processing'?'Writing notes…':(dayWord(x.at).match(/^(Today|Yesterday)$/) ? ap(fmtTime(x.at)) : esc(dayWord(x.at)))}</span></button>`;
   const list = `<nav class="mlist" aria-label="Meetings">
-    <div class="mgroup">Up next today</div>
-    ${capped('m-up', upcoming, x=>`<div class="mup ${x.id===ui.meet?'cur':''}"><button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
-      <b>${esc(x.title)}</b><small><span class="time" style="min-width:0">${esc(x.time)}</span> · ${x.rec?'<span style="color:var(--ok)">Will record</span>':'Won\'t record'}</small></button>${recTog(x)}</div>`, '<div class="empty">No more meetings today</div>')}
-    <div class="mgroup">Recorded</div>
-    ${capped('m-rec', meetings, x=>`<button class="mitem" data-meet="${x.id}" ${x.id===ui.meet?'aria-current="true"':''}>
-      <b>${esc(x.title)}</b><small>${x.status==='live'?'<span class="recdot"></span> Recording':x.status==='processing'?'Writing notes…':esc(x.when)+' · '+esc(x.dur)}</small></button>`)}</nav>`;
-  let d = '';
+    <h2 class="m-h">Coming up</h2>
+    <div class="mcal">${days.map(dayBlock).join('')}</div>
+    <h2 class="m-h">Past meetings</h2>
+    ${groups.map(([g,xs])=>`<div class="mgroup">${g}</div>${xs.map(pastRow).join('')}`).join('')}</nav>`;
+  let d = '', hd = null;
   if(up){
-    d += `<div class="mhead"><div class="grow"><h2>${esc(up.title)}</h2><small>Today · ${esc(up.time)} · ${esc(up.people)}</small></div></div>
-      <div class="dsec"><div class="sched ${up.rec?'':'off'}"><div class="sched-top">${I.mic}<div class="grow"><b>${up.rec?'lalo will record this meeting':'lalo won\'t record this meeting'}</b>
+    hd = [up.title, `${dayWord(up.at)} · ${fmtRange(up.at, up.dur)} · ${up.people}`];
+    d += `      <div class="dsec"><div class="m-when"><span class="mw-cd">${cd(up,'pill')}</span><span>${esc(fmtRange(up.at, up.dur))} · ${up.dur} min</span></div><div class="sched ${up.rec?'':'off'}"><div class="sched-top">${I.mic}<div class="grow"><b>${up.rec?'lalo will record this meeting':'lalo won\'t record this meeting'}</b>
         <small>${up.rec?'Recording starts when the call starts at '+esc(up.time)+' and stops when it ends. Notes and action items show up here after.':esc(up.why||'You turned recording off for this one.')}</small></div>${recTog(up)}</div>
-        ${!ui.rec?`<div class="acts"><button class="btn pri" data-rec-up="${up.id}">${I.mic} Start recording now</button></div>`:''}</div></div>`;
+        ${!ui.rec?`<div class="acts"><button class="btn pri" data-rec-up="${up.id}">${I.mic} Start recording now</button></div>`:''}</div></div>
+      ${up.mind?`<div class="dsec"><h3>Keep in mind</h3><div class="tip" style="margin-top:0">${esc(up.mind)}</div></div>`:''}`;
   }
   if(m){
-    d += `<div class="mhead"><div class="grow"><h2>${esc(m.title)}</h2><small>${esc(m.people)}${m.status==='done'?' · '+esc(m.when)+' · '+esc(m.dur):''}</small></div></div>`;
+    hd = [m.title, m.people + (m.status==='done' ? ' · '+m.when+' · '+m.dur : '')];
     if(m.status==='live'){
       d += `<div class="live"><span class="lbl"><span class="recdot"></span> Recording</span><span class="wave" aria-hidden="true">${Array.from({length:18},(_,i)=>`<i style="animation-delay:${(i*73%900)}ms"></i>`).join('')}</span>
         <button class="btn pri" data-act-stop="1">Stop and write notes</button>
@@ -1752,16 +1966,21 @@ function meetingsHTML(){
           ${m.actions.map((a,i)=>`<div class="action"><span class="type" title="${TYPES[a.type][0]}">${I[TYPES[a.type][1]]}</span><span class="tx">${esc(a.t)}<small>${a.o==='You'?'You':esc(a.o)} · ${TYPES[a.type][0]}</small></span>
             ${a.added ? (a.added==='sent' ? '<span class="tag ok">Done</span>' : `<button class="btn" data-open="${a.added}">${I.check} On board</button>`)
                       : `<button class="btn" data-add="${m.id}|${i}">${I.board} ${a.o==='You'?'Add to board':'Track follow-up'}</button>`}</div>`).join('')}</div>
-        <div class="dsec"><details class="trx"><summary>Transcript · ${m.transcript.length} lines</summary><div class="tr">${m.transcript.map(l=>`<p><b>${esc(l[0])}</b>${esc(l[1])}</p>`).join('')}</div></details></div>`;
+        <div class="dsec"><details class="trx"><summary>Transcript · ${m.transcript.length} lines</summary><div class="tr">${m.transcript.map(l=>`<p><b>${esc(l[0])}</b>${esc(l[1])}</p>`).join('')}</div></details></div>
+        ${mqHTML(m)}`;
     }
   }
+  const foot = m && m.status==='done' && ui.meetOpen ? mqFoot(m) : '';
   const recBtn = ui.rec ? '' : `<button class="btn mh-rec" data-act-rec="1">${I.mic} Record a new meeting</button>`;
   if(ui.phone){
     if(!ui.meetOpen) return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio', recBtn)
       + `<div class="meet-phone" data-keep="mlistp">${list}</div>`;
-    return `<div class="mdetail meet-phone" data-keep="mdetail">${d}</div>`;
+    return `<div class="mdetail meet-phone" data-keep="mdetail">${hd ? `<div class="mhead"><div class="grow"><h2>${esc(hd[0])}</h2><small>${esc(hd[1])}</small></div></div>` : ''}${d}</div>${foot}`;
   }
-  return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you', recBtn) + `<div class="meet">${list}<div class="mdetail" data-keep="mdetail">${d}</div></div>`;
+  const anim = ui.meetOpen && meetingsHTML.last!==ui.meet; meetingsHTML.last = ui.meetOpen ? ui.meet : null;
+  const drawer = ui.meetOpen && hd ? `<aside class="drawer mdrawer ${anim?'anim':''}" aria-label="Meeting detail"><div class="dhead"><div class="grow"><h2 style="margin-top:0">${esc(hd[0])}</h2><div class="meta" style="font-size:var(--fs-xs);margin-top:4px">${esc(hd[1])}</div></div><button class="iconbtn" data-meetback="1" aria-label="Close meeting">${I.x}</button></div>
+    <div class="dbody" data-keep="mdetail">${d}</div>${foot}</aside>` : '';
+  return head('Meetings', ui.rec ? 'Recording now' : 'Recorded from your computer audio. Notes and action items are written for you', recBtn) + `<div class="meet-page ${drawer?'open':''}" data-keep="mpage">${list}</div>` + drawer;
 }
 
 /* ---------- Ask lalo (global chat, phone) ---------- */
@@ -1776,7 +1995,7 @@ function lalAnswer(q){
     links:[['Draft tickets','data-open="c5"'],['Upcoming meetings','data-go="meetings"']] };
   if(/sara|1:1/.test(s)) return { t:"Your 1:1 with Sara is Tuesday at 2pm. She's blocked on the checkout API, and Payments is changing the same API next sprint. Your brief suggests connecting them and offering her the November launch.",
     links:[['Prep for 1:1 with Sara','data-open="c4"']] };
-  if(/meeting|calendar|today|schedule/.test(s) && !/need|waiting/.test(s)) return { t:'Today: '+upcoming.map(u=>`${u.time} ${u.title}${u.rec?'':' (not recording)'}`).join(', ')+'.',
+  if(/meeting|calendar|today|schedule/.test(s) && !/need|waiting/.test(s)) return { t:'Today: '+todayMeets().map(u=>`${u.time} ${u.title}${u.rec?'':' (not recording)'}`).join(', ')+'.',
     links:[['Open meetings','data-go="meetings"']] };
   if(/need|waiting|todo|to do|left|pending|me today/.test(s)) return { t: need.length ? `${need.length} things need you: `+need.map(k=>k.title).join('; ')+'.' : 'Nothing needs you right now.',
     links: need.length ? [['Catch up','data-catchup="1"']] : [] };
@@ -2077,52 +2296,104 @@ function insightCard(x, mode){
     </div></article>`;
 }
 /* ---------- signals: the market and your users ---------- */
+/* Signals mirror the weekly pulse routine: friction themes built from Slack mentions, competitor moves linked
+   to the theme they parallel, a weekly survey pulse, and a watchlist of single mentions not yet promoted. Example data. */
+const sigWeek = (()=>{ const t=new Date(); const mon=new Date(t); mon.setDate(t.getDate()-((t.getDay()+6)%7)-7); mon.setHours(0,0,0,0);
+  const f=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); const sun=new Date(+mon+6*864e5); const ran=new Date(+mon+7*864e5);
+  return { range:`${f(mon)}–${f(sun)}`, ran:f(ran), weeks:[5,4,3,2,1,0].map(i=>f(new Date(+mon-i*7*864e5))) }; })();
 const signals = {
+  pulse: [
+    { k:'Creating a campaign', v:[3.4,3.6,3.5,3.7,4.1,3.8], n:31 },
+    { k:'After publishing', v:[3.9,4.0,3.8,4.2,4.3,4.4], n:9 },
+    { k:'After the campaign ends', v:[3.0,3.2,2.9,3.1,3.4,2.6], n:5 }
+  ],
   market: [
-    { id:'s1', who:'Pledgely', what:'Cut their platform fee to 0% for registered nonprofits', when:'2 days ago', src:'Pricing page change',
-      why:'Your charity onboarding launches next month. Nonprofits comparing fees will see 0% vs. yours.', task:'Compare our nonprofit fees with Pledgely and draft a response', fresh:true },
-    { id:'s2', who:'Kindra', what:'Launched an AI campaign writer on every new fundraiser', when:'4 days ago', src:'Product blog and changelog',
-      why:"It's close to what Aya does. Their version skips the login wall that 64% of your Aya visitors hit.", task:'Review Kindra’s AI campaign writer against Aya and list gaps', fresh:true },
+    { id:'s1', who:'Pledgely', what:'Cut their platform fee to 0% for registered nonprofits', when:'2 days ago', src:'Pricing page change', theme:'t4',
+      why:'Fee confusion is already a new theme in your channels. Nonprofits comparing fees will now see 0% vs. yours.', task:'Compare our nonprofit fees with Pledgely and draft a response', fresh:true },
+    { id:'s2', who:'Kindra', what:'Launched an AI campaign writer on every new fundraiser', when:'4 days ago', src:'Product blog and changelog', theme:'t3',
+      why:'First-time creators keep asking for guidance. Kindra now writes the first draft for them.', task:'Review Kindra’s AI campaign writer against Aya and list gaps', fresh:true },
     { id:'s3', who:'Tandem Giving', what:'Raised a $12M Series A to expand recurring giving', when:'1 week ago', src:'News coverage',
       why:'Recurring is a focus for your Giving pod this quarter. Expect more marketing spend in that space.', task:'Brief the Giving pod on Tandem’s recurring push' },
-    { id:'s4', who:'App Store reviews', what:'6 new reviews mention Pledgely’s faster payouts', when:'This week', src:'App Store and Google Play',
-      why:'Payout speed shows up in your own support channel too. It may be becoming a reason to switch.', task:'Pull our payout times and compare with what reviewers say about Pledgely' }
+    { id:'s4', who:'App Store reviews', what:'6 new reviews mention Pledgely’s faster payouts', when:'This week', src:'App Store and Google Play', theme:'t1',
+      why:'Payout setup is your fastest-rising theme. Speed and simplicity there may become a reason to switch.', task:'Pull our payout setup times and compare with what reviewers say about Pledgely' }
   ],
   users: [
-    { id:'u1', theme:'Checkout fails on mobile Safari', n:23, trend:'2× this week', chans:['#website-support'],
-      quotes:['"Donate button just spins on my iPhone"','"Tried 3 times, card never went through"'], ticket:null, task:'Investigate checkout failures on mobile Safari', hot:true },
-    { id:'u2', theme:'Donors want to manage recurring gifts themselves', n:14, trend:'steady', chans:['#feedback','#website-support'],
-      quotes:['"How do I change my monthly amount?"','"I had to email support to pause my donation"'], ticket:'GIVE-301', task:'Scope self-serve recurring gift settings' },
-    { id:'u3', theme:'Unclear how long campaign approval takes', n:11, trend:'up 40%', chans:['#website-support'],
-      quotes:['"Submitted 3 days ago, still pending, no update"'], ticket:null, task:'Add approval time estimates and status updates for campaign creators' },
-    { id:'u4', theme:'Receipt emails landing in spam', n:8, trend:'new', chans:['#feedback'],
-      quotes:['"Found my tax receipt in junk"'], ticket:null, task:'Check receipt email deliverability and fix spam placement' }
+    { id:'t1', theme:'Payout account setup is confusing', short:'payout setup complaints', weeks:[2,3,4,6], trend:'Rising', hot:true, chans:['#feedback','#website-support'],
+      quotes:[['"Which entity do I pick if I\'m raising for a mosque?"','#website-support','Oct 24'],['"Stuck on the bank details step for two days"','#feedback','Oct 22'],['"Do I need a tax ID to get paid out?"','#website-support','Oct 20']],
+      ticket:null, task:'Map where creators get stuck in payout setup and propose fixes' },
+    { id:'t2', theme:'Campaign approval takes too long', weeks:[0,1,1,3], trend:'Rising', chans:['#website-support'],
+      quotes:[['"Submitted Friday, still pending, no update"','#website-support','Oct 23'],['"How long does review usually take?"','#feedback','Oct 21']],
+      ticket:null, task:'Add approval time estimates and status updates for campaign creators' },
+    { id:'t3', theme:'First-time creators need more guidance', weeks:[1,2,1,1], trend:'Steady', chans:['#feedback','Creation survey'],
+      quotes:[['"I didn\'t know what to write in the story section"','Creation survey','Oct 22']],
+      ticket:'GIVE-312', task:'Draft a guided first-campaign checklist' },
+    { id:'t4', theme:'Fees and payouts are hard to understand', weeks:[0,0,1,3], trend:'New', chans:['#feedback','#website-support'],
+      quotes:[['"Why did I receive less than the total raised?"','#feedback','Oct 24'],['"Where can I see the fee breakdown?"','#website-support','Oct 23']],
+      ticket:null, task:'Design a clear fee and payout breakdown for creators' },
+    { id:'t5', theme:'Receipt emails landing in spam', weeks:[2,1,1,0], trend:'Cooling', chans:['#feedback'],
+      quotes:[['"Found my tax receipt in junk"','#feedback','Oct 8']],
+      ticket:'GIVE-288', task:'Confirm the receipt deliverability fix held' }
+  ],
+  watch: [
+    { id:'w1', item:'Team members can\'t edit a shared campaign', n:2, chan:'#website-support', date:'Oct 23', quote:'"My co-organizer gets a permissions error"', suggest:true },
+    { id:'w2', item:'Campaign end date changes don\'t save', n:1, chan:'#feedback', date:'Oct 21', quote:'"I extended it twice and it went back to Friday"' },
+    { id:'w3', item:'Donor names with emoji break the CSV export', n:1, chan:'#website-support', date:'Oct 20', quote:'"The export shows ??? instead of names"' }
   ]
 };
+signals.users.forEach(x=>x.n=x.weeks.reduce((a,b)=>a+b,0));
+const sigVal = v => v.toFixed(1);
+function sparkSVG(v, labels){
+  const W=132, H=36, lo=Math.min(...v)-.2, hi=Math.max(...v)+.2, X=i=>4+i*(W-8)/(v.length-1), Y=x=>H-4-(x-lo)/(hi-lo)*(H-8);
+  return `<svg class="pt-spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="Last ${v.length} weeks: ${v.map(sigVal).join(', ')}">
+    <polyline points="${v.map((x,i)=>X(i)+','+Y(x)).join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${v.map((x,i)=>`<g class="sp-pt"><circle cx="${X(i)}" cy="${Y(x)}" r="10" fill="transparent"/><circle cx="${X(i)}" cy="${Y(x)}" r="${i===v.length-1?4:0}" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/><title>Week of ${labels[i]}: ${sigVal(x)}</title></g>`).join('')}</svg>`;
+}
+function barsSVG(w){
+  const max=Math.max(...w,1), W=56, H=24, bw=10, gap=(W-bw*w.length)/(w.length-1);
+  return `<svg class="th-bars" viewBox="0 0 ${W} ${H}" role="img" aria-label="Mentions per week: ${w.join(', ')}">${w.map((x,i)=>{ const h=Math.max(2, x/max*H);
+    return `<g><rect x="${i*(bw+gap)}" y="${H-h}" width="${bw}" height="${h}" rx="2" fill="var(--accent)" opacity="${i===w.length-1?1:.35}"/><title>${['3 weeks ago','2 weeks ago','Last week','This week'][i]}: ${x} mention${x===1?'':'s'}</title></g>`; }).join('')}</svg>`;
+}
 function signalsHTML(){
-  const mode = ui.sigMode || 'users';
-  const sw = `<div class="tabs ins-tabs" role="tablist" aria-label="Signals from">
-      <button class="tab" role="tab" data-sigmode="users" aria-selected="${mode==='users'}">${I.chat} Your users <span class="badge muted">${signals.users.filter(x=>!x.state).length}</span></button>
-      <button class="tab" role="tab" data-sigmode="market" aria-selected="${mode==='market'}">${I.radar} Market <span class="badge muted">${signals.market.filter(x=>!x.state).length}</span></button></div>`;
-  const watch = mode==='users'
-    ? `<div class="sig-watch">${I.radar}<span class="grow">Watching <b>#feedback</b> and <b>#website-support</b> · 56 messages this week</span><span class="sig-time">Updated 12 min ago</span></div>`
-    : `<div class="sig-watch">${I.radar}<span class="grow">Watching <b>Pledgely</b>, <b>Kindra</b>, <b>Tandem Giving</b>, news, and app reviews</span><span class="sig-time">Checked 1 hr ago</span></div>`;
+  const themes=signals.users.filter(x=>x.state!=='Dismissed'), moves=signals.market.filter(x=>x.state!=='Dismissed'), watch=signals.watch.filter(x=>!x.state);
   const act = x => x.state ? `<span class="tag ok">${esc(x.state)}</span>`
     : `<button class="btn cta" data-sigtask="${x.id}">${I.board} Make it a task</button><button class="btn ghost" data-sigdismiss="${x.id}">Dismiss</button>`;
-  const userCard = x => `<article class="ins sig">
-      <div class="ins-top">${x.hot?'<span class="tag you">Rising</span>':''}<span class="ins-dept">${x.chans.join(' · ')}</span><span class="grow"></span><span class="ins-imp">${x.n} mentions · ${esc(x.trend)}</span></div>
+  const TR={Rising:'hot',New:'ai',Steady:'muted',Cooling:'ok'};
+  const pulse = signals.pulse.map(m=>{ const last=m.v[m.v.length-1], prev=m.v.slice(-5,-1), avg=prev.reduce((a,b)=>a+b,0)/prev.length, d=last-avg;
+    return `<div class="pt"><div class="pt-k">${esc(m.k)}</div><div class="pt-row"><span class="pt-v">${sigVal(last)}<small>/5</small></span>${sparkSVG(m.v, sigWeek.weeks)}</div>
+      <div class="pt-d ${Math.abs(d)<.1?'':d>0?'up':'down'}">${Math.abs(d)<.1?'About the same as':d>0?`▲ ${sigVal(d)} above`:`▼ ${sigVal(-d)} below`} the 4-week average</div>
+      <div class="pt-n">${m.n} responses${m.n<10?' · <span class="tag muted">Small sample</span>':''}</div></div>`; }).join('');
+  const themeCard = x => { const mv=signals.market.find(m=>m.theme===x.id && m.state!=='Dismissed');
+    return `<article class="ins sig" id="sig-${x.id}">
+      <div class="ins-top"><span class="tag ${TR[x.trend]||'muted'}">${esc(x.trend)}</span><span class="ins-dept">${x.chans.map(esc).join(' · ')}</span><span class="grow"></span>
+        <span class="th-count">${barsSVG(x.weeks)}<span><b>${x.n}</b> in 4 weeks</span></span></div>
       <h3>${esc(x.theme)}</h3>
-      <div class="sig-quotes">${x.quotes.map(q=>`<div>${esc(q)}</div>`).join('')}</div>
-      <div class="ins-foot"><span class="ins-conf">${x.ticket?`Linked to ${esc(x.ticket)}`:'No ticket yet'}</span><span class="grow"></span>${act(x)}</div></article>`;
-  const marketCard = x => `<article class="ins sig">
+      <div class="sig-quotes"><div>${esc(x.quotes[0][0])} <small>${esc(x.quotes[0][1])} · ${esc(x.quotes[0][2])}</small></div></div>
+      ${x.quotes.length>1?`<details class="th-more"><summary>${x.quotes.length-1} more mention${x.quotes.length>2?'s':''}</summary><div class="sig-quotes">${x.quotes.slice(1).map(q=>`<div>${esc(q[0])} <small>${esc(q[1])} · ${esc(q[2])}</small></div>`).join('')}</div></details>`:''}
+      ${mv?`<button class="th-comp" data-sigjump="${mv.id}">${I.radar}<span><b>Competitor angle</b> ${esc(mv.who)}: ${esc(mv.what.charAt(0).toLowerCase()+mv.what.slice(1))}</span></button>`:''}
+      <div class="ins-foot"><span class="ins-conf">${x.ticket?`Linked to ${esc(x.ticket)}`:'No ticket yet'}</span><span class="grow"></span>${act(x)}</div></article>`; };
+  const moveCard = x => { const th=signals.users.find(t=>t.id===x.theme);
+    return `<article class="ins sig" id="sig-${x.id}">
       <div class="ins-top">${x.fresh?'<span class="tag ai">New</span>':''}<span class="sig-who">${esc(x.who)}</span><span class="grow"></span><span class="ins-dept">${esc(x.when)}</span></div>
       <h3>${esc(x.what)}</h3>
       <div class="ins-fix"><b>Why it matters</b> ${esc(x.why)}</div>
-      <div class="ins-foot"><span class="ins-conf">Source: ${esc(x.src)}</span><span class="grow"></span>${act(x)}</div></article>`;
-  const list = signals[mode].filter(x=>x.state!=='Dismissed');
-  return head('Signals', mode==='users' ? 'Themes from what your users are saying in Slack' : 'What your competitors and the market are doing')
-    + `<div class="insights" data-keep="sig">${sw}${watch}${capped('sig-'+mode, list, mode==='users'?userCard:marketCard, '<div class="empty">Nothing new right now</div>')}
-      <div class="ins-note">Example data. In the real app, lalo reads your Slack channels and checks competitor sites, news, and reviews on a schedule.</div></div>`;
+      ${th?`<button class="th-link" data-sigjump="${th.id}">Related theme: ${esc(th.theme)}</button>`:''}
+      <div class="ins-foot"><span class="ins-conf">Source: ${esc(x.src)}</span><span class="grow"></span>${act(x)}</div></article>`; };
+  const watchRow = x => `<div class="wl-row"><div class="wl-body"><b>${esc(x.item)}</b><small>${x.n} mention${x.n>1?'s':''} · ${esc(x.chan)} · ${esc(x.date)}</small><div class="wl-q">${esc(x.quote)}</div>
+      ${x.suggest?`<div class="wl-hint">${I.spark} Seen twice this week. Worth tracking as a theme?</div>`:''}</div>
+      <div class="wl-acts"><button class="btn" data-sigpromote="${x.id}">Make it a theme</button><button class="btn ghost" data-sigdrop="${x.id}">Drop</button></div></div>`;
+  const jump = `<div class="sg-jump">${[['pulse','How creators feel'],['themes','Themes',themes.length],['market','Competitors',moves.length],['watch','Watchlist',watch.length]].map(([k,l,n])=>`<button class="chip" data-sigjump="sec-${k}">${l}${n!=null?` <span class="n">${n}</span>`:''}</button>`).join('')}</div>`;
+  return head('Signals', 'Your weekly pulse from Slack, surveys, and competitors')
+    + `<div class="insights sg" data-keep="sig">
+      <div class="sig-watch">${I.radar}<span class="grow">Week of <b>${sigWeek.range}</b> · 6 Slack channels, 3 surveys, 10 competitors · 28-day window</span><span class="sig-time">Updated ${sigWeek.ran}</span></div>
+      ${jump}
+      <h2 class="sg-h" id="sig-sec-pulse">How creators feel</h2><div class="pulse">${pulse}</div>
+      <h2 class="sg-h" id="sig-sec-themes">Friction themes <small>Sorted by mentions in the last 4 weeks</small></h2>
+      ${themes.slice().sort((a,b)=>(b.promoted?1:0)-(a.promoted?1:0) || b.weeks[3]-a.weeks[3] || b.n-a.n).map(themeCard).join('') || '<div class="empty">No themes right now</div>'}
+      <h2 class="sg-h" id="sig-sec-market">Competitor moves</h2>
+      ${moves.map(moveCard).join('') || '<div class="empty">Nothing new right now</div>'}
+      <h2 class="sg-h" id="sig-sec-watch">Watchlist <small>Single mentions that aren't a theme yet</small></h2>
+      ${watch.length ? `<div class="wl">${watch.map(watchRow).join('')}</div>` : '<div class="empty">Nothing on the watchlist</div>'}
+      <div class="ins-note">Example data. In the real app, lalo reads your weekly signals database (themes, mentions, survey pulse, watchlist) and the Notion pages it syncs to.</div></div>`;
 }
 
 function insightsHTML(){
@@ -2544,7 +2815,11 @@ document.addEventListener('click', e=>{
   if(t.dataset.pskip!==undefined){ pSkip(+t.dataset.pskip); return; }
   if(t.dataset.pcancel){ const P=ui.planning; ui.planning=null; if(P && P.started){ if(ui.phone){ ui.view='board'; ui.jump='work'; } render(); return; } render(); toast("Saved in Needs you. Pick up the plan any time."); return; }
   if(t.dataset.pstart){ if(pNextQ()!==undefined){ toast('Answer or skip the question first.'); return; } pStart(); return; }
-  if(t.dataset.sigmode){ ui.sigMode=t.dataset.sigmode; renderWin(); return; }
+  if(t.dataset.sigjump){ const el=document.getElementById('sig-'+t.dataset.sigjump); if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); el.classList.remove('flash'); void el.offsetWidth; if(!t.dataset.sigjump.startsWith('sec-')) el.classList.add('flash'); } return; }
+  if(t.dataset.sigpromote){ const w=signals.watch.find(x=>x.id===t.dataset.sigpromote); w.state='promoted';
+    const th={ id:'t'+(uid++), theme:w.item, weeks:[0,0,0,w.n], n:w.n, trend:'New', promoted:true, chans:[w.chan], quotes:[[w.quote,w.chan,w.date]], ticket:null, task:'Look into: '+w.item };
+    signals.users.unshift(th); renderWin(); toast('Now tracked as a theme.', {label:'Undo', fn:()=>{ delete w.state; signals.users.splice(signals.users.indexOf(th),1); renderWin(); }}); return; }
+  if(t.dataset.sigdrop){ const w=signals.watch.find(x=>x.id===t.dataset.sigdrop); w.state='dropped'; renderWin(); toast('Dropped from the watchlist.', {label:'Undo', fn:()=>{ delete w.state; renderWin(); }}); return; }
   if(t.dataset.sigdismiss){ const x=[...signals.market,...signals.users].find(y=>y.id===t.dataset.sigdismiss); x.state='Dismissed'; renderWin(); toast("Dismissed. lalo will show fewer signals like this.", {label:'Undo', fn:()=>{ delete x.state; renderWin(); }}); return; }
   if(t.dataset.sigtask){ const x=[...signals.market,...signals.users].find(y=>y.id===t.dataset.sigtask); x.state='Task created'; startPlanning(x.task); return; }
   if(t.dataset.tdclear){ ui.todayQA=null; renderWin(); return; }
@@ -2570,10 +2845,11 @@ document.addEventListener('click', e=>{
   if(t.dataset.meetOpen){ ui.ask=false; ui.meetOpen=true; ui.win=true; ui.view='meetings'; ui.meet=t.dataset.meetOpen; ui.pop=false; ui.sel=null; render(); return; }
   if(t.dataset.recUp){ startRec(upcoming.find(x=>x.id===t.dataset.recUp)); return; }
   if(t.dataset.meetback){ ui.meetOpen=false; renderWin(); return; }
-  if(t.dataset.meet){ ui.meet=t.dataset.meet; ui.meetOpen=true; renderWin(); const md=document.querySelector('.mdetail'); if(md) md.scrollTop=0; return; }
+  if(t.dataset.meet){ ui.meet=t.dataset.meet; ui.meetOpen=true; renderWin(); const md=document.querySelector('.mdetail, .mdrawer .dbody'); if(md) md.scrollTop=0; return; }
   if(t.dataset.add){ const [mid,i]=t.dataset.add.split('|'); const m=meetings.find(x=>x.id===mid); addAction(m, m.actions[+i]); render(); toast('Added to the board. lalo is starting on it.'); return; }
   if(t.dataset.noteedit && !e.target.closest('a')){ const m=meetings.find(x=>x.id===t.dataset.noteedit); ui.noteEdit=m.id; ui.noteDraft=noteMd(m); ui._noteFocus=true; renderWin(); return; }
   if(t.dataset.notesave){ saveNotes(); return; }
+  if(t.dataset.mqask){ const [id,q]=[t.dataset.mqask.slice(0,t.dataset.mqask.indexOf('|')), t.dataset.mqask.slice(t.dataset.mqask.indexOf('|')+1)]; const m=meetings.find(x=>x.id===id); if(m && !m.thinking) mqSend(m, q); return; }
   if(t.dataset.notecancel){ ui.noteEdit=null; renderWin(); return; }
   if(t.dataset.addall){ const m=meetings.find(x=>x.id===t.dataset.addall); let n=0; m.actions.forEach(a=>{ if(a.o==='You' && !a.added){ addAction(m,a); n++; } }); render(); toast('Added '+n+' action items to the board.'); return; }
   if(t.dataset.type){ ui.type=t.dataset.type; ui.sel=null; ui.filterSheet=false; renderWin(); return; }
@@ -2641,6 +2917,10 @@ document.addEventListener('submit', e=>{
     if(QWORDS.test(v.trim()) || /\?\s*$/.test(v)){ document.getElementById('capIn').value=''; ui.pop=false; ui.win=true; ui.view='today'; ui.sel=null; ui.todayQA={q:v, thinking:true}; render();
       setTimeout(()=>{ const r=lalAnswer(v); ui.todayQA={q:v, a:r.t, links:r.links||[]}; renderWin(); }, 750); return; } document.getElementById('capIn').value=''; startPlanning(v); }
   if(e.target.id==='pForm'){ const inp=document.getElementById('pIn'); const v=inp.value.trim(); if(!v){ inp.focus(); return; } inp.value=''; pSend(v); const n=document.getElementById('pIn'); if(n) n.focus(); return; }
+  if(e.target.id==='mqForm'){
+    const m=meetings.find(x=>x.id===e.target.dataset.mid); const inp=document.getElementById('mqIn'); const v=inp.value.trim();
+    if(!v){ inp.focus(); return; } if(m.thinking) return; inp.value=''; ui._mqFocus=true; mqSend(m, v); return;
+  }
   if(e.target.id==='cmpForm'){
     const v=(ui.cmpDraft||'').trim();
     if(!v){ const i=document.getElementById('cmpIn'); i.placeholder='Type a task first'; i.focus(); return; }
@@ -2700,6 +2980,7 @@ document.addEventListener('input', e=>{
   }
   if(e.target.id==='noteIn'){ ui.noteDraft=e.target.value; fitNote(e.target); }
   if(e.target.id==='askIn') syncAct('askAct', e.target.value);
+  if(e.target.id==='mqIn') document.getElementById('mqAct').classList.toggle('send', !!e.target.value.trim());
   if(e.target.id==='cmpIn'){
     ui.cmpDraft=e.target.value; const has=!!e.target.value.trim(); const b=document.getElementById('cmpAct');
     if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Add task':'Say it'); }
@@ -2732,7 +3013,7 @@ document.addEventListener('keydown', e=>{
   if(e.target.id==='talkIn' && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); if(e.target.value.trim()) document.getElementById('talkForm').requestSubmit(); return; }
   if(e.altKey && (e.code==='Space')){ e.preventDefault(); openPop(); return; }
   if(ui.win && ui.view==='catchup' && !e.target.closest('input,textarea')){ if(e.key==='ArrowRight'){ cuDecide(1); return; } if(e.key==='ArrowLeft'){ cuDecide(-1); return; } }
-  if(e.key==='Escape'){ if(ui.compose){ ui.compose=false; renderWin(); } else if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
+  if(e.key==='Escape'){ if(ui.compose){ ui.compose=false; renderWin(); } else if(ui.win && ui.view==='meetings' && ui.meetOpen && !ui.phone){ ui.meetOpen=false; renderWin(); } else if(ui.pop){ ui.pop=false; render(); } else if(ui.sel){ ui.sel=null; renderWin(); } else if(ui.win){ ui.win=false; render(); } }
 });
 
 function clock(){ const d=new Date(); document.getElementById('clock').textContent = d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}); }
