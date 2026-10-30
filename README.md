@@ -1,5 +1,7 @@
 # lalo
 
+**Your customers got AI. Your product team got more meetings. Meet lalo.**
+
 A proactive work assistant that lives in the Mac menu bar. It reads your work across Slack, your calendar, meeting notes, Notion, Linear, and email. Then it tells you what matters today and gets the work ready before you ask.
 
 Tell it anything, and it turns it into a task with a plan. Each step is tagged:
