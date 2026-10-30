@@ -1,30 +1,60 @@
 # lalo
 
-A proactive assistant that lives in the Mac menu bar. Tell it anything, and it turns it into a task, breaks the task into steps, and does the steps it can.
+A proactive work assistant that lives in the Mac menu bar. It reads your work across Slack, your calendar, meeting notes, Notion, Linear, and email. Then it tells you what matters today and gets the work ready before you ask.
 
-Each step is tagged:
+Tell it anything, and it turns it into a task with a plan. Each step is tagged:
 
 - **AI**: lalo does it on its own.
 - **AI helps**: lalo drafts, researches, or prepares it, and you finish it.
 - **You**: a clear next action for you.
 
-Anything that goes out (sending a message, paying) always waits for you.
+Anything that goes out (a message, a comment, a report, a payment) always waits for your approval.
 
-## What's here
+## Try it
 
-`prototype/index.html` is a clickable prototype in one file. Open it in a browser. It uses example data only, and nothing is connected or sent.
+Open the prototype at [svahora.github.io/lalo/prototype](https://svahora.github.io/lalo/prototype/), or open `prototype/index.html` in a browser. It is one file and uses example data only. Nothing is connected or sent.
 
-It covers:
+The prototype opens as a **new user**, at the start of setup. To see the app as an **existing user**, use the **Prototype view** switch in the center of the menu bar. On a phone, the switch is at the bottom of Profile.
 
-- Quick capture from the menu bar (click the spark or press ⌥ Space)
-- A board with three columns: Working, Needs you, Done
-- Reply drafts, each with its own chat for changes
-- A personal errand (buying a stove) with questions, discounts, and a shortlist
-- 1:1 prep with context from other teams and a coaching tip
-- A profile of you that you can read and edit
-- Meetings: record from the menu bar, live transcript, notes, and action items you send to the board
-- Insights: personal ideas to save time, and an admin view of patterns across the organization
-- A phone layout with "Hey lalo" on the home screen
+## What's in the prototype
+
+### Getting started
+- **Setup in six steps:** welcome, connect your tools, watch lalo read in, confirm what it learned about you, choose how it checks in, then open Today.
+- **Get started checklist** on Today for new users: approve a draft, add a task, and try "Hey lalo".
+
+### Today
+- **The top three things** that matter today.
+- **Due today:** lalo drafts the work for you. For example, it suggests a comment for a doc and builds an expense report from your receipts.
+- **Waiting on your reply:** who asked, where, how long they have waited, and a draft that is ready.
+- **Today's meetings:** prep notes for each meeting, a tag when two meetings clash, and a note when no past notes were found.
+- **For you** and **Getting to know you:** other items that need you, and things lalo noticed about how you work.
+- Each section is one row with a short summary. Click a row to open it in a side panel.
+
+### Menu bar
+- A quick recap that changes with the time of day. Step through items with Next.
+- Add a task or ask a question. Click the mic, or say "Hey lalo".
+- Today's meetings, with a countdown to the next one.
+
+### Tasks
+- **Board:** Needs you, Agent working, and Done.
+- **New task** from any page (or press N). lalo plans it with you before it starts.
+- **Catch up** in the sidebar opens the next item that needs you.
+- **Task details** in a side panel: reply drafts in your voice, a code change with screenshots to approve, a personal errand, and 1:1 prep.
+
+### Meetings
+- **Coming up:** grouped by day, with time ranges and a countdown to the next meeting.
+- **A nudge to record** when a meeting starts.
+- **Past meetings:** notes you can edit in markdown, action items, and the transcript.
+- **Ask this meeting:** ask a question, and the answer quotes the transcript.
+
+### Signals
+- **Weekly pulse:** survey scores with trends, friction themes from Slack, competitor moves linked to themes, and a watchlist of single mentions.
+- **Sources:** choose the Slack channels, the competitors and pages to watch, the surveys, and the schedule.
+
+### Also
+- Insights with ideas to save time, for you and for the organization.
+- A profile of you that you can read and edit.
+- Light and dark mode, and a phone layout.
 
 ## Plan for v1 (personal use)
 
