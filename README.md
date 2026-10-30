@@ -16,19 +16,47 @@ Open the prototype at [svahora.github.io/lalo/prototype](https://svahora.github.
 
 The prototype opens as a **new user**, at the start of setup. To see the app as an **existing user**, use the **Prototype view** switch in the center of the menu bar. On a phone, the switch is at the bottom of Profile.
 
-## What's in the prototype
+To open a page directly as an existing user, add `?view=` to the link, for example [`?view=signals`](https://svahora.github.io/lalo/prototype/?view=signals). It works with `today`, `board`, `meetings`, `signals`, `insights`, and `profile`.
+
+## Top features
+
+### 1. Today: one place to start your day
+
+lalo speaks first. It shows the three things that matter most, and it has the work ready before you get to it.
+
+![Today shows the three things that matter, then rows for what's due, replies, meetings, and more](docs/screenshots/today.png)
+
+- **Due today:** lalo drafts the work for you. For example, it suggests a comment for a doc and builds an expense report from your receipts.
+- **Waiting on your reply:** who asked, where, how long they have waited, and a draft that is ready.
+- **Today's meetings:** prep notes for each meeting, a tag when two meetings clash, and a note when no past notes were found.
+- Each section is one row with a short summary. Click a row to open it in a side panel.
+
+### 2. Signals: what users and competitors are telling you
+
+A weekly pulse from your Slack channels, surveys, and competitor sites.
+
+![Signals shows survey scores with trends, then friction themes with weekly mentions and a linked competitor move](docs/screenshots/signals.png)
+
+- **How creators feel:** survey scores with a trend line, compared with the 4-week average. Small samples are flagged.
+- **Friction themes:** repeated problems from Slack, with mentions per week, real quotes, and the competitor move each one relates to.
+- **Watchlist:** single mentions that aren't a theme yet. Make one a theme or drop it.
+- **Sources:** choose the Slack channels, the competitors and pages to watch, the surveys, and the schedule.
+
+### 3. Insights: ways to get your time back
+
+lalo looks at how you work and suggests changes, with the time each one could save.
+
+![Insights shows hours you could save, then ideas with evidence and a suggested change](docs/screenshots/insights.png)
+
+- **Personal:** for example, meetings that end with no decisions, or replies that interrupt your focus time. Only you can see these.
+- **Organization (admin):** patterns across teams, with the hours or money each idea could save.
+- Turn any idea into a task with one click.
+
+## Everything else in the prototype
 
 ### Getting started
 - **Setup in six steps:** welcome, connect your tools, watch lalo read in, confirm what it learned about you, choose how it checks in, then open Today.
 - **Get started checklist** on Today for new users: approve a draft, add a task, and try "Hey lalo".
-
-### Today
-- **The top three things** that matter today.
-- **Due today:** lalo drafts the work for you. For example, it suggests a comment for a doc and builds an expense report from your receipts.
-- **Waiting on your reply:** who asked, where, how long they have waited, and a draft that is ready.
-- **Today's meetings:** prep notes for each meeting, a tag when two meetings clash, and a note when no past notes were found.
-- **For you** and **Getting to know you:** other items that need you, and things lalo noticed about how you work.
-- Each section is one row with a short summary. Click a row to open it in a side panel.
 
 ### Menu bar
 - A quick recap that changes with the time of day. Step through items with Next.
@@ -47,12 +75,7 @@ The prototype opens as a **new user**, at the start of setup. To see the app as 
 - **Past meetings:** notes you can edit in markdown, action items, and the transcript.
 - **Ask this meeting:** ask a question, and the answer quotes the transcript.
 
-### Signals
-- **Weekly pulse:** survey scores with trends, friction themes from Slack, competitor moves linked to themes, and a watchlist of single mentions.
-- **Sources:** choose the Slack channels, the competitors and pages to watch, the surveys, and the schedule.
-
 ### Also
-- Insights with ideas to save time, for you and for the organization.
 - A profile of you that you can read and edit.
 - Light and dark mode, and a phone layout.
 
