@@ -1541,7 +1541,7 @@ function renderWin(){
   const tl = document.getElementById('trLive'); if(tl) tl.scrollTop = tl.scrollHeight;
   const ch = document.getElementById('changeIn'); if(ch){ ch.value = changeVal; if(changeFocus) ch.focus(); }
   const cp = document.getElementById('capIn'); if(cp){ cp.value = capVal; if(capFocus) cp.focus(); }
-  { const pi=document.getElementById('pIn'); if(pi){ pi.value=pVal; if(pFocus) pi.focus(); } const pt=document.getElementById('pThread'); if(pt){ if(pNearBottom) pt.scrollTop=pt.scrollHeight; else if(pScrollTop!==null) pt.scrollTop=pScrollTop; } }
+  { const pi=document.getElementById('pIn'); if(pi){ pi.value=pVal; document.getElementById('pAct').classList.toggle('send', !!pVal.trim()); if(pFocus) pi.focus(); } const pt=document.getElementById('pThread'); if(pt){ if(pNearBottom) pt.scrollTop=pt.scrollHeight; else if(pScrollTop!==null) pt.scrollTop=pScrollTop; } }
   const ai=document.getElementById('askIn'); if(ai){ ai.value=askVal; syncAct('askAct', askVal); if(askFocus) ai.focus(); const th=document.getElementById('askThread'); if(th && askFocus) th.scrollTop=th.scrollHeight; }
   { const hi=document.getElementById('homeIn'); if(hi) fitTalk(hi); }
   Object.keys(kv).forEach(id=>{ const i=document.getElementById(id); if(!i) return; i.value=kv[id][0]; if(kv[id][1]!=null){ i.focus(); i.setSelectionRange(kv[id][1], kv[id][1]); } });
@@ -3074,8 +3074,8 @@ function planningHTML(){
     <div class="askthread" id="pThread">
       <div class="feed">${live ? msgs + liveStatus(live) : msgs + `<div class="fe fe-plan">${planCard}</div>` + (ready && !P.thinking ? `<div class="fe fe-plan"><button class="pstart" data-pstart="1">${I.check} Start</button></div>` : '')}${ask}${P.thinking?typingFe():''}</div>
     </div>
-    <form class="askform" id="pForm" autocomplete="off"><label class="sr" for="pIn">Answer or change the plan</label>
-      <input id="pIn" placeholder="${P.started?'Message lalo about this task':ready?'Change the plan, like: add a step to…':'Answer, or tell lalo more'}"><button class="iconbtn go" aria-label="Send">${I.up}</button></form>
+    <div class="askform"><form class="talkpill" id="pForm" autocomplete="off"><label class="sr" for="pIn">Answer or change the plan</label>
+      <input id="pIn" placeholder="${P.started?'Message lalo about this task':ready?'Change the plan, like: add a step to…':'Answer, or tell lalo more'}"><button type="submit" class="talkact" id="pAct" aria-label="Send">${I.up}</button></form></div>
   </div>`;
 }
 
@@ -3437,6 +3437,7 @@ document.addEventListener('input', e=>{
   if(e.target.id==='noteIn'){ ui.noteDraft=e.target.value; fitNote(e.target); }
   if(e.target.id==='askIn') syncAct('askAct', e.target.value);
   if(e.target.id==='mqIn') document.getElementById('mqAct').classList.toggle('send', !!e.target.value.trim());
+  if(e.target.id==='pIn') document.getElementById('pAct').classList.toggle('send', !!e.target.value.trim());
   if(e.target.id==='cmpIn'){
     ui.cmpDraft=e.target.value; const has=!!e.target.value.trim(); const b=document.getElementById('cmpAct');
     if(b && b.classList.contains('send')!==has){ b.classList.toggle('send', has); b.innerHTML = has ? I.up : I.mic; b.setAttribute('aria-label', has?'Add task':'Say it'); }
